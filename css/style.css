@@ -1,0 +1,611 @@
+/* Stylesheet by */
+
+
+/*
+html,
+body,
+#container {
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+}
+*/
+
+
+html,
+body,
+#mapid {
+    height: 100%;
+    width: auto;
+    font: 11pt "Helvetica Neue", Arial, Helvetica, sans-serif;
+    /*    margin-top: 30px;*/
+}
+
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+    padding-top: 45px;
+}
+
+
+
+
+/*
+body {
+    height of .navbar,
+    customize with @navbar-height variable padding-top: 50px;
+}
+*/
+/*
+
+.navbar {
+    min-height: 50px;
+}
+
+.navbar-default {
+    background-color: #3E606F;
+    border: none;
+}
+
+.navbar .navbar-brand {
+    color: whitesmoke;
+}
+*/
+
+/*// Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) {
+    #sidebar {
+        margin-top: 3.3em;
+
+    }
+
+}
+
+/*// Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) {
+    #sidebar {
+        margin-top: 2.38em;
+
+    }
+}
+
+@media (max-width: 575.98px) {
+    #sidebar {
+        margin-top: 3.3em;
+
+    }
+}
+
+/*// Large devices (desktops, 992px and up)*/
+/*@media (min-width: 992px) { #sidebar {
+    
+    margin-top: 2.38em;
+
+} }*/
+
+/*// Extra large devices (large desktops, 1200px and up)*/
+/*@media (min-width: 1200px) { #sidebar {
+    
+    margin-top: 2.38em;
+
+}... }*/
+
+
+/*
+#sidebar {
+    
+    margin-top: 3.2em;
+}
+*/
+
+.sidebar-left {
+    left: 0px;
+}
+
+.sidebar-tabs > li > a,
+.sidebar-tabs > ul > li {
+    color: #042440;
+}
+
+.sidebar-tabs > li.active,
+.sidebar-tabs > ul > li.active {
+    color: whitesmoke;
+}
+
+
+
+.sidebar-tabs {
+    background: #A5A16D;
+    /*    ;*/
+}
+
+.sidebar.collapsed > .sidebar-content {
+    overflow-y: auto;
+    /*    overflow-x: auto;*/
+}
+
+
+.sidebar-tabs a:hover {
+    color: whitesmoke;
+}
+
+
+
+p {
+    margin-bottom: .3em;
+}
+
+
+
+.btn-outline-primary {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+
+.navbar {
+    background-color: #042440;
+}
+
+.navbar a:hover {
+    color: whitesmoke;
+}
+
+.navbar-brand {
+    padding-left: 2%;
+    color: whitesmoke;
+    font: 14pt "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-shadow: 1px 1px black;
+}
+
+
+
+.sidebar-header {
+    display: block;
+    background: #A5A16D;
+    font-size: 1.7em;
+    text-align: center;
+    color: whitesmoke;
+    text-shadow: 1px 1px black;
+
+
+    /*    background-image: linear-gradient(to bottom, #3498db, #2980b9);*/
+}
+
+
+.title {
+    display: none;
+}
+
+.sub-content {
+    display: none;
+
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #16558C;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #16558C;
+    cursor: pointer;
+}
+
+
+/*
+.categoryHead {
+    margin-top: 5px;
+    font-size: 1.3em;
+    color: #042440;
+    #A5A16D;
+}
+*/
+.categoryHead {
+    font-style: bold;
+    font-weight: 700;
+    margin-top: 15px;
+    font-size: 1.3em;
+    color: #042440;
+    text-shadow: 1px -.5px lightgray;
+}
+
+
+/*Leaflet Zoom Home plugin code*/
+.leaflet-control-zoomhome a {
+    font: bold 18px "Lucida Console", Monaco, monospace;
+}
+
+a.leaflet-control-zoomhome-in,
+a.leaflet-control-zoomhome-out {
+    font-size: 1.5em;
+    line-height: 26px;
+}
+
+/*END Leaflet Zoom Home plugin code*/
+
+.card-link {
+    font: bold,
+}
+
+.slider {
+    box-shadow: 1px 1px 1px #220000, 0px 0px 1px #3c0000;
+
+}
+
+.color-scheme {
+    padding-top: 20px;
+}
+
+.card {
+    border: none;
+}
+
+.legendtoggle {
+    padding-left: 35px;
+    margin-bottom: 10px;
+    margin-top: 1em;
+    font-style: italic;
+}
+
+.metadataHeader {
+    color: #042440;
+    font-weight: 600;
+}
+
+a:hover {
+    color: #A5A16D;
+
+}
+
+.legendcard {
+    padding-top: .5em;
+    padding-bottom: .1em;
+}
+
+.legendpadding {
+    padding-top: 1em;
+}
+
+
+input:focus {
+    outline: none;
+    outline: 0;
+}
+
+.range-slider_val {
+    color: black;
+    font-style: oblique;
+    font-size: 10pt;
+
+}
+
+.btn-info {
+    background-color: #A5A16D;
+    border-color: #A5A16D;
+}
+
+.btn-info:hover {
+    background-color: #042440;
+    border-color: #042440;
+}
+
+/*
+.btn-info {
+    background-color: #042440;
+    border-color: #042440;
+}
+
+.btn-info:hover {
+    background-color: #A5A16D;
+    border-color: #A5A16D;
+}
+*/
+.gradientNote {
+    font-size: 9pt;
+    padding-left: 1.5em;
+}
+
+button: focus {
+    outline: 0;
+    outline: none;
+
+}
+
+.btn-info:focus {
+    box-shadow: 0px 0px;
+}
+
+:focus {
+    outline: 0;
+    outline: none;
+}
+
+.userPurpose {
+    text-align: center;
+    font-weight: 600;
+    color: #042440;
+    text-shadow: 1px -.5px lightgray;
+}
+
+.userHeader {
+    font-size: 18pt;
+    color: #042440;
+    font-weight: 600;
+    text-shadow: 1px -.5px lightgray;
+}
+
+.userContent {
+    font-size: 12pt;
+    font-weight: 400;
+    text-align: center;
+    text-shadow: 1px -.5px lightgray;
+}
+
+.userList {
+    margin-bottom: .8em;
+    font-size: 12pt;
+    font-weight: 400;
+    text-shadow: 1px -.5px lightgray;
+}
+
+div > p > input[type="checkbox"]:hover {
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.24), 0 0 10px 0 rgba(0, 0, 0, 0.25);
+}
+
+.maplayer {
+    font-weight: 500;
+    text-shadow: 1.5px -.5px lightgray;
+}
+
+/*
+.btn-info:hover {
+    background-color: #A5A16D;
+}
+*/
+
+
+/*
+.leaflet-html-legend .legend-elements {
+    margin-bottom: -10px;
+    margin-top: -.5em;
+}
+*/
+
+
+/*
+.fa-edit {
+    color: #A5A16D;
+}
+*/
+
+
+/* access to color gradient thing
+p.color-scheme {
+    color: black;
+
+*/
+
+
+
+/* SYTLE FOR SLIDER OPTION
+input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    margin: 12.6px 0;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 9.8px;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px #220000, 0px 0px 1px #3c0000;
+    background: #3071a9;
+    border-radius: 4.4px;
+    border: 0.2px solid #010101;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    box-shadow: 2.2px 2.2px 1px #090000, 0px 0px 2.2px #230000;
+    border: 1px solid #000000;
+    height: 35px;
+    width: 17px;
+    border-radius: 27px;
+    background: #ffffff;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -12.8px;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #92bce0;
+}
+
+input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 9.8px;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px #220000, 0px 0px 1px #3c0000;
+    background: #3071a9;
+    border-radius: 4.4px;
+    border: 0.2px solid #010101;
+}
+
+input[type=range]::-moz-range-thumb {
+    box-shadow: 2.2px 2.2px 1px #090000, 0px 0px 2.2px #230000;
+    border: 1px solid #000000;
+    height: 35px;
+    width: 17px;
+    border-radius: 27px;
+    background: #ffffff;
+    cursor: pointer;
+}
+
+input[type=range]::-ms-track {
+    width: 100%;
+    height: 9.8px;
+    cursor: pointer;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+}
+
+input[type=range]::-ms-fill-lower {
+    background: #0e2132;
+    border: 0.2px solid #010101;
+    border-radius: 8.8px;
+    box-shadow: 1px 1px 1px #220000, 0px 0px 1px #3c0000;
+}
+
+input[type=range]::-ms-fill-upper {
+    background: #3071a9;
+    border: 0.2px solid #010101;
+    border-radius: 8.8px;
+    box-shadow: 1px 1px 1px #220000, 0px 0px 1px #3c0000;
+}
+
+input[type=range]::-ms-thumb {
+    box-shadow: 2.2px 2.2px 1px #090000, 0px 0px 2.2px #230000;
+    border: 1px solid #000000;
+    height: 35px;
+    width: 17px;
+    border-radius: 27px;
+    background: #ffffff;
+    cursor: pointer;
+    height: 9.8px;
+}
+
+input[type=range]:focus::-ms-fill-lower {
+    background: #3071a9;
+}
+
+input[type=range]:focus::-ms-fill-upper {
+    background: #92bce0;
+}
+END OF SLIDER OPTION
+*/
+
+/* OLD FEATURES
+
+#features .panel-info p {
+    margin: 0px 0px 0px 0px;
+}
+*/
+
+
+
+/*
+.navbar-default {
+    background-color: royalblue;
+    border: none;
+}
+
+.navbar .navbar-nav li a {
+    color: whitesmoke;
+}
+
+.navbar .navbar-nav li a:hover {
+    color: slategrey;
+}
+*/
+
+/*
+.sidebar-close {
+    float: right;
+}
+*/
+
+
+/* custom legend. didn't look great. if have time try again*/
+/*
+span.legendbutton {
+    background: url('legend2.svg') no-repeat;
+    background-size: contain;
+    background-color: white;
+    cursor: pointer;
+    display: inline-block;
+    border: none;
+    height: 15px;
+    width: 15px;
+}
+*/
+
+/*
+#mapid {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    height: 100%;
+    width: auto;
+}
+*/
+
+/*
+.sidebar-wrapper {
+    height: 100%;
+    position: relative;
+    width: 100%;
+}
+*/
+
+/*
+@media (max-width: 767px) {
+    #sidebar {
+        display: none;
+    }
+}
+*/
+
+/*
+#sidebar {
+    float: left;
+    height: 90%;
+    max-width: 100%;
+    width: 35%;
+    padding-left: 1%;
+    margin-top: 3.2em;
+    box-shadow: none;
+    overflow: hidden;
+
+    maybe remove
+}
+*/
+
+/*
+.nav-link {
+    color: whitesmoke;
+}
+*/
+
+/*
+to get to the sub title legend print
+h3 > div > div > p {
+    color: black;
+    font-size: 10pt;
+    margin-bottom: -1em;
+    margin-top: -1em;
+}
+*/
