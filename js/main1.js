@@ -1,4 +1,6 @@
-// Javascript by //
+// Javascript by Sarah Grandstrand with EOR Inc//
+
+// THIS Main works but overloads browser with ajax requests //
 
 
 var light = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic2dyYW5kc3RyYW5kIiwiYSI6ImNqY3BtMm52MjJyZWsycXBmMDZremxsN3EifQ.3HVgf9jrNbmCSBBBlp5zlQ', {
@@ -184,48 +186,48 @@ var sidebar = L.control.sidebar('sidebar').addTo(map);
 //// URL's for Layers ////
 
 var a_twnshp = 'minnesota:cities_townships_unorg'; //township layer
-var url_twnshp = 'https://post.eorinc.com/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Acities_townships_unorg&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotacities_townships_unorg&SrsName=EPSG%3A4326';
+var url_twnshp = 'http://post.eorinc.com:8080/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Acities_townships_unorg&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotacities_townships_unorg&SrsName=EPSG%3A4326';
 
 var a_distBound = 'clflwd:LkMgt_Dist_7_17';
-var url_distBound = 'https://post.eorinc.com/geoserver/clflwd/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=clflwd%3ALkMgt_Dist_7_17&outputFormat=text%2Fjavascript&format_options=callback%3AclflwdLkMgt_Dist_7_17&SrsName=EPSG%3A4326';
+var url_distBound = 'http://post.eorinc.com:8080/geoserver/clflwd/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=clflwd%3ALkMgt_Dist_7_17&outputFormat=text%2Fjavascript&format_options=callback%3AclflwdLkMgt_Dist_7_17&SrsName=EPSG%3A4326';
 var a_cnty = 'minnesota:county_boundaries'; // county layer
-var url_cnty = 'https://post.eorinc.com/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Acounty_boundaries&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotacounty_boundaries&SrsName=EPSG%3A4326';
+var url_cnty = 'http://post.eorinc.com:8080/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Acounty_boundaries&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotacounty_boundaries&SrsName=EPSG%3A4326';
 var a_huc8 = 'minnesota:WBD_HU8';
-var url_huc8 = 'https://post.eorinc.com/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3AWBD_HU8&outputFormat=text%2Fjavascript&format_options=callback%3AminnesotaWBD_HU8&SrsName=EPSG%3A4326';
+var url_huc8 = 'http://post.eorinc.com:8080/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3AWBD_HU8&outputFormat=text%2Fjavascript&format_options=callback%3AminnesotaWBD_HU8&SrsName=EPSG%3A4326';
 
 var a_huc10 = 'minnesota:WBD_HU10'; //USGS HUC 10
-var url_huc10 = 'https://post.eorinc.com/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3AWBD_HU10&outputFormat=text%2Fjavascript&format_options=callback%3AminnesotaWBD_HU10&SrsName=EPSG%3A4326';
+var url_huc10 = 'http://post.eorinc.com:8080/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3AWBD_HU10&outputFormat=text%2Fjavascript&format_options=callback%3AminnesotaWBD_HU10&SrsName=EPSG%3A4326';
 var a_huc12 = 'minnesota:WBD_HU12'; //USGS HUC 12
-var url_huc12 = 'https://post.eorinc.com/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3AWBD_HU12&outputFormat=text%2Fjavascript&format_options=callback%3AminnesotaWBD_HU12&SrsName=EPSG%3A4326';
+var url_huc12 = 'http://post.eorinc.com:8080/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3AWBD_HU12&outputFormat=text%2Fjavascript&format_options=callback%3AminnesotaWBD_HU12&SrsName=EPSG%3A4326';
 
 var a_fEMAflood = 'minnesota:fema_flood_view'; // 100 year flood plain from FEMA
-var url_fEMAflood = 'https://post.eorinc.com/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Afema_flood_view&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotafema_flood_view&SrsName=EPSG%3A4326';
+var url_fEMAflood = 'http://post.eorinc.com:8080/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Afema_flood_view&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotafema_flood_view&SrsName=EPSG%3A4326';
 var a_imptStrm = 'minnesota:impaired_streams_mview'; //Impaired streams
-var url_imptStrm = 'https://post.eorinc.com/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Aimpaired_streams_mview&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotaimpaired_streams_mview&SrsName=EPSG%3A4326';
+var url_imptStrm = 'http://post.eorinc.com:8080/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Aimpaired_streams_mview&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotaimpaired_streams_mview&SrsName=EPSG%3A4326';
 var a_impLks = 'minnesota:impaired_lakes_mview'; //Impaired Lakes
-var url_impLks = 'https://post.eorinc.com/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Aimpaired_lakes_mview&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotaimpaired_lakes_mview&SrsName=EPSG%3A4326';
+var url_impLks = 'http://post.eorinc.com:8080/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Aimpaired_lakes_mview&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotaimpaired_lakes_mview&SrsName=EPSG%3A4326';
 var a_altwtr = 'minnesota:altr_wtrcrse_mview'; // Altered Watercourse
-var url_altwtr = 'https://post.eorinc.com/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Aaltr_wtrcrse_mview&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotaaltr_wtrcrse_mview&SrsName=EPSG%3A4326';
+var url_altwtr = 'http://post.eorinc.com:8080/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Aaltr_wtrcrse_mview&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotaaltr_wtrcrse_mview&SrsName=EPSG%3A4326';
 var a_phos = 'minnesota:lakes_of_phosphorus_sensitivity'; // lake phosophorus sensitivity significance 
-var url_phos = 'https://post.eorinc.com/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Alakes_of_phosphorus_sensitivity&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotalakes_of_phosphorus_sensitivity&SrsName=EPSG%3A4326';
+var url_phos = 'http://post.eorinc.com:8080/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Alakes_of_phosphorus_sensitivity&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotalakes_of_phosphorus_sensitivity&SrsName=EPSG%3A4326';
 var a_trout = 'minnesota:trout_streams_minnesota'; //trout streams
-var url_trout = 'https://post.eorinc.com/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Atrout_streams_minnesota&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotatrout_streams_minnesota&SrsName=EPSG%3A4326';
+var url_trout = 'http://post.eorinc.com:8080/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Atrout_streams_minnesota&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotatrout_streams_minnesota&SrsName=EPSG%3A4326';
 var a_wellhead = 'minnesota:wellhead_protection_areas'; //Well Head Protection Areas
-var url_wellhead = 'https://post.eorinc.com/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Awellhead_protection_areas&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotawellhead_protection_areas&SrsName=EPSG%3A4326';
+var url_wellhead = 'http://post.eorinc.com:8080/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Awellhead_protection_areas&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotawellhead_protection_areas&SrsName=EPSG%3A4326';
 var a_wtrVul = 'minnesota:drinking_water_supply_management_area_vulnerability'; // drinking water supply vulnerability
-var url_wtrVul = 'https://post.eorinc.com/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Adrinking_water_supply_management_area_vulnerability&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotadrinking_water_supply_management_area_vulnerability&SrsName=EPSG%3A4326';
+var url_wtrVul = 'http://post.eorinc.com:8080/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Adrinking_water_supply_management_area_vulnerability&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotadrinking_water_supply_management_area_vulnerability&SrsName=EPSG%3A4326';
 
 //land status layers
 var a_gAP_DNR = 'minnesota:gap_stewardship_2008_mn_dnr_lands'; //GAP DNR Lands
-var url_gAP_DNR = 'https://post.eorinc.com/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Agap_stewardship_2008_mn_dnr_lands&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotagap_stewardship_2008_mn_dnr_lands&SrsName=EPSG%3A4326';
+var url_gAP_DNR = 'http://post.eorinc.com:8080/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Agap_stewardship_2008_mn_dnr_lands&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotagap_stewardship_2008_mn_dnr_lands&SrsName=EPSG%3A4326';
 var a_gAP_State = 'minnesota:gap_stewardship_2008_misc_state_lands'; //GAP state Lands
-var url_gAP_State = 'https://post.eorinc.com/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Agap_stewardship_2008_misc_state_lands&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotagap_stewardship_2008_misc_state_lands&SrsName=EPSG%3A4326';
+var url_gAP_State = 'http://post.eorinc.com:8080/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Agap_stewardship_2008_misc_state_lands&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotagap_stewardship_2008_misc_state_lands&SrsName=EPSG%3A4326';
 var a_gAP_Cnty = 'minnesota:gap_stewardship_2008_county_lands'; //GAP county Lands
-var url_gAP_Cnty = 'https://post.eorinc.com/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Agap_stewardship_2008_county_lands&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotagap_stewardship_2008_county_lands&SrsName=EPSG%3A4326';
+var url_gAP_Cnty = 'http://post.eorinc.com:8080/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Agap_stewardship_2008_county_lands&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotagap_stewardship_2008_county_lands&SrsName=EPSG%3A4326';
 var a_gAP_Fed = 'minnesota:gap_stewardship_2008_federal_lands'; //GAP Federal Lands
-var url_gAP_Fed = 'https://post.eorinc.com/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Agap_stewardship_2008_federal_lands&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotagap_stewardship_2008_federal_lands&SrsName=EPSG%3A4326';
+var url_gAP_Fed = 'http://post.eorinc.com:8080/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Agap_stewardship_2008_federal_lands&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotagap_stewardship_2008_federal_lands&SrsName=EPSG%3A4326';
 var a_natPra = 'minnesota:dnr_native_prairies'; //DNR native prairies
-var url_natPra = 'https://post.eorinc.com/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Adnr_native_prairies&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotadnr_native_prairies&SrsName=EPSG%3A4326';
+var url_natPra = 'http://post.eorinc.com:8080/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Adnr_native_prairies&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotadnr_native_prairies&SrsName=EPSG%3A4326';
 
 // index layers //
 var a_bioIndex = "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Characteristics_HawkCrk/FeatureServer/0"; //20Bio Index Mean
@@ -238,34 +240,34 @@ var a_combIndex = "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/serv
 // Misc. layers
 
 var a_natPlnt = 'minnesota:dnr_native_plant_communities'; //DNR native plant communities
-var url_natPlnt = 'https://post.eorinc.com/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Adnr_native_plant_communities&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotadnr_native_plant_communities&SrsName=EPSG%3A4326';
+var url_natPlnt = 'http://post.eorinc.com:8080/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Adnr_native_plant_communities&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotadnr_native_plant_communities&SrsName=EPSG%3A4326';
 var a_mBSbio = 'minnesota:dnr_mcbs_sites_of_biodiv_sig'; //MBS sites of biodiversity significance 
-var url_mBSbio = 'https://post.eorinc.com/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Adnr_mcbs_sites_of_biodiv_sig&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotadnr_mcbs_sites_of_biodiv_sig&SrsName=EPSG%3A4326';
+var url_mBSbio = 'http://post.eorinc.com:8080/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Adnr_mcbs_sites_of_biodiv_sig&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotadnr_mcbs_sites_of_biodiv_sig&SrsName=EPSG%3A4326';
 var a_cONUS = 'minnesota:nwi_2009_to_2014'; //NWI CONUS_wet_poly
-var url_cONUS = 'https://post.eorinc.com/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Anwi_2009_to_2014&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotanwi_2009_to_2014&SrsName=EPSG%3A4326';
+var url_cONUS = 'http://post.eorinc.com:8080/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Anwi_2009_to_2014&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotanwi_2009_to_2014&SrsName=EPSG%3A4326';
 
 var a_bedrockPoll = 'minnesota:bedrocksurface_pollutionsensitivity'; //bedrock surface pollution sensitivity
-var url_bedrockPoll = 'https://post.eorinc.com/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Abedrocksurface_pollutionsensitivity&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotabedrocksurface_pollutionsensitivity&SrsName=EPSG%3A4326';
+var url_bedrockPoll = 'http://post.eorinc.com:8080/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Abedrocksurface_pollutionsensitivity&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotabedrocksurface_pollutionsensitivity&SrsName=EPSG%3A4326';
 
 var a_easemnts = 'minnesota:bdry_bwsr_rim_cons_easements'; // conservation easements
-var url_easemnts = 'https://post.eorinc.com/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Abdry_bwsr_rim_cons_easements&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotabdry_bwsr_rim_cons_easements&SrsName=EPSG%3A4326';
+var url_easemnts = 'http://post.eorinc.com:8080/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Abdry_bwsr_rim_cons_easements&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotabdry_bwsr_rim_cons_easements&SrsName=EPSG%3A4326';
 var a_gSSURGO = 'minnesota:gssurgo_soilsgrp'; // hydrologic soils groups 
-var url_gSSURGO = 'https://post.eorinc.com/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Agssurgo_soilsgrp&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotagssurgo_soilsgrp&SrsName=EPSG%3A4326';
+var url_gSSURGO = 'http://post.eorinc.com:8080/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Agssurgo_soilsgrp&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotagssurgo_soilsgrp&SrsName=EPSG%3A4326';
 
 var a_buffwetlnds = 'minnesota:pwi_basins'; //Buffer Protection of Lakes, reservoirs, and wetlands
-var url_buffwetlnds = 'https://post.eorinc.com/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Apwi_basins&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotapwi_basins&SrsName=EPSG%3A4326';
+var url_buffwetlnds = 'http://post.eorinc.com:8080/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Apwi_basins&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotapwi_basins&SrsName=EPSG%3A4326';
 
 var a_buffwtrcrse = 'minnesota:pwi_watercourses'; //Buffer Protection of watercourse
-var url_buffwtrcrse = 'https://post.eorinc.com/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Apwi_watercourses&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotapwi_watercourses&SrsName=EPSG%3A4326';
+var url_buffwtrcrse = 'http://post.eorinc.com:8080/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Apwi_watercourses&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotapwi_watercourses&SrsName=EPSG%3A4326';
 
 var a_lkes = 'minnesota:assessed_2018_lakes'; // Assessed Lakes 2018
-var url_lkes = 'https://post.eorinc.com/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Aassessed_2018_lakes&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotaassessed_2018_lakes&SrsName=EPSG%3A4326';
+var url_lkes = 'http://post.eorinc.com:8080/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Aassessed_2018_lakes&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotaassessed_2018_lakes&SrsName=EPSG%3A4326';
 var a_strms = 'minnesota:assessed_2018_streams';
 // Assessed Streams 2018
-var url_strms = 'https://post.eorinc.com/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Aassessed_2018_streams&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotaassessed_2018_streams&SrsName=EPSG%3A4326';
+var url_strms = 'http://post.eorinc.com:8080/geoserver/minnesota/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=minnesota%3Aassessed_2018_streams&outputFormat=text%2Fjavascript&format_options=callback%3Aminnesotaassessed_2018_streams&SrsName=EPSG%3A4326';
 
 var a_mask = 'clflwd:LkMgt_Dist_7_17_mask'; //mask of district boundaries for printing purposes
-var url_mask = 'https://post.eorinc.com/geoserver/clflwd/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=clflwd%3ALkMgt_Dist_7_17_mask&outputFormat=text%2Fjavascript&format_options=callback%3AclflwdLkMgt_Dist_7_17_mask&SrsName=EPSG%3A4326';
+var url_mask = 'http://post.eorinc.com:8080/geoserver/clflwd/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=clflwd%3ALkMgt_Dist_7_17_mask&outputFormat=text%2Fjavascript&format_options=callback%3AclflwdLkMgt_Dist_7_17_mask&SrsName=EPSG%3A4326';
 
 
 /// *** RASTER LAYERS ***////
