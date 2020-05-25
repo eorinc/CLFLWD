@@ -899,7 +899,7 @@ var envBen = L.esri.tiledMapLayer({
 });
 
 
-/////*** Misc. layers ***/////
+/////*** Misc. layers ***/////  
 
 var mask;
 //var url_mask = getCLFL_URL(a_mask);

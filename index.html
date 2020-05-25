@@ -9,32 +9,20 @@
     <title></title>
     <!-- CSS links -->
 
-
+    <!--put your external stylesheet links here-->
 
     <link href="lib/leaflet/leaflet.css" rel="stylesheet">
     <link href="css/Leaflet.EasyButton.css" rel="stylesheet">
-
-    <!--    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">-->
-
-
-
     <link href="css/pretty-checkbox.min.css" rel="stylesheet">
     <link href="lib/leaflet.loading/Control.Loading.css" rel="stylesheet">
     <link href="lib/leaflet.HtmlLegend/L.Control.HtmlLegend.css" rel="stylesheet">
-    <!--    <link href="css/bootstrap.css" rel="stylesheet">-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
     <link rel="stylesheet" href="js/L.Control.ZoomBox.css">
     <link rel="stylesheet" href="https://gitcdn.link/repo/nickpeihl/leaflet-sidebar-v2/master/css/leaflet-sidebar.min.css">
-    <!--put your external stylesheet links here-->
-
     <link href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-
-    <!--    <link href="css/L.Control.Sidebar.css" rel="stylesheet">-->
     <link href="lib/leaflet/leaflet-sidebar.css" rel="stylesheet">
     <link href="css/jquery-ui.min.css" rel="stylesheet">
-    <!--    <link href="css/ol.css" rel="stylesheet">-->
     <link href="css/style.css" rel="stylesheet">
 
     <!--[if IE<9]>
@@ -64,11 +52,6 @@
                     <a href="#metadata" role="tab"><i class="fas fa-info"></i></a></li>
                 <li>
                     <a href="#help" role="tab"><i class="far fa-question-circle"></i></a></li>
-
-                <!--
-                  <li>
-                    <a href="#help" role="tab"><i id="toggleSidebar3" class="fas fa-question"></i></a></li>
--->
             </ul>
 
         </div>
@@ -81,7 +64,7 @@
                 <h4 class="categoryHead">Boundaries</h4>
 
                 <div class="wrapper">
-                    <p class="maplayer"><input type="checkbox" value="distBound" checked> Planning Districts
+                    <p class="maplayer"><input type="checkbox" value="distBound" id="distBound_layer" checked> Planning Districts
                         <!--                Buttons -->
 
                         <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapseBndry" aria-expanded="false" aria-controls="collapseBndry" title="Toggle Edit and Legend Control">
@@ -117,22 +100,218 @@
                             <p>Fill Opacity<input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, distBound)"><span class="range-slider_val"></span></p>
                             <p>Boundary Opacity<input class="slider" type="range" min="0" max="1" step="0.1" value="0.2" oninput="updateOpacityBound(this.value, distBound)"><span class="range-slider_val"></span></p> <br>
                         </div>
-                        <!--                </div>-->
                     </div>
 
                 </div>
 
 
-
                 <!--END CLFL districts BOUNDARY-->
+                <div class="wrapper">
+                    <p class="maplayer"><input type="checkbox" value="cnty" id="cnty_layer"> Counties
 
+                        <!--                Buttons -->
+                        <button class="btn-xs btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapseCnty" aria-expanded="false" aria-controls="collapseCnty" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span>
+                        </button>
+                    </p>
+                    <!--Collapsed Div's-->
+                    <div class="collapse" id="collapseCnty">
+                        <div class="card card-body legendcard" id="cntyLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#7256E8; stroke-width:2; stroke:#7256E8; fill-opacity:0.5" />
+                                </svg>County Boundaries</p>
+                        </div>
+
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#cntyLegend" class="showLegend" value="legendcnty" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Fill Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value=".2" oninput="updateOpacity(this.value, cnty)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, cnty)"><span class="range-slider_val"></span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!--                END County -->
+
+                <div class="wrapper">
+                    <p class="maplayer"><input type="checkbox" value="twnshp" id="twnshp_layer"> Township
+
+                        <!--                Buttons -->
+                        <button class="btn-xs btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsetwnshp" aria-expanded="false" aria-controls="collapsetwnshp" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span>
+                        </button>
+                    </p>
+                    <!--Collapsed Div's-->
+                    <div class="collapse" id="collapsetwnshp">
+                        <div class="card card-body legendcard" id="twnshpLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:slategray; stroke-width:2; stroke:slategray; fill-opacity:0.5" />
+                                </svg>Township Boundaries</p>
+                        </div>
+
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#twnshpLegend" class="showLegend" value="legendtwnshp" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Fill Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value=".2" oninput="updateOpacity(this.value, twnshp)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, twnshp)"><span class="range-slider_val"></span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!--                END Township -->
+
+                <div class="wrapper">
+                    <p class="maplayer"> <input type="checkbox" value="huc8" id="huc8_layer"> Major Watershed (HUC 8)
+                        <!--                Buttons -->
+                        <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsehuc8" aria-expanded="false" aria-controls="collapseExample" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV'S-->
+                    <div class="collapse" id="collapsehuc8">
+                        <div class="card card-body legendcard" id="huc8Legend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#a6cee3; stroke-width:2; stroke:#a6cee3; fill-opacity:0.5" />
+                                </svg>Major Watershed HUC 8 Boundaries</p>
+                        </div>
+
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#huc8Legend" class="showLegend" value="legendhuc8" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+
+                        <div class="card card-body">
+                            <p>Fill Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value=".2" oninput="updateOpacity(this.value, huc8)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, huc8)"><span class="range-slider_val"></span></p>
+                        </div>
+                    </div>
+
+                </div>
+                <!--End HUC 8 -->
+                <div class="wrapper">
+                    <p class="maplayer"><input type="checkbox" value="huc10" id="huc10_layer"> HUC 10
+                        <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsehuc10" aria-expanded="false" aria-controls="collapsehuc10" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV-->
+                    <div class="collapse" id="collapsehuc10">
+
+                        <div class="card card-body legendcard" id="huc10Legend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#fb9a99; stroke-width:2; stroke:#fb9a99; fill-opacity:0.5" />
+                                </svg>HUC 10 Boundaries</p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#huc10Legend" class="showLegend" value="legendhuc10" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Fill Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value=".2" oninput="updateOpacity(this.value, huc10)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, huc10)"><span class="range-slider_val"></span></p>
+                        </div>
+                    </div>
+                </div>
+                <!--End HUC 10 -->
+                <div class="wrapper">
+                    <p class="maplayer"> <input type="checkbox" value="huc12" id="huc12_layer"> HUC 12 <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsehuc12" aria-expanded="false" aria-controls="collapsehuc12" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV'S-->
+                    <div class="collapse" id="collapsehuc12">
+
+                        <div class="card card-body legendcard" id="huc12Legend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#fdbf6f; stroke-width:2; stroke:#fdbf6f; fill-opacity:0.5" />
+                                </svg>HUC 12 Boundaries</p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#huc12Legend" class="showLegend" value="legendhuc12" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Fill Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value=".2" oninput="updateOpacity(this.value, huc12)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, huc12)"><span class="range-slider_val"></span></p>
+                        </div>
+                    </div>
+                </div>
+                <!--End HUC 12 -->
 
                 <!--                Groundwater Layers -->
 
                 <h4 class="categoryHead">Groundwater</h4>
-
                 <div class="wrapper">
-                    <p class="maplayer"><input type="checkbox" value="wellhead"> Well Head Protection Areas <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsewellhead" aria-expanded="false" aria-controls="collapsewellhead" title="Toggle Edit and Legend Control">
+                    <p class="maplayer"> <input type="checkbox" value="wtrVul" id="wtrVul_layer"> DWSMA Vulnerability <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsewtrVul" aria-expanded="false" aria-controls="collapsewtrVul" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV'S-->
+                    <div class="collapse" id="collapsewtrVul">
+                        <div class="card card-body legendcard" id="wtrVulLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#ff7f7f; stroke-width:2; stroke:#ff7f7f; fill-opacity:0.8" />
+                                </svg>Very High<br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#ffd27f; stroke-width:2; stroke:#ffd27f; fill-opacity:0.8" />
+                                </svg>High<br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#ffffbe; stroke-width:2; stroke:#ffffbe; fill-opacity:0.8" />
+                                </svg>Moderate<br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#d3ffbe; stroke-width:2; stroke:#d3ffbe; fill-opacity:0.8" />
+                                </svg>Low<br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#bed2ff; stroke-width:2; stroke:#bed2ff; fill-opacity:0.8" />
+                                </svg>Very Low<br>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#wtrVulLegend" class="showLegend" value="legendwtrVul" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+
+                        <div class="card card-body range-slider">
+                            <p>Fill Opacity
+                                <input class="slider wtrVulFill" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, wtrVul)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity
+                                <input class="slider wtrVulBound" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacityBound(this.value, wtrVul)"><span class="range-slider_val"></span></p>
+
+                            <p class="color-scheme"><input type="checkbox" name="styleWtrVul" class="colorGrade" id="styleGradientWtrVul" value="wtrVul"> Change to Gradient Color Schema</p>
+
+                        </div>
+                    </div>
+                </div>
+                <!--End DWSMA Vulnerability -->
+                <div class="wrapper">
+                    <p class="maplayer"><input type="checkbox" value="wellhead" id="wellhead_layer"> Well Head Protection Areas <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsewellhead" aria-expanded="false" aria-controls="collapsewellhead" title="Toggle Edit and Legend Control">
                             <span class="sr-only">Expand to Edit </span>
                             <span class="fa fa-plus"></span></button>
                     </p>
@@ -159,13 +338,334 @@
                     </div>
                 </div>
                 <!--End Well Head Protection Areas -->
+                <div class="wrapper">
+                    <p class="maplayer"> <input type="checkbox" value="bedrockPoll" id="bedrockPoll_layer"> Bedrock Surface Pollution Sensitivity <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsebedrockPoll" aria-expanded="false" aria-controls="collapsebedrockPoll" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button> </p>
+
+                    <!--                COLLAPSED DIV'S-->
+                    <div class="collapse" id="collapsebedrockPoll">
+                        <div class="card card-body legendcard" id="bedrockPollLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#f26f52; stroke-width:2; stroke:#f26f52; fill-opacity:0.8" />
+                                </svg>Very High<br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#ffcd4e; stroke-width:2; stroke:#ffcd4e; fill-opacity:0.8" />
+                                </svg>High<br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#fff34f; stroke-width:2; stroke:#fff34f; fill-opacity:0.8" />
+                                </svg>Moderate<br>
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#bedrockPollLegend" class="showLegend" value="legendbedrockPoll" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Fill Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, bedrockPoll)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, bedrockPoll)"><span class="range-slider_val"></span></p>
+                            <p class="color-scheme"><input type="checkbox" name="styleBedrockPoll" class="colorGrade" id="styleGradientbedrockPoll" value="bedrockPoll"> Change to Gradient Color Schema</p>
+                        </div>
+
+                    </div>
+                </div>
+                <!--End Bedrock Surface Pollution Sensitivity -->
+
+                <div clas="wrapper">
+                    <p class="maplayer"> <input type="checkbox" value="pollsens" id="pollsens_layer"> Pollution Sensitivity of Near-Surface Materials <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsepollsens" aria-expanded="false" aria-controls="collapsepollsens" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV-->
+                    <div class="collapse" id="collapsepollsens">
+
+                        <div class="card card-body legendcard" id="pollsensLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#b13b26;" />
+                                </svg>Karst <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#ea8165;" />
+                                </svg>High <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#fff5e4;" />
+                                </svg>Moderate <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#e2cfaf;" />
+                                </svg>Low <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#bfbfbf;" />
+                                </svg>Water
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#pollsensLegend" class="showLegend" value="legendpollsens" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityTilepollsens(this.value)"><span class="range-slider_val"></span></p>
+                            <p class="color-scheme"><input type="checkbox" class="pollution-sens" id="pollsensGradient" value="pollsens"> Change to Gradient Color Schema<br><i class="gradientNote">&#42;&#42;Only showing values: Low - High</i></p>
+                        </div>
+
+                    </div>
+                </div>
+                <!--End Pollution Sensitivity of Near-Surface Materials -->
+
+                <!--------          Hydrology Layers       -------->
+
+                <h5 class="categoryHead">Hydrology</h5>
+                <div class="wrapper">
+                    <p class="maplayer"> <input type="checkbox" value="fEMAflood" id="fEMAflood_layer"> 100 Year Flood Plain <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsefEMAflood" aria-expanded="false" aria-controls="collapsefEMAflood" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button></p>
+                    <!--                COLLAPSED DIV-->
+                    <div class="collapse" id="collapsefEMAflood">
+                        <div class="card card-body legendcard" id="fEMAfloodLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#ffff00; fill-opacity:0.5; stroke:#ffff00;" />
+                                </svg>100 Year Flood Area</p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#fEMAfloodLegend" class="showLegend" value="legendfEMAflood" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Fill Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.5" oninput="updateOpacity(this.value, fEMAflood)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, fEMAflood)"><span class="range-slider_val"></span></p>
+                            <p class="color-scheme"><input type="checkbox" name="stylefEMAflood" class="colorGrade" id="styleGradientfEMAflood" value="fEMAflood"> Change to Gradient Color Schema</p>
+                        </div>
+                    </div>
+                </div>
+                <!--End 100 Year Flood Plain -->
+                <div class="wrapper">
+                    <p class="maplayer"><input type="checkbox" value="altwtr" id="altwtr_layer"> Altered Watercourse <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsealtwtr" aria-expanded="false" aria-controls="collapsealtwtr" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV-->
+                    <div class="collapse" id="collapsealtwtr">
+
+                        <div class="card card-body legendcard" id="altwtrLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="5" style="fill:#f5605d;" />
+                                </svg>Altered <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="5" style="fill:#38a800;" />
+                                </svg>Natural <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="5" style="fill:#c300ff;" />
+                                </svg>Impounded <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="5" style="fill:#9c9c9c;" />
+                                </svg>No Definable Channel <br>
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#altwtrLegend" class="showLegend" value="legendaltwtr" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+
+                        <div class="card card-body">
+                            <p>Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, altwtr)"><span class="range-slider_val"></span></p>
+                            <p class="color-scheme"><input type="checkbox" name="styleAltWtr" class="colorGrade" id="styleGradientAltWtr" value="altwtr"> Change to Gradient Color Schema<br><i class="gradientNote">&#42;&#42;Only showing value: Altered</i></p>
+                        </div>
+                    </div>
+                </div>
+                <!--End Altered Watercourse -->
+                <div class="wrapper">
+                    <p class="maplayer"> <input type="checkbox" value="cONUS" id="cONUS_layer"> NWI <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsecONUS" aria-expanded="false" aria-controls="collapsecONUS" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV'S-->
+                    <div class="collapse" id="collapsecONUS">
+                        <div class="card card-body legendcard" id="cONUSLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#2884ed; stroke-width:2; stroke:#2884ed; fill-opacity:0.8" />
+                                </svg>Freshwater Emergent Wetland<br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#1b6e45; stroke-width:2; stroke:#1b6e45; fill-opacity:0.8" />
+                                </svg>Freshwater Forested/Shrub Wetland <br>
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#cONUSLegend" class="showLegend" value="legendcONUS" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Fill Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, cONUS)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, cONUS)"><span class="range-slider_val"></span></p>
+                            <p class="color-scheme"><input type="checkbox" name="styleCONUS" class="colorGrade" id="styleGradientCONUS" value="cONUS"> Change to Gradient Color Schema</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!--End NWI -->
+                <div class="wrapper">
+                    <p class="maplayer"> <input type="checkbox" value="buffwetlnds" id="buffwetlnds_layer"> Public Waters <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsebuffwetlnds" aria-expanded="false" aria-controls="collapsebuffwetlnds" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button> </p>
+                    <!--                COLLAPSED DIV-->
+                    <div class="collapse" id="collapsebuffwetlnds">
+                        <div class="card card-body legendcard" id="buffwetlndsLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#7e8be6; stroke-width:2; stroke:#7e8be6; fill-opacity:0.8" />
+                                </svg>Public Waters
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#buffwetlndsLegend" class="showLegend" value="legendbuffwetlnds" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Fill Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, buffwetlnds)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, buffwetlnds)"><span class="range-slider_val"></span></p>
+                            <p class="color-scheme"><input type="checkbox" name="stylebuffwetlnds" class="colorGrade" id="styleGradientbuffwetlnds" value="buffwetlnds"> Change to Gradient Color Schema</p>
+                        </div>
+                    </div>
+                </div>
+                <!--End Public Waters -->
+                <div class="wrapper">
+                    <p class="maplayer"><input type="checkbox" value="buffwtrcrse" id="buffwtrcrse_layer"> Public Ditches <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsebuffwtrcrse" aria-expanded="false" aria-controls="collapsebuffwtrcrse" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button> </p>
+                    <!--                COLLAPSED DIV-->
+                    <div class="collapse" id="collapsebuffwtrcrse">
+                        <div class="card card-body legendcard" id="buffwtrcrseLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="5" style="fill:#674d6e;" />
+                                </svg>Public Ditches (16.5ft and 50ft)
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#buffwtrcrseLegend" class="showLegend" value="legendbuffwtrcrse" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, buffwtrcrse)"><span class="range-slider_val"></span></p>
+                            <p class="color-scheme"><input type="checkbox" name="stylebuffwtrcrse" class="colorGrade" id="styleGradientbuffwtrcrse" value="buffwtrcrse"> Change to Gradient Color Schema</p>
+                        </div>
+
+                    </div>
+                </div>
+                <!--End Public Waters -->
+                <!--
+                <div class="wrapper">
+                    <p class="maplayer"> <input type="checkbox" value="rWI"> Restorable Wetland Inventory <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapserWI" aria-expanded="false" aria-controls="collapserWI" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button> </p>
+                                    COLLAPSED DIV
+                    <div class="collapse" id="collapserWI">
+
+                        <div class="card card-body legendcard" id="rWILegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#f5a37a; stroke-width:2; stroke:#f5a37a; fill-opacity:0.8" />
+                                </svg>Restorable Wetland Inventory
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#rWILegend" class="showLegend" value="legendrWI" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Fill Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, rWI)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, rWI)"><span class="range-slider_val"></span></p>
+                            <p class="color-scheme"><input type="checkbox" name="stylerWI" class="colorGrade" id="styleGradientrWI" value="rWI"> Change to Gradient Color Schema</p>
+                        </div>
+                    </div>
+                </div>
+-->
+                <!--End Restorable Wetland Inventory -->
 
 
                 <!--   Surface Water Quality -->
 
                 <h5 class="categoryHead">Surface Water Quality</h5>
                 <div class="wrapper">
-                    <p class="maplayer"><input type="checkbox" value="strms"> Assessed Waters 2018 - Streams <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsestrms" aria-expanded="false" aria-controls="collapsestrms" title="Toggle Edit and Legend Control">
+                    <p class="maplayer"> <input type="checkbox" value="imptStrm" id="imptStrm_layer"> Impaired Streams (Proposed) <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapseimptStrm" aria-expanded="false" aria-controls="collapseimptStrm" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV'S-->
+                    <div class="collapse" id="collapseimptStrm">
+                        <div class="card card-body legendcard" id="imptStrmLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="5" style="fill:#8c0007;" />
+                                </svg>Impaired Streams (Proposed)
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#imptStrmLegend" class="showLegend" value="legendimptStrm" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, imptStrm)"><span class="range-slider_val"></span></p>
+                            <p class="color-scheme"><input type="checkbox" name="styleimptStrm" class="colorGrade" id="styleGradientimptStrm" value="imptStrm"> Change to Gradient Color Schema</p>
+                        </div>
+                    </div>
+                </div>
+                <!--End Impaired Streams (Proposed) -->
+                <div class="wrapper">
+                    <p class="maplayer"> <input type="checkbox" value="impLks" id="impLks_layer"> Impaired Lakes (Proposed) <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapseimpLks" aria-expanded="false" aria-controls="collapseimpLks" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button> </p>
+                    <!--                COLLAPSED DIV-->
+                    <div class="collapse" id="collapseimpLks">
+                        <div class="card card-body legendcard" id="impLksLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#002366; stroke-width:2; stroke:#002366; fill-opacity:0.8" />
+                                </svg>Impaired Lakes (Proposed)
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#impLksLegend" class="showLegend" value="legendimpLks" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Fill Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, impLks)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, impLks)"><span class="range-slider_val"></span></p>
+                            <p class="color-scheme"><input type="checkbox" name="styleimpLks" class="colorGrade" id="styleGradientimpLks" value="impLks"> Change to Gradient Color Schema</p>
+                        </div>
+                    </div>
+                </div>
+                <!--End Impaired Lakes (Proposed) -->
+                <div class="wrapper">
+                    <p class="maplayer"><input type="checkbox" value="strms" id="strms_layer"> Assessed Waters 2018 - Streams <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsestrms" aria-expanded="false" aria-controls="collapsestrms" title="Toggle Edit and Legend Control">
                             <span class="sr-only">Expand to Edit </span>
                             <span class="fa fa-plus"></span></button>
                     </p>
@@ -200,7 +700,7 @@
                 </div>
                 <!--End Assessed Waters 2018 - Streams -->
                 <div class="wrapper">
-                    <p class="maplayer"><input type="checkbox" value="lkes"> Assessed Waters 2018 - Lakes <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapselkes" aria-expanded="false" aria-controls="collapselkes" title="Toggle Edit and Legend Control">
+                    <p class="maplayer"><input type="checkbox" value="lkes" id="lkes_layer"> Assessed Waters 2018 - Lakes <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapselkes" aria-expanded="false" aria-controls="collapselkes" title="Toggle Edit and Legend Control">
                             <span class="sr-only">Expand to Edit </span>
                             <span class="fa fa-plus"></span></button>
                     </p>
@@ -236,11 +736,443 @@
                     </div>
                 </div>
                 <!--End Assessed Waters 2018 - Lakes -->
+                <div class="wrapper">
+                    <p class="maplayer"><input type="checkbox" value="phos" id="phos_layer"> Lake Phosphorus Sensitivity Significance <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsephos" aria-expanded="false" aria-controls="collapsephos" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV-->
+                    <div class="collapse" id="collapsephos">
+                        <div class="card card-body legendcard" id="phosLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#002673; stroke-width:2; stroke:#002673; fill-opacity:0.8" />
+                                </svg>Highest <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#005ce6; stroke-width:2; stroke:#005ce6; fill-opacity:0.8" />
+                                </svg>Higher <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#a1ceff; stroke-width:2; stroke:#a1ceff; fill-opacity:0.8" />
+                                </svg>High <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:red;stroke-width:2; stroke:red; fill-opacity:0.8" />
+                                </svg>Impaired <br>
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#phosLegend" class="showLegend" value="legendphos" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Fill Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, phos)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, phos)"><span class="range-slider_val"></span></p>
+                            <p class="color-scheme"><input type="checkbox" name="stylePhos" class="colorGrade" id="styleGradientPhos" value="phos"> Change to Gradient Color Schema<br><i class="gradientNote">&#42;&#42;Only showing values: High - Highest</i></p>
+                        </div>
+
+                    </div>
+                </div>
+                <!--End Lake Phosphorus Sensitivity Significance -->
+
+                <!--   Biodiversity Layers -->
+
+                <h5 class="categoryHead">Biodiveristy</h5>
+                <div class="wrapper">
+                    <p class="maplayer"> <input type="checkbox" value="trout" id="trout_layer"> Trout Streams <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsetrout" aria-expanded="false" aria-controls="collapsetrout" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV'S-->
+                    <div class="collapse" id="collapsetrout">
+                        <div class="card card-body legendcard" id="troutLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="5" style="fill:#f781bf;" />
+                                </svg>Trout Streams
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#troutLegend" class="showLegend" value="legendtrout" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, trout)"><span class="range-slider_val"></span></p>
+                            <p class="color-scheme"><input type="checkbox" name="styletrout" class="colorGrade" id="styleGradienttrout" value="trout"> Change to Gradient Color Schema</p>
+                        </div>
+                    </div>
+                </div>
+                <!--End Trout Streams-->
+                <div class="wrapper">
+                    <p class="maplayer"> <input type="checkbox" value="natPra" id="natPra_layer"> Native Prairies <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsenatPra" aria-expanded="false" aria-controls="collapsenatPra" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV-->
+                    <div class="collapse" id="collapsenatPra">
+                        <div class="card card-body legendcard" id="natPraLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#735100; stroke-width:2; stroke:#735100; fill-opacity:0.8" />
+                                </svg>Native Prairies
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#natPraLegend" class="showLegend" value="legendnatPra" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Fill Opacity
+                                <input class="slider" type="range" min="0" max="1" value="0.8" step="0.1" oninput="updateOpacity(this.value, natPra)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, natPra)"><span class="range-slider_val"></span></p>
+                            <p class="color-scheme"><input type="checkbox" name="stylenatPra" class="colorGrade" id="styleGradientnatPra" value="natPra"> Change to Gradient Color Schema</p>
+                        </div>
+                    </div>
+                </div>
+                <!--End Native Prairies-->
+                <div class="wrapper">
+                    <p class="maplayer"> <input type="checkbox" value="natPlnt" id="natPlnt_layer"> Native Plant Communities <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsenatPlnt" aria-expanded="false" aria-controls="collapsenatPlnt" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV'S-->
+                    <div class="collapse" id="collapsenatPlnt">
+                        <div class="card card-body legendcard" id="natPlntLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#71c98d; stroke-width:2; stroke:#71c98d; fill-opacity:0.8" />
+                                </svg>Native Plant Communities
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#natPlntLegend" class="showLegend" value="legendnatPlnt" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Fill Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, natPlnt)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, natPlnt)"><span class="range-slider_val"></span></p>
+                            <p class="color-scheme"><input type="checkbox" name="stylenatPlnt" class="colorGrade" id="styleGradientnatPlnt" value="natPlnt"> Change to Gradient Color Schema</p>
+                        </div>
+
+                    </div>
+                </div>
+                <!--End Native Plant Communities-->
+                <div class="wrapper">
+                    <p class="maplayer"> <input type="checkbox" value="mBSbio" id="mBSbio_layer"> MBS Sites of Biodiversity Significance <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsemBSbio" aria-expanded="false" aria-controls="collapsemBSbio" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV'S-->
+                    <div class="collapse" id="collapsemBSbio">
+                        <div class="card card-body legendcard" id="mBSbioLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#00cd00; stroke-width:2; stroke:#00cd00; fill-opacity:0.8" />
+                                </svg>Outstanding <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#267300; stroke-width:2; stroke:#267300; fill-opacity:0.8" />
+                                </svg>High <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#d3ffbe; stroke-width:2; stroke:#d3ffbe; fill-opacity:0.8" />
+                                </svg>Moderate <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#b2b2b2;stroke-width:2; stroke:#b2b2b2; fill-opacity:0.8" />
+                                </svg>Below
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#mBSbioLegend" class="showLegend" value="legendmBSbio" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Fill Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, mBSbio)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, mBSbio)"><span class="range-slider_val"></span></p>
+                            <p class="color-scheme"><input type="checkbox" name="styleMBSBio" class="colorGrade" id="styleGradientMBSBio" value="mBSbio"> Change to Gradient Color Schema <br><i class="gradientNote">&#42;&#42;Only showing values: Moderate - Outstanding</i></p>
+                        </div>
+                    </div>
+                </div>
+                <!--End MBS Sites of Biodiversity Significance-->
+
+                <!--   Land Use/Cover Layers -->
+
+                <h5 class="categoryHead">Land Use/Cover</h5>
+                <div class="wrapper">
+                    <p class="maplayer"><input type="checkbox" value="gAP_DNR" id="gAP_DNR_layer"> GAP DNR Lands <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsegAP_DNR" aria-expanded="false" aria-controls="collapsegAP_DNR" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV'S-->
+                    <div class="collapse" id="collapsegAP_DNR">
+                        <div class="card card-body legendcard" id="gAP_DNRLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#88cd66; stroke-width:2; stroke:#88cd66; fill-opacity:0.8" />
+                                </svg>DNR Lands
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#gAP_DNRLegend" class="showLegend" value="legendgAP_DNR" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Fill Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, gAP_DNR)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, gAP_DNR)"><span class="range-slider_val"></span></p>
+                            <p class="color-scheme"><input type="checkbox" name="stylegAP_DNR" class="colorGrade" id="styleGradientgAP_DNR" value="gAP_DNR"> Change to Gradient Color Schema</p>
+                        </div>
+                    </div>
+                </div>
+                <!--End GAP DNR Lands-->
+                <div class="wrapper">
+                    <p class="maplayer"> <input type="checkbox" value="gAP_State" id="gAP_State_layer"> GAP State Lands <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsegAP_State" aria-expanded="false" aria-controls="collapsegAP_State" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV-->
+                    <div class="collapse" id="collapsegAP_State">
+                        <div class="card card-body legendcard" id="gAP_StateLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#e8beff; stroke-width:2; stroke:#e8beff; fill-opacity:0.8" />
+                                </svg>State Lands
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#gAP_StateLegend" class="showLegend" value="legendgAP_State" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Fill Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, gAP_State)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, gAP_State)"><span class="range-slider_val"></span></p>
+                            <p class="color-scheme"><input type="checkbox" name="stylegAP_State" class="colorGrade" id="styleGradientgAP_State" value="gAP_State"> Change to Gradient Color Schema</p>
+                        </div>
+                    </div>
+                </div>
+                <!--End GAP State Lands-->
+                <div class="wrapper">
+                    <p class="maplayer"><input type="checkbox" value="gAP_Cnty" id="gAP_Cnty_layer"> GAP County Lands <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsegAP_Cnty" aria-expanded="false" aria-controls="collapsegAP_Cnty" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV'S-->
+                    <div class="collapse" id="collapsegAP_Cnty">
+                        <div class="card card-body legendcard" id="gAP_CntyLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#ffff73; stroke-width:2; stroke:#ffff73; fill-opacity:0.8" />
+                                </svg>County Lands
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#gAP_CntyLegend" class="showLegend" value="legendgAP_Cnty" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Fill Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, gAP_Cnty)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, gAP_Cnty)"><span class="range-slider_val"></span></p>
+                            <p class="color-scheme"><input type="checkbox" name="stylegAP_Cnty" class="colorGrade" id="styleGradientgAP_Cnty" value="gAP_Cnty"> Change to Gradient Color Schema</p>
+                        </div>
+                    </div>
+                </div>
+                <!--End GAP County Lands-->
+                <div class="wrapper">
+                    <p class="maplayer"><input type="checkbox" value="gAP_Fed" id="gAP_Fed_layer"> GAP Federal Lands <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsegAP_Fed" aria-expanded="false" aria-controls="collapsegAP_Fed" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV'S-->
+                    <div class="collapse" id="collapsegAP_Fed">
+                        <div class="card card-body legendcard" id="gAP_FedLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#bee8ff; stroke-width:2; stroke:#bee8ff; fill-opacity:0.8" />
+                                </svg>Federal Lands
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#gAP_FedLegend" class="showLegend" value="legendgAP_Fed" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Fill Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, gAP_Fed)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, gAP_Fed)"><span class="range-slider_val"></span></p>
+                            <p class="color-scheme"><input type="checkbox" name="stylegAP_Fed" class="colorGrade" id="styleGradientgAP_Fed" value="gAP_Fed"> Change to Gradient Color Schema</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!--End GAP Federal Lands-->
+                <div class="wrapper">
+                    <p class="maplayer"><input type="checkbox" value="easemnts" id="easemnts_layer"> Easements <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapseeasemnts" aria-expanded="false" aria-controls="collapseeasemnts" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV'S-->
+                    <div class="collapse" id="collapseeasemnts">
+                        <div class="card card-body legendcard" id="easemntsLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#f28f24; stroke-width:2; stroke:#f28f24; fill-opacity:0.8" />
+                                </svg>Easements
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#easemntsLegend" class="showLegend" value="legendeasemnts" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Fill Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, easemnts)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, easemnts)"><span class="range-slider_val"></span></p>
+                        </div>
+                    </div>
+                </div>
+                <!--End Easements-->
+                <div class="wrapper">
+                    <p class="maplayer"><input type="checkbox" value="nLCD" id="nLCD_layer"> NLCD 2016 <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsenLCD" aria-expanded="false" aria-controls="collapsenLCD" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV-->
+                    <div class="collapse" id="collapsenLCD">
+                        <div class="card card-body legendcard" id="nLCDLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#466b9f;" />
+                                </svg>Open Water <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#dec5c5;" />
+                                </svg>Developed, Open Space <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#d99282;" />
+                                </svg>Developed, Low Intensity <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#eb0000;" />
+                                </svg>Developed, Medium Intensity <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#ab0000;" />
+                                </svg>Developed, High Intensity <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#b3ac9f;" />
+                                </svg>Barren Land <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#68ab5f;" />
+                                </svg>Deciduous Forest <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#1c5f2c;" />
+                                </svg>Evergreen Forest <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#b5c58f;" />
+                                </svg>Mixed Forest <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#ccb879;" />
+                                </svg>Shrub/Scrub <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#dfdfc2;" />
+                                </svg>Herbaceuous <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#dcd939;" />
+                                </svg>Hay/Pasture <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#ab6c28;" />
+                                </svg>Cultivated Crops <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#b8d9eb;" />
+                                </svg>Woody Wetlands <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#6c9fb8;" />
+                                </svg>Emergent Herbaceuous Wetlands
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#BndrynLCD" class="showLegend" value="legendnLCD" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityTile(this.value, nLCD)"><span class="range-slider_val"></span></p>
+                        </div>
+                    </div>
+                </div>
+                <!--End NLCD 2016-->
+                <div class="wrapper">
+
+                    <p class="maplayer"><input type="checkbox" value="gSSURGO" id="gSSURGO_layer"> GSSURGO <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsegSSURGO" aria-expanded="false" aria-controls="collapsegSSURGO" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV-->
+                    <div class="collapse" id="collapsegSSURGO">
+                        <div class="card card-body legendcard" id="gSSURGOLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#aaff00; stroke-width:2; stroke:#aaff00; fill-opacity:0.8" />
+                                </svg>A <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#9f57f7; stroke-width:2; stroke:#9f57f7; fill-opacity:0.8" />
+                                </svg>A/D <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#4ecdd9; stroke-width:2; stroke:#4ecdd9; fill-opacity:0.8" />
+                                </svg>B <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#38538a; stroke-width:2; stroke:#38538a; fill-opacity:0.8" />
+                                </svg>B/D <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#f5e56c; stroke-width:2; stroke:#f5e56c; fill-opacity:0.8" />
+                                </svg>C <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#f0599d; stroke-width:2; stroke:#f0599d; fill-opacity:0.8" />
+                                </svg>C/D <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#4d7300; stroke-width:2; stroke:#4d7300; fill-opacity:0.8" />
+                                </svg>D
+
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#gSSURGOLegend" class="showLegend" value="legendgSSURGO" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Fill Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, gSSURGO)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, gSSURGO)"><span class="range-slider_val"></span></p>
+                        </div>
+                    </div>
+                </div>
+                <!--End NLCD 2016-->
 
                 <!--            Watershed Characterization Layers -->
                 <h5 class="categoryHead">Watershed Characterization</h5>
                 <div class="wrapper">
-                    <p class="maplayer"><input type="checkbox" value="bioIndex"> Bio Index Mean <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsebioIndex" aria-expanded="false" aria-controls="collapsebioIndex" title="Toggle Edit and Legend Control">
+                    <p class="maplayer"><input type="checkbox" value="bioIndex" id="bioIndex_layer"> Bio Index Mean <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsebioIndex" aria-expanded="false" aria-controls="collapsebioIndex" title="Toggle Edit and Legend Control">
                             <span class="sr-only">Expand to Edit </span>
                             <span class="fa fa-plus"></span></button>
                     </p>
@@ -296,7 +1228,7 @@
 
                 <!--End Bio Index Mean-->
                 <div class="wrapper">
-                    <p class="maplayer"> <input type="checkbox" value="conIndex"> Con Index Mean <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapseconIndex" aria-expanded="false" aria-controls="collapseconIndex" title="Toggle Edit and Legend Control">
+                    <p class="maplayer"> <input type="checkbox" value="conIndex" id="conIndex_layer"> Con Index Mean <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapseconIndex" aria-expanded="false" aria-controls="collapseconIndex" title="Toggle Edit and Legend Control">
                             <span class="sr-only">Expand to Edit </span>
                             <span class="fa fa-plus"></span></button>
                     </p>
@@ -352,7 +1284,7 @@
                 </div>
                 <!--End Con Index Mean-->
                 <div class="wrapper">
-                    <p class="maplayer"> <input type="checkbox" value="hydIndex"> Hyd Index Mean <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsehydIndex" aria-expanded="false" aria-controls="collapsehydIndex" title="Toggle Edit and Legend Control">
+                    <p class="maplayer"> <input type="checkbox" value="hydIndex" id="hydIndex_layer"> Hyd Index Mean <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsehydIndex" aria-expanded="false" aria-controls="collapsehydIndex" title="Toggle Edit and Legend Control">
                             <span class="sr-only">Expand to Edit </span>
                             <span class="fa fa-plus"></span></button>
                     </p>
@@ -408,7 +1340,7 @@
                 </div>
                 <!--End Hyd Index Mean-->
                 <div class="wrapper">
-                    <p class="maplayer"> <input type="checkbox" value="geoIndex"> Geo Index Mean <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsegeoIndex" aria-expanded="false" aria-controls="collapsegeoIndex" title="Toggle Edit and Legend Control">
+                    <p class="maplayer"> <input type="checkbox" value="geoIndex" id="geoIndex_layer"> Geo Index Mean <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsegeoIndex" aria-expanded="false" aria-controls="collapsegeoIndex" title="Toggle Edit and Legend Control">
                             <span class="sr-only">Expand to Edit </span>
                             <span class="fa fa-plus"></span></button>
                     </p>
@@ -463,6 +1395,290 @@
                     </div>
                 </div>
                 <!--End Geo Index Mean-->
+                <div class="wrapper">
+                    <p class="maplayer"> <input type="checkbox" value="wQIndex" id="wQIndex_layer"> Water Quality Index Mean <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsewQIndex" aria-expanded="false" aria-controls="collapsewQIndex" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV'S-->
+                    <div class="collapse" id="collapsewQIndex">
+                        <div class="card card-body legendcard" id="wQIndexLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#e60000; stroke-width:2; stroke:#e60000; fill-opacity:0.8" />
+                                </svg>0-10 <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#ff3700; stroke-width:2; stroke:#ff3700; fill-opacity:0.8" />
+                                </svg>11-20 <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#ff7300; stroke-width:2; stroke:#ff7300; fill-opacity:0.8" />
+                                </svg>21-30 <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#ffaa00; stroke-width:2; stroke:#ffaa00; fill-opacity:0.8" />
+                                </svg>31-40 <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#ffe100; stroke-width:2; stroke:#ffe100; fill-opacity:0.8" />
+                                </svg>41-50 <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#e5f500; stroke-width:2; stroke:#e5f500; fill-opacity:0.8" />
+                                </svg>51-60 <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#afe000; stroke-width:2; stroke:#afe000; fill-opacity:0.8" />
+                                </svg>61-70 <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#83cf00; stroke-width:2; stroke:#83cf00; fill-opacity:0.8" />
+                                </svg>71-80 <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#5aba00; stroke-width:2; stroke:#5aba00; fill-opacity:0.8" />
+                                </svg>81-90 <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#308f00; stroke-width:2; stroke:#308f00; fill-opacity:0.8" />
+                                </svg>91-100
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#wQIndexLegend" class="showLegend" value="legendwQIndex" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Fill Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, wQIndex)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, wQIndex)"><span class="range-slider_val"></span></p>
+                        </div>
+                    </div>
+                </div>
+                <!--End Water Quality Index Mean-->
+                <div class="wrapper">
+                    <p class="maplayer"> <input type="checkbox" value="combIndex" id="combIndex_layer"> Combined Index Mean <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsecombIndex" aria-expanded="false" aria-controls="collapsecombIndex" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV'S-->
+                    <div class="collapse" id="collapsecombIndex">
+                        <div class="card card-body legendcard" id="combIndexLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#e60000; stroke-width:2; stroke:#e60000; fill-opacity:0.8" />
+                                </svg>0-10 <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#ff3700; stroke-width:2; stroke:#ff3700; fill-opacity:0.8" />
+                                </svg>11-20 <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#ff7300; stroke-width:2; stroke:#ff7300; fill-opacity:0.8" />
+                                </svg>21-30 <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#ffaa00; stroke-width:2; stroke:#ffaa00; fill-opacity:0.8" />
+                                </svg>31-40 <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#ffe100; stroke-width:2; stroke:#ffe100; fill-opacity:0.8" />
+                                </svg>41-50 <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#e5f500; stroke-width:2; stroke:#e5f500; fill-opacity:0.8" />
+                                </svg>51-60 <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#afe000; stroke-width:2; stroke:#afe000; fill-opacity:0.8" />
+                                </svg>61-70 <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#83cf00; stroke-width:2; stroke:#83cf00; fill-opacity:0.8" />
+                                </svg>71-80 <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#5aba00; stroke-width:2; stroke:#5aba00; fill-opacity:0.8" />
+                                </svg>81-90 <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#308f00; stroke-width:2; stroke:#308f00; fill-opacity:0.8" />
+                                </svg>91-100
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#combIndexLegend" class="showLegend" value="legendcombIndex" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Fill Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, combIndex)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, combIndex)"><span class="range-slider_val"></span></p>
+                        </div>
+                    </div>
+                </div>
+                <!--End Combined Index Mean-->
+                <div class="wrapper">
+                    <p class="maplayer"> <input type="checkbox" value="wildLife" id="wildLife_layer"> Wildlife Habitat Quality Risk <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsewildLife" aria-expanded="false" aria-controls="collapsewildLife" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV'S-->
+                    <div class="collapse" id="collapsewildLife">
+                        <div class="card card-body legendcard" id="wildLifeLegend">
+                            <p><svg width="125" height="60">
+                                    <defs>
+                                        <linearGradient id="Gradient" x1="0" x2="0" y1="0" y2="1">
+                                            <stop offset="0%" stop-color="white" />
+                                            <stop offset="100%" stop-color="black" />
+                                        </linearGradient>
+                                    </defs>
+                                    <rect x="50" y="10" width="15" height="50" fill="url(#Gradient)" />
+                                    <text fill="black" font-size="10" font-family="Verdana" x="70" y="15">
+                                        High: 82</text>
+                                    <text fill="black" font-size="10" font-family="Verdana" x="70" y="60">
+                                        Low: 10</text>
+                                </svg>
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#wildLifeLegend" class="showLegend" value="legendwildLife" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityTile(this.value, wildLife)"><span class="range-slider_val"></span></p>
+                        </div>
+                    </div>
+                </div>
+                <!--End Wildlife Habitat Quality Risk-->
+                <div class="wrapper">
+                    <p class="maplayer"> <input type="checkbox" value="envBen" id="envBen_layer"> Environmental Benefits Index <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapseenvBen" aria-expanded="false" aria-controls="collapseenvBen" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV'S-->
+                    <div class="collapse" id="collapseenvBen">
+                        <div class="card card-body legendcard" id="envBenLegend">
+                            <p><svg width="125" height="60">
+                                    <defs>
+                                        <linearGradient id="Gradient1" x1="0" x2="0" y1="0" y2="1">
+                                            <stop offset="0%" stop-color="white" />
+                                            <stop offset="100%" stop-color="black" />
+                                        </linearGradient>
+                                    </defs>
+                                    <rect x="50" y="10" width="15" height="50" fill="url(#Gradient1)" />
+                                    <text fill="black" font-size="10" font-family="Verdana" x="70" y="15">
+                                        High: 261</text>
+                                    <text fill="black" font-size="10" font-family="Verdana" x="70" y="60">
+                                        Low: 37</text>
+                                </svg>
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#envBenLegend" class="showLegend" value="legendenvBen" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityTile(this.value, envBen)"><span class="range-slider_val"></span></p>
+                        </div>
+                    </div>
+                </div>
+                <!--End Environmental Benefits Index-->
+                <div class="wrapper">
+                    <p class="maplayer"> <input type="checkbox" value="waterQual" id="waterQual_layer"> Water Quality Risk <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsewaterQual" aria-expanded="false" aria-controls="collapsewaterQual" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV'S-->
+                    <div class="collapse" id="collapsewaterQual">
+                        <div class="card card-body legendcard" id="waterQualLegend">
+                            <p><svg width="125" height="60">
+                                    <defs>
+                                        <linearGradient id="Gradient2" x1="0" x2="0" y1="0" y2="1">
+                                            <stop offset="0%" stop-color="white" />
+                                            <stop offset="100%" stop-color="black" />
+                                        </linearGradient>
+                                    </defs>
+                                    <rect x="50" y="10" width="15" height="50" fill="url(#Gradient2)" />
+                                    <text fill="black" font-size="10" font-family="Verdana" x="70" y="15">
+                                        High: 100</text>
+                                    <text fill="black" font-size="10" font-family="Verdana" x="70" y="60">
+                                        Low: 4</text>
+                                </svg>
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#waterQualLegend" class="showLegend" value="legendwaterQual" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityTile(this.value, waterQual)"><span class="range-slider_val"></span></p>
+                        </div>
+                    </div>
+                </div>
+                <!--End Water Quality Risk-->
+                <div class="wrapper">
+                    <p class="maplayer"> <input type="checkbox" value="soil" id="soil_layer"> Soil Erosion Risk <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsesoil" aria-expanded="false" aria-controls="collapsesoil" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV'S-->
+                    <div class="collapse" id="collapsesoil">
+                        <div class="card card-body legendcard" id="soilLegend">
+                            <p><svg width="125" height="60">
+                                    <defs>
+                                        <linearGradient id="Gradient3" x1="0" x2="0" y1="0" y2="1">
+                                            <stop offset="0%" stop-color="white" />
+                                            <stop offset="100%" stop-color="black" />
+                                        </linearGradient>
+                                    </defs>
+                                    <rect x="50" y="10" width="15" height="50" fill="url(#Gradient3)" />
+                                    <text fill="black" font-size="10" font-family="Verdana" x="70" y="15">
+                                        High: 100</text>
+                                    <text fill="black" font-size="10" font-family="Verdana" x="70" y="60">
+                                        Low: 1</text>
+                                </svg>
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#soilLegend" class="showLegend" value="legendsoil" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityTile(this.value, soil)"><span class="range-slider_val"></span></p>
+                        </div>
+                    </div>
+                </div>
+                <!--End Soil Erosion Risk-->
+
+                <!--   OTHER Layers -->
+                <div class="wrapper">
+                    <h5 class="categoryHead">Other</h5>
+                    <p class="maplayer"> <input type="checkbox" value="mask" id="mask_layer"> Planning Area Mask <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsemask" aria-expanded="false" aria-controls="collapsemask" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV-->
+                    <div class="collapse" id="collapsemask">
+
+                        <div class="card card-body legendcard" id="maskLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:black; stroke-width:2; stroke:black; fill-opacity:0.8" />
+                                </svg>Mask
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#maskLegend" class="showLegend" value="legendmask" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Fill Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, mask)"><span class="range-slider_val"></span></p>
+                        </div>
+                    </div>
+                </div>
+                <!--End Planning Area Mask-->
 
 
 
@@ -1035,15 +2251,12 @@
 
     <!-- Load Esri Leaflet from CDN -->
     <script src="https://unpkg.com/esri-leaflet@2.3.0/dist/esri-leaflet.js" integrity="sha512-1tScwpjXwwnm6tTva0l0/ZgM3rYNbdyMj5q6RSQMbNX6EUMhYDE3pMRGZaT41zHEvLoWEK7qFEJmZDOoDMU7/Q==" crossorigin=""></script>
-
-
-
-
+    <!--to get the wms from geoserver to come in smoothly-->
+    <script src="lib/leaflet/leaflet.wms.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.7/js/tether.min.js" type="text/javascript"></script>
 
-    <!--    <script src="js/bootstrap.min.js" type="text/javascript"></script>-->
     <script src="js/jquery-3.4.1.min.js" type="text/javascript"></script>
-    <!--    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
@@ -1052,79 +2265,16 @@
     <script src="lib/leaflet.HtmlLegend/L.Control.HtmlLegend.js" type="text/javascript"></script>
     <script src="js/jquery-sidebar.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
-    <!--        <script src='https://gitcdn.link/repo/nickpeihl/leaflet-sidebar-v2/master/js/leaflet-sidebar.min.js'></script>-->
+
     <script type="text/javascript" src="js/L.Control.ZoomBox.min.js"></script>
     <script type="text/javascript" src="js/leaflet.sidebar_proj.js"></script>
     <script type="text/javascript" src="lib/leaflet.browser.print-master/dist/leaflet.browser.print.min.js"></script>
     <script type="text/javascript" src="js/Leaflet.EasyButton.js"></script>
 
     <script type="text/javascript" src="js/leaflet.zoomhome.js"></script>
-    <!--    <script type="text/javascript" src="lib/leaflet/leaflet-sidebar.min.js"></script>-->
+
     <script src="js/Leaflet.Graticule.js" type="text/javascript"></script>
     <script src="lib/leaflet/leaflet.ajax.min.js" type="text/javascript"></script>
-    <!--    <script type="text/javascript" src="js/L.Control.Sidebar.js"></script>-->
     <script type="text/javascript" src="js/main.js"></script>
 
 </body></html>
-
-
-
-<!--    <script src="js/jquery-ui.min.js" type="text/javascript"></script>-->
-<!--
-<script src="lib/jquery/jquery-ui.js" type="text/javascript"></script>
-<script src="lib/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
--->
-
-<!--    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>-->
-
-
-<!-- Custom button atttempt. try again if have time
-
- <button class="btn-xs" type="button"><span class="legendbutton"> </span> </button>-->
-
-
-
-<!--
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="fa fa-bars"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="metadata.html">Metadata</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="help.html">Help</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contact.html">Contact</a>
-                </li>
-            </ul>
-        </div>
--->
-
-
-
-<!--                        <p><input type="checkbox" name="#BndryLegend1" class="showLegend" value="legendBndry"> Show Legend</p>-->
-
-
-<!--
-
-                        <p><input type="checkbox" data-toggle="toggle" data-on="Remove Legend" data-off="Add Legend" data-onstyle="success" data-offstyle="danger" class="showLegend" value="legendBndry" onclick="checkClick(this.value)"><span class="sr-only">Toggle Legend </span>
-
-                        </p>
--->
-<!--
-                    <button class="btn-xs btn-primary " type="button" data-toggle="collapse" data-target="#BndryLegend" aria-expanded="false" aria-controls="BndryLegend">Legend <span class="sr-only">Toggle Legend </span>
-                                                                        <span class="fab fa-elementor"></span>
-                    </button>
--->
-<!--                           
-
-<p><input type="checkbox" name="#BndryLegend1" class="showLegend" value="legendBndry"> Show Legend</p>-->
-
-<!--                            <p><input type="checkbox" name="#BndryLegend" class="showLegend" value="legendBndry"> Show Legend</p>-->
