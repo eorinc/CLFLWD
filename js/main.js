@@ -200,8 +200,10 @@ var a_bedrockPoll = 'minnesota:bedrocksurface_pollutionsensitivity'; //bedrock s
 var a_fEMAflood = 'minnesota:fema_flood_view'; // 100 year flood plain from FEMA
 var a_altwtr = 'minnesota:altr_wtrcrse_mview'; // Altered Watercourse
 var a_cONUS = 'clflwd:nwi_clp_mv'; //NWI CONUS_wet_poly
-var a_buffwetlnds = 'minnesota:pwi_basins'; //Buffer Protection of Lakes, reservoirs, and wetlands; Public Waters
-var a_buffwtrcrse = 'minnesota:pwi_watercourses'; //Buffer Protection of watercourse; Public Ditches
+var a_buffbasins = 'minnesota:pwi_basins_mv'; //Buffer Protection of Lakes, ponds, reservoirs
+var a_buffwetlnds = 'minnesota:pwi_basins_wetlnd_mv'; //Buffer Protection of wetlands; Public Waters; PWI
+var a_buffwtrcrse = 'minnesota:pwi_watercourses'; //Buffer Protection of watercourse; Public Ditches; PWI s
+
 
 var a_imptStrm = 'minnesota:impaired_streams_mview'; //Impaired streams
 var a_impLks = 'minnesota:impaired_lakes_mview'; //Impaired Lakes
@@ -331,6 +333,21 @@ $.ajax({
             style: styledistBound,
             onEachFeature: function (feature, layer) {
                 layer.bindPopup('<p><b><i> District: </b>' + feature.properties.lkmgtdist + '</i></p>');
+                layer.on({
+                    mouseover: function (e) {
+                        layer.setStyle({
+                            weight: 3,
+                            color: '#00FFFF',
+                            opacity: 1
+                        });
+                        if (!L.Browser.ie && !L.Browser.opera) {
+                            layer.bringToFront();
+                        }
+                    },
+                    mouseout: function (e) {
+                        distBound.resetStyle(e.target);
+                    },
+                });
             },
         });
         map.addLayer(distBound);
@@ -370,6 +387,8 @@ var altwtr;
 var url_altwtr = getMN_URL(a_altwtr);
 var cONUS;
 var url_cONUS = getCLFL_URL(a_cONUS);
+var buffbasins;
+var url_buffbasins = getMN_URL(a_buffbasins);
 var buffwetlnds;
 var url_buffwetlnds = getMN_URL(a_buffwetlnds);
 var buffwtrcrse;
@@ -592,6 +611,27 @@ function styleGradientCONUS(feature) {
     return {
         "color": "#084594",
         "fillColor": "#084594",
+        "weight": 2,
+        "fillOpacity": 0.8,
+        "opacity": 1,
+    };
+}
+
+function stylebuffbasins(feature) {
+    return {
+        "color": "#4e579c",
+        "fillColor": '#4e579c',
+        "weight": 2,
+        "fillOpacity": 0.8,
+        "opacity": 1,
+
+    };
+}
+
+function styleGradientbuffbasins(feature) {
+    return {
+        "color": "#084594",
+        "fillColor": '#084594',
         "weight": 2,
         "fillOpacity": 0.8,
         "opacity": 1,
@@ -1323,11 +1363,22 @@ var legendcONUS = L.control.htmllegend({
         }],
     detectStretched: true,
 });
+var legendbuffbasins = L.control.htmllegend({
+    position: 'bottomleft',
+    layer: 'PWI - Lakes, Ponds & Reservior',
+    legends: [{
+        name: 'PWI - Lakes, Ponds & Reservior',
+        elements: [{
+            html: document.querySelector('#buffbasinsLegend').innerHTML
+            }]
+        }],
+    detectStretched: true,
+});
 var legendbuffwetlnds = L.control.htmllegend({
     position: 'bottomleft',
-    layer: 'Public Waters',
+    layer: 'PWI - Wetlands',
     legends: [{
-        name: 'Public Waters',
+        name: 'PWI - Wetlands',
         elements: [{
             html: document.querySelector('#buffwetlndsLegend').innerHTML
             }]
@@ -1336,9 +1387,9 @@ var legendbuffwetlnds = L.control.htmllegend({
 });
 var legendbuffwtrcrse = L.control.htmllegend({
     position: 'bottomleft',
-    layer: 'Public Ditches',
+    layer: 'PWI - Watercourse',
     legends: [{
-        name: 'Public Ditches',
+        name: 'PWI - Watercourse',
         elements: [{
             html: document.querySelector('#buffwtrcrseLegend').innerHTML
             }]
@@ -1778,6 +1829,21 @@ $(document).ready(function () {
                                 style: styledistBound,
                                 onEachFeature: function (feature, layer) {
                                     layer.bindPopup('<p><b><i> District: </b>' + feature.properties.lkmgtdist + '</i></p>');
+                                    layer.on({
+                                        mouseover: function (e) {
+                                            layer.setStyle({
+                                                weight: 3,
+                                                color: '#00FFFF',
+                                                opacity: 1
+                                            });
+                                            if (!L.Browser.ie && !L.Browser.opera) {
+                                                layer.bringToFront();
+                                            }
+                                        },
+                                        mouseout: function (e) {
+                                            distBound.resetStyle(e.target);
+                                        },
+                                    });
                                 },
                             });
                             map.addLayer(distBound);
@@ -1805,6 +1871,21 @@ $(document).ready(function () {
                                 },
                                 onEachFeature: function (feature, layer) {
                                     layer.bindPopup('<p><i> County: ' + feature.properties.county_nam + '</i></p>');
+                                    layer.on({
+                                        mouseover: function (e) {
+                                            layer.setStyle({
+                                                weight: 3,
+                                                color: '#00FFFF',
+                                                opacity: 1
+                                            });
+                                            if (!L.Browser.ie && !L.Browser.opera) {
+                                                layer.bringToFront();
+                                            }
+                                        },
+                                        mouseout: function (e) {
+                                            cnty.resetStyle(e.target);
+                                        },
+                                    });
                                 },
 
                             });
@@ -1833,6 +1914,21 @@ $(document).ready(function () {
                                 },
                                 onEachFeature: function (feature, layer) {
                                     layer.bindPopup('<p><i> HUC 8 Name: ' + feature.properties.hu_8_name + '</i></p>');
+                                    layer.on({
+                                        mouseover: function (e) {
+                                            layer.setStyle({
+                                                weight: 3,
+                                                color: '#00FFFF',
+                                                opacity: 1
+                                            });
+                                            if (!L.Browser.ie && !L.Browser.opera) {
+                                                layer.bringToFront();
+                                            }
+                                        },
+                                        mouseout: function (e) {
+                                            huc8.resetStyle(e.target);
+                                        },
+                                    });
                                 },
                             });
                             map.addLayer(huc8);
@@ -1859,6 +1955,21 @@ $(document).ready(function () {
                                 },
                                 onEachFeature: function (feature, layer) {
                                     layer.bindPopup('<p><i> HUC 10 Name: ' + feature.properties.hu_10_name + '</i></p>');
+                                    layer.on({
+                                        mouseover: function (e) {
+                                            layer.setStyle({
+                                                weight: 3,
+                                                color: '#00FFFF',
+                                                opacity: 1
+                                            });
+                                            if (!L.Browser.ie && !L.Browser.opera) {
+                                                layer.bringToFront();
+                                            }
+                                        },
+                                        mouseout: function (e) {
+                                            huc10.resetStyle(e.target);
+                                        },
+                                    });
                                 },
                             });
                             map.addLayer(huc10);
@@ -1885,6 +1996,21 @@ $(document).ready(function () {
                                 },
                                 onEachFeature: function (feature, layer) {
                                     layer.bindPopup('<p><i> HUC 12 Name: ' + feature.properties.hu_12_name + '</i></p>');
+                                    layer.on({
+                                        mouseover: function (e) {
+                                            layer.setStyle({
+                                                weight: 3,
+                                                color: '#00FFFF',
+                                                opacity: 1
+                                            });
+                                            if (!L.Browser.ie && !L.Browser.opera) {
+                                                layer.bringToFront();
+                                            }
+                                        },
+                                        mouseout: function (e) {
+                                            huc12.resetStyle(e.target);
+                                        },
+                                    });
                                 },
                             });
                             map.addLayer(huc12);
@@ -1911,6 +2037,21 @@ $(document).ready(function () {
                                 },
                                 onEachFeature: function (feature, layer) {
                                     layer.bindPopup('<p><i> Township Name: ' + feature.properties.feature_na + '</i></p>');
+                                    layer.on({
+                                        mouseover: function (e) {
+                                            layer.setStyle({
+                                                weight: 3,
+                                                color: '#00FFFF',
+                                                opacity: 1
+                                            });
+                                            if (!L.Browser.ie && !L.Browser.opera) {
+                                                layer.bringToFront();
+                                            }
+                                        },
+                                        mouseout: function (e) {
+                                            twnshp.resetStyle(e.target);
+                                        },
+                                    });
                                 },
                             });
                             map.addLayer(twnshp);
@@ -2009,6 +2150,22 @@ $(document).ready(function () {
                     }); // end of buffwetlnds call
 
                     break;
+                case 'buffbasins_layer':
+                    $.ajax({
+                        url: url_buffbasins,
+                        dataType: 'jsonp',
+                        jsonpCallback: a_buffbasins.replace(":", ""),
+                        success: function (response) {
+                            buffbasins = L.geoJson(response, {
+                                attribution: '',
+                                interactive: true,
+                                style: stylebuffbasins,
+                            });
+                            map.addLayer(buffbasins);
+                        }
+                    }); // end of buffwetlnds call
+
+                    break;
                 case 'buffwtrcrse_layer':
                     $.ajax({
                         url: url_buffwtrcrse,
@@ -2034,6 +2191,24 @@ $(document).ready(function () {
                                 attribution: '',
                                 interactive: true,
                                 style: styleimptStrm,
+                                onEachFeature: function (feature, layer) {
+                                    layer.bindPopup('<p><b><i> Impaired for: </b>' + feature.properties.imp_param + '</i></p>');
+                                    layer.on({
+                                        mouseover: function (e) {
+                                            layer.setStyle({
+                                                weight: 3,
+                                                color: '#00FFFF',
+                                                opacity: 1
+                                            });
+                                            if (!L.Browser.ie && !L.Browser.opera) {
+                                                layer.bringToFront();
+                                            }
+                                        },
+                                        mouseout: function (e) {
+                                            imptStrm.resetStyle(e.target);
+                                        },
+                                    });
+                                },
                             });
                             map.addLayer(imptStrm);
                         }
@@ -2049,6 +2224,24 @@ $(document).ready(function () {
                                 attribution: '',
                                 interactive: true,
                                 style: styleimpLks,
+                                onEachFeature: function (feature, layer) {
+                                    layer.bindPopup('<p><b><i> Impaired for: </b>' + feature.properties.imp_param + '</i></p>');
+                                    layer.on({
+                                        mouseover: function (e) {
+                                            layer.setStyle({
+                                                weight: 3,
+                                                color: '#00FFFF',
+                                                opacity: 1
+                                            });
+                                            if (!L.Browser.ie && !L.Browser.opera) {
+                                                layer.bringToFront();
+                                            }
+                                        },
+                                        mouseout: function (e) {
+                                            impLks.resetStyle(e.target);
+                                        },
+                                    });
+                                }
                             });
                             map.addLayer(impLks);
                         }

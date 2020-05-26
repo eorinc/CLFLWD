@@ -104,6 +104,18 @@ SELECT *
 FROM minnesota.impaired_2020_draft_lakes
 WHERE NOT affected_u = 'AQC'
 
+CREATE MATERIALIZED VIEW minnesota.pwi_basins_mv
+AS
+SELECT *
+FROM minnesota.pwi_basins
+WHERE pwi_class = 'P'
+
+CREATE MATERIALIZED VIEW minnesota.pwi_basins_wetlnd_mv
+AS
+SELECT *
+FROM minnesota.pwi_basins
+WHERE pwi_class = 'W'
+
 /* example for county bounds */
 CREATE MATERIALIZED VIEW clflwd.cntybnds_clfl_mv
 AS
@@ -124,7 +136,8 @@ REFRESH MATERIALIZED VIEW minnesota.majorscores_con_index_mv;
 REFRESH MATERIALIZED VIEW minnesota.majorscores_wq_index_mv;
 REFRESH MATERIALIZED VIEW minnesota.majorscores_comb_index_mv;
 
-
+REFRESH MATERIALIZED VIEW minnesota.pwi_basins_mv;
+REFRESH MATERIALIZED VIEW minnesota.pwi_basins_wetlnd_mv;
 /************************************************/
 /********** NON WORKING CODE ********************/
 /************************************************/

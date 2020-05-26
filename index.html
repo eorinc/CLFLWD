@@ -103,9 +103,36 @@
                     </div>
 
                 </div>
-
-
                 <!--END CLFL districts BOUNDARY-->
+
+                <!-- Planning Area Mask-->
+                <div class="wrapper">
+                    <p class="maplayer"> <input type="checkbox" value="mask" id="mask_layer"> Planning Area Mask <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsemask" aria-expanded="false" aria-controls="collapsemask" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV-->
+                    <div class="collapse" id="collapsemask">
+
+                        <div class="card card-body legendcard" id="maskLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:black; stroke-width:2; stroke:black; fill-opacity:0.8" />
+                                </svg>Mask
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#maskLegend" class="showLegend" value="legendmask" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Fill Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, mask)"><span class="range-slider_val"></span></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- END of Planning Area Mask-->
                 <div class="wrapper">
                     <p class="maplayer"><input type="checkbox" value="cnty" id="cnty_layer"> Counties
 
@@ -519,7 +546,35 @@
 
                 <!--End NWI -->
                 <div class="wrapper">
-                    <p class="maplayer"> <input type="checkbox" value="buffwetlnds" id="buffwetlnds_layer"> Public Waters <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsebuffwetlnds" aria-expanded="false" aria-controls="collapsebuffwetlnds" title="Toggle Edit and Legend Control">
+                    <p class="maplayer"> <input type="checkbox" value="buffbasins" id="buffbasins_layer"> PWI - Lakes, Ponds &amp Reservoir <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsebuffbasins" aria-expanded="false" aria-controls="collapsebuffbasins" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button> </p>
+                    <!--                COLLAPSED DIV-->
+                    <div class="collapse" id="collapsebuffbasins">
+                        <div class="card card-body legendcard" id="buffbasinsLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#4e579c; stroke-width:2; stroke:#4e579c; fill-opacity:0.8" />
+                                </svg>PWI - Lakes, Ponds &amp Reservoir
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#buffbasinsLegend" class="showLegend" value="legendbuffbasins" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Fill Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, buffbasins)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity
+                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, buffbasins)"><span class="range-slider_val"></span></p>
+                            <p class="color-scheme"><input type="checkbox" name="stylebuffwetlnds" class="colorGrade" id="styleGradientbuffbasins" value="buffbuffbasins"> Change to Gradient Color Schema</p>
+                        </div>
+                    </div>
+                </div>
+                <!--End PWI - Basins; Lakes, ponds reservoirs -->
+                <div class="wrapper">
+                    <p class="maplayer"> <input type="checkbox" value="buffwetlnds" id="buffwetlnds_layer"> PWI - Wetlands <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsebuffwetlnds" aria-expanded="false" aria-controls="collapsebuffwetlnds" title="Toggle Edit and Legend Control">
                             <span class="sr-only">Expand to Edit </span>
                             <span class="fa fa-plus"></span></button> </p>
                     <!--                COLLAPSED DIV-->
@@ -527,7 +582,7 @@
                         <div class="card card-body legendcard" id="buffwetlndsLegend">
                             <p><svg width="20" height="10">
                                     <rect width="15" height="10" style="fill:#7e8be6; stroke-width:2; stroke:#7e8be6; fill-opacity:0.8" />
-                                </svg>Public Waters
+                                </svg>PWI - Wetlands
                             </p>
                         </div>
                         <div class="pretty p-switch p-fill legendtoggle">
@@ -547,7 +602,7 @@
                 </div>
                 <!--End Public Waters -->
                 <div class="wrapper">
-                    <p class="maplayer"><input type="checkbox" value="buffwtrcrse" id="buffwtrcrse_layer"> Public Ditches <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsebuffwtrcrse" aria-expanded="false" aria-controls="collapsebuffwtrcrse" title="Toggle Edit and Legend Control">
+                    <p class="maplayer"><input type="checkbox" value="buffwtrcrse" id="buffwtrcrse_layer"> PWI - Watercourse <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsebuffwtrcrse" aria-expanded="false" aria-controls="collapsebuffwtrcrse" title="Toggle Edit and Legend Control">
                             <span class="sr-only">Expand to Edit </span>
                             <span class="fa fa-plus"></span></button> </p>
                     <!--                COLLAPSED DIV-->
@@ -555,7 +610,7 @@
                         <div class="card card-body legendcard" id="buffwtrcrseLegend">
                             <p><svg width="20" height="10">
                                     <rect width="15" height="5" style="fill:#674d6e;" />
-                                </svg>Public Ditches (16.5ft and 50ft)
+                                </svg>PWI Watercourse (16.5ft and 50ft)
                             </p>
                         </div>
                         <div class="pretty p-switch p-fill legendtoggle">
@@ -1651,33 +1706,7 @@
                 <!--End Soil Erosion Risk-->
 
                 <!--   OTHER Layers -->
-                <div class="wrapper">
-                    <h5 class="categoryHead">Other</h5>
-                    <p class="maplayer"> <input type="checkbox" value="mask" id="mask_layer"> Planning Area Mask <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsemask" aria-expanded="false" aria-controls="collapsemask" title="Toggle Edit and Legend Control">
-                            <span class="sr-only">Expand to Edit </span>
-                            <span class="fa fa-plus"></span></button>
-                    </p>
-                    <!--                COLLAPSED DIV-->
-                    <div class="collapse" id="collapsemask">
 
-                        <div class="card card-body legendcard" id="maskLegend">
-                            <p><svg width="20" height="10">
-                                    <rect width="15" height="10" style="fill:black; stroke-width:2; stroke:black; fill-opacity:0.8" />
-                                </svg>Mask
-                            </p>
-                        </div>
-                        <div class="pretty p-switch p-fill legendtoggle">
-                            <input type="checkbox" name="#maskLegend" class="showLegend" value="legendmask" />
-                            <div class="state">
-                                <label>Show Legend</label>
-                            </div>
-                        </div>
-                        <div class="card card-body">
-                            <p>Fill Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, mask)"><span class="range-slider_val"></span></p>
-                        </div>
-                    </div>
-                </div>
                 <!--End Planning Area Mask-->
 
 
@@ -1816,7 +1845,7 @@
                 <div class="card">
                     <div class="card-header">
                         <a class="collapsed card-link metadataHeader" data-toggle="collapse" href="#metadatabuffwetlnds">
-                            Public Waters
+                            PWI - Lakes, Ponds, Reservoirs and Wetlands
                         </a>
                     </div>
                     <div id="metadatabuffwetlnds" class="collapse">
@@ -1836,7 +1865,7 @@
                 <div class="card">
                     <div class="card-header">
                         <a class="collapsed card-link metadataHeader" data-toggle="collapse" href="#metadatabuffwtrcrse">
-                            Public Ditches
+                            PWI - Streams
                         </a>
                     </div>
                     <div id="metadatabuffwtrcrse" class="collapse">
