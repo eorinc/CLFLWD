@@ -333,21 +333,21 @@ $.ajax({
             style: styledistBound,
             onEachFeature: function (feature, layer) {
                 layer.bindPopup('<p><b><i> District: </b>' + feature.properties.lkmgtdist + '</i></p>');
-                layer.on({
-                    mouseover: function (e) {
-                        layer.setStyle({
-                            weight: 3,
-                            color: '#00FFFF',
-                            opacity: 1
-                        });
-                        if (!L.Browser.ie && !L.Browser.opera) {
-                            layer.bringToFront();
-                        }
-                    },
-                    mouseout: function (e) {
-                        distBound.resetStyle(e.target);
-                    },
-                });
+//                layer.on({
+//                    mouseover: function (e) {
+//                        layer.setStyle({
+//                            weight: 3,
+//                            color: '#00FFFF',
+//                            opacity: 1
+//                        });
+//                        if (!L.Browser.ie && !L.Browser.opera) {
+//                            layer.bringToFront();
+//                        }
+//                    },
+//                    mouseout: function (e) {
+//                        distBound.resetStyle(e.target);
+//                    },
+//                });
             },
         });
         map.addLayer(distBound);
@@ -1777,12 +1777,12 @@ $(document).ready(function () {
         } else if ($(this).is(":not(:checked)") && $(this).hasClass('pollution-sens')) {
             map.removeLayer(colorGradeID);
         } else if ($(this).is(":checked") && $(this).hasClass('colorGrade')) {
-            layerClicked.on('loading', function (e) {
-                loadingControl._showIndicator()
-            });
-            layerClicked.on('load', function (e) {
-                loadingControl._hideIndicator
-            });
+            //            layerClicked.on('loading', function (e) {
+            //                loadingControl._showIndicator()
+            //            });
+            //            layerClicked.on('load', function (e) {
+            //                loadingControl._hideIndicator
+            //            });
             changeStyle(colorGradeID, layerClicked); //calls function to change the style
         } else if ($(this).is(":not(:checked)") && $(this).hasClass('colorGrade')) {
             changeToOrigStyle(colorOrigID, layerClicked);
@@ -1829,21 +1829,21 @@ $(document).ready(function () {
                                 style: styledistBound,
                                 onEachFeature: function (feature, layer) {
                                     layer.bindPopup('<p><b><i> District: </b>' + feature.properties.lkmgtdist + '</i></p>');
-                                    layer.on({
-                                        mouseover: function (e) {
-                                            layer.setStyle({
-                                                weight: 3,
-                                                color: '#00FFFF',
-                                                opacity: 1
-                                            });
-                                            if (!L.Browser.ie && !L.Browser.opera) {
-                                                layer.bringToFront();
-                                            }
-                                        },
-                                        mouseout: function (e) {
-                                            distBound.resetStyle(e.target);
-                                        },
-                                    });
+                                    //                                    layer.on({
+                                    //                                        mouseover: function (e) {
+                                    //                                            layer.setStyle({
+                                    //                                                weight: 3,
+                                    //                                                color: '#00FFFF',
+                                    //                                                opacity: 1
+                                    //                                            });
+                                    //                                            if (!L.Browser.ie && !L.Browser.opera) {
+                                    //                                                layer.bringToFront();
+                                    //                                            }
+                                    //                                        },
+                                    //                                        mouseout: function (e) {
+                                    //                                            distBound.resetStyle(e.target);
+                                    //                                        },
+                                    //                                    });
                                 },
                             });
                             map.addLayer(distBound);
@@ -1871,21 +1871,21 @@ $(document).ready(function () {
                                 },
                                 onEachFeature: function (feature, layer) {
                                     layer.bindPopup('<p><i> County: ' + feature.properties.county_nam + '</i></p>');
-                                    layer.on({
-                                        mouseover: function (e) {
-                                            layer.setStyle({
-                                                weight: 3,
-                                                color: '#00FFFF',
-                                                opacity: 1
-                                            });
-                                            if (!L.Browser.ie && !L.Browser.opera) {
-                                                layer.bringToFront();
-                                            }
-                                        },
-                                        mouseout: function (e) {
-                                            cnty.resetStyle(e.target);
-                                        },
-                                    });
+                                    //                                    layer.on({
+                                    //                                        mouseover: function (e) {
+                                    //                                            layer.setStyle({
+                                    //                                                weight: 3,
+                                    //                                                color: '#00FFFF',
+                                    //                                                opacity: 1
+                                    //                                            });
+                                    //                                            if (!L.Browser.ie && !L.Browser.opera) {
+                                    //                                                layer.bringToFront();
+                                    //                                            }
+                                    //                                        },
+                                    //                                        mouseout: function (e) {
+                                    //                                            cnty.resetStyle(e.target);
+                                    //                                        },
+                                    //                                    });
                                 },
 
                             });
@@ -1914,21 +1914,21 @@ $(document).ready(function () {
                                 },
                                 onEachFeature: function (feature, layer) {
                                     layer.bindPopup('<p><i> HUC 8 Name: ' + feature.properties.hu_8_name + '</i></p>');
-                                    layer.on({
-                                        mouseover: function (e) {
-                                            layer.setStyle({
-                                                weight: 3,
-                                                color: '#00FFFF',
-                                                opacity: 1
-                                            });
-                                            if (!L.Browser.ie && !L.Browser.opera) {
-                                                layer.bringToFront();
-                                            }
-                                        },
-                                        mouseout: function (e) {
-                                            huc8.resetStyle(e.target);
-                                        },
-                                    });
+                                    //                                    layer.on({
+                                    //                                        mouseover: function (e) {
+                                    //                                            layer.setStyle({
+                                    //                                                weight: 3,
+                                    //                                                color: '#00FFFF',
+                                    //                                                opacity: 1
+                                    //                                            });
+                                    //                                            if (!L.Browser.ie && !L.Browser.opera) {
+                                    //                                                layer.bringToFront();
+                                    //                                            }
+                                    //                                        },
+                                    //                                        mouseout: function (e) {
+                                    //                                            huc8.resetStyle(e.target);
+                                    //                                        },
+                                    //                                    });
                                 },
                             });
                             map.addLayer(huc8);
@@ -1955,21 +1955,21 @@ $(document).ready(function () {
                                 },
                                 onEachFeature: function (feature, layer) {
                                     layer.bindPopup('<p><i> HUC 10 Name: ' + feature.properties.hu_10_name + '</i></p>');
-                                    layer.on({
-                                        mouseover: function (e) {
-                                            layer.setStyle({
-                                                weight: 3,
-                                                color: '#00FFFF',
-                                                opacity: 1
-                                            });
-                                            if (!L.Browser.ie && !L.Browser.opera) {
-                                                layer.bringToFront();
-                                            }
-                                        },
-                                        mouseout: function (e) {
-                                            huc10.resetStyle(e.target);
-                                        },
-                                    });
+                                    //                                    layer.on({
+                                    //                                        mouseover: function (e) {
+                                    //                                            layer.setStyle({
+                                    //                                                weight: 3,
+                                    //                                                color: '#00FFFF',
+                                    //                                                opacity: 1
+                                    //                                            });
+                                    //                                            if (!L.Browser.ie && !L.Browser.opera) {
+                                    //                                                layer.bringToFront();
+                                    //                                            }
+                                    //                                        },
+                                    //                                        mouseout: function (e) {
+                                    //                                            huc10.resetStyle(e.target);
+                                    //                                        },
+                                    //                                    });
                                 },
                             });
                             map.addLayer(huc10);
@@ -1996,21 +1996,21 @@ $(document).ready(function () {
                                 },
                                 onEachFeature: function (feature, layer) {
                                     layer.bindPopup('<p><i> HUC 12 Name: ' + feature.properties.hu_12_name + '</i></p>');
-                                    layer.on({
-                                        mouseover: function (e) {
-                                            layer.setStyle({
-                                                weight: 3,
-                                                color: '#00FFFF',
-                                                opacity: 1
-                                            });
-                                            if (!L.Browser.ie && !L.Browser.opera) {
-                                                layer.bringToFront();
-                                            }
-                                        },
-                                        mouseout: function (e) {
-                                            huc12.resetStyle(e.target);
-                                        },
-                                    });
+                                    //                                    layer.on({
+                                    //                                        mouseover: function (e) {
+                                    //                                            layer.setStyle({
+                                    //                                                weight: 3,
+                                    //                                                color: '#00FFFF',
+                                    //                                                opacity: 1
+                                    //                                            });
+                                    //                                            if (!L.Browser.ie && !L.Browser.opera) {
+                                    //                                                layer.bringToFront();
+                                    //                                            }
+                                    //                                        },
+                                    //                                        mouseout: function (e) {
+                                    //                                            huc12.resetStyle(e.target);
+                                    //                                        },
+                                    //                                    });
                                 },
                             });
                             map.addLayer(huc12);
@@ -2037,21 +2037,21 @@ $(document).ready(function () {
                                 },
                                 onEachFeature: function (feature, layer) {
                                     layer.bindPopup('<p><i> Township Name: ' + feature.properties.feature_na + '</i></p>');
-                                    layer.on({
-                                        mouseover: function (e) {
-                                            layer.setStyle({
-                                                weight: 3,
-                                                color: '#00FFFF',
-                                                opacity: 1
-                                            });
-                                            if (!L.Browser.ie && !L.Browser.opera) {
-                                                layer.bringToFront();
-                                            }
-                                        },
-                                        mouseout: function (e) {
-                                            twnshp.resetStyle(e.target);
-                                        },
-                                    });
+                                    //                                    layer.on({
+                                    //                                        mouseover: function (e) {
+                                    //                                            layer.setStyle({
+                                    //                                                weight: 3,
+                                    //                                                color: '#00FFFF',
+                                    //                                                opacity: 1
+                                    //                                            });
+                                    //                                            if (!L.Browser.ie && !L.Browser.opera) {
+                                    //                                                layer.bringToFront();
+                                    //                                            }
+                                    //                                        },
+                                    //                                        mouseout: function (e) {
+                                    //                                            twnshp.resetStyle(e.target);
+                                    //                                        },
+                                    //                                    });
                                 },
                             });
                             map.addLayer(twnshp);
@@ -2193,21 +2193,21 @@ $(document).ready(function () {
                                 style: styleimptStrm,
                                 onEachFeature: function (feature, layer) {
                                     layer.bindPopup('<p><b><i> Impaired for: </b>' + feature.properties.imp_param + '</i></p>');
-                                    layer.on({
-                                        mouseover: function (e) {
-                                            layer.setStyle({
-                                                weight: 3,
-                                                color: '#00FFFF',
-                                                opacity: 1
-                                            });
-                                            if (!L.Browser.ie && !L.Browser.opera) {
-                                                layer.bringToFront();
-                                            }
-                                        },
-                                        mouseout: function (e) {
-                                            imptStrm.resetStyle(e.target);
-                                        },
-                                    });
+                                    //                                    layer.on({
+                                    //                                        mouseover: function (e) {
+                                    //                                            layer.setStyle({
+                                    //                                                weight: 3,
+                                    //                                                color: '#00FFFF',
+                                    //                                                opacity: 1
+                                    //                                            });
+                                    //                                            if (!L.Browser.ie && !L.Browser.opera) {
+                                    //                                                layer.bringToFront();
+                                    //                                            }
+                                    //                                        },
+                                    //                                        mouseout: function (e) {
+                                    //                                            imptStrm.resetStyle(e.target);
+                                    //                                        },
+                                    //                                    });
                                 },
                             });
                             map.addLayer(imptStrm);
@@ -2226,21 +2226,21 @@ $(document).ready(function () {
                                 style: styleimpLks,
                                 onEachFeature: function (feature, layer) {
                                     layer.bindPopup('<p><b><i> Impaired for: </b>' + feature.properties.imp_param + '</i></p>');
-                                    layer.on({
-                                        mouseover: function (e) {
-                                            layer.setStyle({
-                                                weight: 3,
-                                                color: '#00FFFF',
-                                                opacity: 1
-                                            });
-                                            if (!L.Browser.ie && !L.Browser.opera) {
-                                                layer.bringToFront();
-                                            }
-                                        },
-                                        mouseout: function (e) {
-                                            impLks.resetStyle(e.target);
-                                        },
-                                    });
+                                    //                                    layer.on({
+                                    //                                        mouseover: function (e) {
+                                    //                                            layer.setStyle({
+                                    //                                                weight: 3,
+                                    //                                                color: '#00FFFF',
+                                    //                                                opacity: 1
+                                    //                                            });
+                                    //                                            if (!L.Browser.ie && !L.Browser.opera) {
+                                    //                                                layer.bringToFront();
+                                    //                                            }
+                                    //                                        },
+                                    //                                        mouseout: function (e) {
+                                    //                                            impLks.resetStyle(e.target);
+                                    //                                        },
+                                    //                                    });
                                 }
                             });
                             map.addLayer(impLks);
