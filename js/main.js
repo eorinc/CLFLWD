@@ -188,7 +188,8 @@ var sidebar = L.control.sidebar('sidebar').addTo(map);
 //// URL's for Layers ////
 var a_distBound = 'clflwd:LkMgt_Dist_7_17';
 var a_cnty = 'minnesota:county_boundaries'; // county layer
-var a_twnshp = 'minnesota:cities_townships_unorg'; //township layer
+var a_twnshp = 'minnesota:townships_mv'; //township layer
+var a_city = 'clflwd:cities_clflwd'; //cities layer
 var a_huc8 = 'minnesota:WBD_HU8'; //USGS HUC 8
 var a_huc10 = 'minnesota:WBD_HU10'; //USGS HUC 10
 var a_huc12 = 'minnesota:WBD_HU12'; //USGS HUC 12
@@ -333,21 +334,21 @@ $.ajax({
             style: styledistBound,
             onEachFeature: function (feature, layer) {
                 layer.bindPopup('<p><b><i> District: </b>' + feature.properties.lkmgtdist + '</i></p>');
-//                layer.on({
-//                    mouseover: function (e) {
-//                        layer.setStyle({
-//                            weight: 3,
-//                            color: '#00FFFF',
-//                            opacity: 1
-//                        });
-//                        if (!L.Browser.ie && !L.Browser.opera) {
-//                            layer.bringToFront();
-//                        }
-//                    },
-//                    mouseout: function (e) {
-//                        distBound.resetStyle(e.target);
-//                    },
-//                });
+                layer.on({
+                    mouseover: function (e) {
+                        layer.setStyle({
+                            weight: 3,
+                            color: '#00FFFF',
+                            opacity: 1
+                        });
+                        if (!L.Browser.ie && !L.Browser.opera) {
+                            layer.bringToFront();
+                        }
+                    },
+                    mouseout: function (e) {
+                        distBound.resetStyle(e.target);
+                    },
+                });
             },
         });
         map.addLayer(distBound);
@@ -361,6 +362,8 @@ var cnty;
 var url_cnty = getMN_URL(a_cnty);
 var twnshp;
 var url_twnshp = getMN_URL(a_twnshp);
+var city;
+var url_city = getCLFL_URL(a_city);
 var huc8;
 var url_huc8 = getMN_URL(a_huc8);
 var huc10;
@@ -465,6 +468,10 @@ var url_mask = getCLFL_URL(a_mask);
 
 /// STYLE FUNCTIONS
 function styledistBound(feature) {
+    var x = document.getElementById("fillop_distBound");
+    var y = document.getElementById("boundop_distBound");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     type = feature.properties.lkmgtdist;
     var colorToUse;
     if (type === "Little Comfort") colorToUse = '#ffffbe';
@@ -477,37 +484,74 @@ function styledistBound(feature) {
         "color": '#000000',
         "fillColor": colorToUse,
         "weight": 3,
-        "fillOpacity": 0.8,
-        opacity: 0.2,
+        "fillOpacity": currentfillop,
+        opacity: currentboundop,
+
+    };
+}
+
+function stylecity(feature) {
+    var x = document.getElementById("fillop_city");
+    var y = document.getElementById("boundop_city");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
+    type = feature.properties.feature_na;
+    var colorToUse;
+    if (type === "Chisago City") colorToUse = '#1b9e77';
+    else if (type === "Chisago Lake") colorToUse = '#d95f02';
+    else if (type === "Forest Lake") colorToUse = '#7570b3';
+    else if (type === "Franconia") colorToUse = '#e7298a';
+    else if (type === "Scandia") colorToUse = '#66a61e';
+    else if (type === "Wyoming") colorToUse = '#e6ab02';
+    else colorToUse = "transparent";
+
+    return {
+        "color": '#000000',
+        "fillColor": colorToUse,
+        "weight": 3,
+        "fillOpacity": currentfillop,
+        opacity: currentboundop,
 
     };
 }
 
 function stylewellhead(feature) {
+    var x = document.getElementById("fillop_wellhead");
+    var y = document.getElementById("boundop_wellhead");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     return {
         "color": "#a65628",
         "fillColor": "#a65628",
         "weight": 2,
-        "fillOpacity": 0.8,
-        "opacity": 1,
+        "fillOpacity": currentfillop,
+        "opacity": currentboundop,
     };
 }
 
 function styleGradientwellhead(feature) {
+    var x = document.getElementById("fillop_wellhead");
+    var y = document.getElementById("boundop_wellhead");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     return {
         //        "color": "rgb(0,109,44)",
         //        "fillColor": "rgb(0,109,44)",
         "color": "#006d2c",
         "fillColor": "#006d2c",
         "weight": 2,
-        "fillOpacity": 0.8,
-        "opacity": 1,
+        "fillOpacity": currentfillop,
+        "opacity": currentboundop,
 
     };
 }
 
 // Water vulnerability
 function styleWtrVul(feature) {
+    var x = document.getElementById("fillop_wtrVul");
+    var y = document.getElementById("boundop_wtrVul");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     level = feature.properties.dws_vul;
     var colorToUse;
     if (level === "Very High") colorToUse = '#ff7f7f';
@@ -521,12 +565,16 @@ function styleWtrVul(feature) {
         "color": colorToUse,
         "fillColor": colorToUse,
         "weight": 2,
-        "opacity": 0.8,
-        "fillOpacity": 0.8
+        "fillOpacity": currentfillop,
+        "opacity": currentboundop,
     };
 }
 
 function styleGradientWtrVul(feature) {
+    var x = document.getElementById("fillop_wtrVul");
+    var y = document.getElementById("boundop_wtrVul");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     level = feature.properties.dws_vul;
     var colorToUse;
     if (level === "Very High") colorToUse = '#006d2c';
@@ -540,32 +588,42 @@ function styleGradientWtrVul(feature) {
         "color": colorToUse,
         "fillColor": colorToUse,
         "weight": 2,
-        "opacity": 0.8,
-        "fillOpacity": 0.8,
+        "fillOpacity": currentfillop,
+        "opacity": currentboundop,
     };
 }
 
 
 function stylefEMAflood(feature) {
+    var x = document.getElementById("fillop_fEMAflood");
+    var y = document.getElementById("boundop_fEMAflood");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     return {
         "color": "#ffff00",
         "fillColor": "#ffff00",
         weight: 2,
-        "fillOpacity": 0.5,
-        "opacity": 1,
+        "fillOpacity": currentfillop,
+        "opacity": currentboundop,
     };
 }
 
 function styleGradientfEMAflood(feature) {
+    var x = document.getElementById("fillop_fEMAflood");
+    var y = document.getElementById("boundop_fEMAflood");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     return {
         "color": "#084594",
         "fillColor": "#084594",
-        "fillOpacity": 0.5,
-        "opacity": 1,
+        "fillOpacity": currentfillop,
+        "opacity": currentboundop,
     };
 }
 
 function styleAltWtr(feature) {
+    var y = document.getElementById("boundop_altWtr");
+    var currentboundop = y.value;
     type = feature.properties.awevttype;
     var colorToUse;
     if (type === 1) colorToUse = '#f5605d';
@@ -576,11 +634,13 @@ function styleAltWtr(feature) {
 
     return {
         "color": colorToUse,
-        "opacity": 1,
+        "opacity": currentboundop,
     };
 }
 
 function styleGradientAltWtr(feature) {
+    var y = document.getElementById("boundop_altWtr");
+    var currentboundop = y.value;
     type = feature.properties.awevttype;
     var colorToUse;
     if (type === 1) colorToUse = '#084594';
@@ -588,11 +648,15 @@ function styleGradientAltWtr(feature) {
 
     return {
         "color": colorToUse,
-        "opacity": 1,
+        "opacity": currentboundop,
     };
 }
 
 function styleCONUS(feature) {
+    var x = document.getElementById("fillop_cONUS");
+    var y = document.getElementById("boundop_cONUS");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     type = feature.properties.wetland_ty;
     var colorToUse;
     if (type === "Freshwater Emergent Wetland") colorToUse = '#2884ed';
@@ -602,110 +666,156 @@ function styleCONUS(feature) {
         "color": colorToUse,
         "fillColor": colorToUse,
         "weight": 2,
-        "opacity": 1,
-        "fillOpacity": 0.8
+        "fillOpacity": currentfillop,
+        "opacity": currentboundop,
     };
 }
 
 function styleGradientCONUS(feature) {
+    var x = document.getElementById("fillop_cONUS");
+    var y = document.getElementById("boundop_cONUS");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     return {
         "color": "#084594",
         "fillColor": "#084594",
         "weight": 2,
-        "fillOpacity": 0.8,
-        "opacity": 1,
+        "fillOpacity": currentfillop,
+        "opacity": currentboundop,
     };
 }
 
 function stylebuffbasins(feature) {
+    var x = document.getElementById("fillop_buffbasins");
+    var y = document.getElementById("boundop_buffbasins");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     return {
         "color": "#4e579c",
         "fillColor": '#4e579c',
         "weight": 2,
-        "fillOpacity": 0.8,
-        "opacity": 1,
+        "fillOpacity": currentfillop,
+        "opacity": currentboundop,
 
     };
 }
 
 function styleGradientbuffbasins(feature) {
+    var x = document.getElementById("fillop_buffbasins");
+    var y = document.getElementById("boundop_buffbasins");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     return {
         "color": "#084594",
         "fillColor": '#084594',
         "weight": 2,
-        "fillOpacity": 0.8,
-        "opacity": 1,
+        "fillOpacity": currentfillop,
+        "opacity": currentboundop,
     };
 }
 
 function stylebuffwetlnds(feature) {
+    var x = document.getElementById("fillop_buffwetlnds");
+    var y = document.getElementById("boundop_buffwetlnds");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     return {
         "color": "#7e8be6",
         "fillColor": '#7e8be6',
         "weight": 2,
-        "fillOpacity": 0.8,
-        "opacity": 1,
+        "fillOpacity": currentfillop,
+        "opacity": currentboundop,
 
     };
 }
 
 function styleGradientbuffwetlnds(feature) {
+    var x = document.getElementById("fillop_buffwetlnds");
+    var y = document.getElementById("boundop_buffwetlnds");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     return {
         "color": "#084594",
         "fillColor": '#084594',
         "weight": 2,
-        "fillOpacity": 0.8,
-        "opacity": 1,
+        "fillOpacity": currentfillop,
+        "opacity": currentboundop,
     };
 }
 
 function stylebuffwtrcrse(feature) {
+    var y = document.getElementById("boundop_buffwtrcrse");
+    var currentboundop = y.value;
     return {
         "color": "#674d6e",
-        "opacity": 1,
+        "opacity": currentboundop,
     };
 }
 
 function styleGradientbuffwtrcrse(feature) {
+    var y = document.getElementById("boundop_buffwtrcrse");
+    var currentboundop = y.value;
     return {
         "color": "#084594",
-        "opacity": 1,
+        "opacity": currentboundop,
     };
 }
 
 function styleimptStrm(feature) {
+    var y = document.getElementById("boundop_imptStrm");
+    var currentboundop = y.value;
     return {
         "color": "#8c0007",
-        "opacity": 1,
+        "opacity": currentboundop,
     };
 }
 
 function styleGradientimptStrm(feature) {
+    var y = document.getElementById("boundop_imptStrm");
+    var currentboundop = y.value;
     return {
         "color": "#67000d",
-        "opacity": 1,
+        "opacity": currentboundop,
     };
 }
 
 function styleimpLks(feature) {
+    var x = document.getElementById("fillop_impLks");
+    var y = document.getElementById("boundop_impLks");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     return {
         "color": "#002366",
         "fillColor": "#002366",
-        "fillOpacity": 0.8,
-        "opacity": 1,
+        "fillOpacity": currentfillop,
+        "opacity": currentboundop,
     };
 }
 
 function styleGradientimpLks(feature) {
+    var x = document.getElementById("fillop_impLks");
+    var y = document.getElementById("boundop_impLks");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     return {
         "color": "#67000d",
         "fillColor": "#67000d",
-        "fillOpacity": 0.8,
-        "opacity": 1,
+        "fillOpacity": currentfillop,
+        "opacity": currentboundop,
     };
+    //        return {
+    //        "color": "#67000d",
+    //        "fillColor": "#67000d",
+    //        "fillOpacity": 0.8,
+    //        "opacity": 1,
+    //    };
 }
 
 function stylePhos(feature) {
+    var x = document.getElementById("fillop_phos");
+    var y = document.getElementById("boundop_phos");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     type = feature.properties.lpss_class;
     var colorToUse;
     if (type === "Highest") colorToUse = '#002673';
@@ -718,12 +828,16 @@ function stylePhos(feature) {
         "color": colorToUse,
         "fillColor": colorToUse,
         "weight": 2,
-        "opacity": 1,
-        "fillOpacity": 0.8
+        "opacity": currentboundop,
+        "fillOpacity": currentfillop
     };
 }
 
 function styleGradientPhos(feature) {
+    var x = document.getElementById("fillop_phos");
+    var y = document.getElementById("boundop_phos");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     type = feature.properties.lpss_class;
     var colorToUse;
     if (type === "Highest") colorToUse = '#67000d';
@@ -735,12 +849,16 @@ function styleGradientPhos(feature) {
         "color": colorToUse,
         "fillColor": colorToUse,
         "weight": 2,
-        "opacity": 1,
-        "fillOpacity": 0.8
+        "opacity": currentboundop,
+        "fillOpacity": currentfillop
     };
 }
 
 function stylelkes(feature) {
+    var x = document.getElementById("fillop_lkes");
+    var y = document.getElementById("boundop_lkes");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     type = feature.properties.aqr;
     var colorToUse;
     if (type === "FS") colorToUse = '#73B273';
@@ -753,12 +871,16 @@ function stylelkes(feature) {
         "color": colorToUse,
         "fillColor": colorToUse,
         "weight": 2,
-        "opacity": 1,
-        "fillOpacity": 0.8
+        "opacity": currentboundop,
+        "fillOpacity": currentfillop
     };
 }
 
 function stylestrms(feature) {
+    var x = document.getElementById("fillop_strms");
+    var y = document.getElementById("boundop_strms");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     type = feature.properties.aql;
     var colorToUse;
     if (type === "FS") colorToUse = '#73B273';
@@ -769,71 +891,100 @@ function stylestrms(feature) {
 
     return {
         "color": colorToUse,
-        "opacity": 1
+        "opacity": currentboundop,
+
     };
 }
 
 function styletrout(feature) {
+    var x = document.getElementById("fillop_trout");
+    var y = document.getElementById("boundop_trout");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     return {
         "color": "#f781bf",
         "fillColor": "#f781bf",
         "weight": 2,
-        "opacity": 1,
-        "fillOpacity": 0.8
+        "opacity": currentboundop,
+        "fillOpacity": currentfillop
     };
 }
 
 function styleGradienttrout(feature) {
+    var x = document.getElementById("fillop_trout");
+    var y = document.getElementById("boundop_trout");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     return {
         "color": "#756bb1",
         "fillColor": "#756bb1",
         "weight": 2,
-        "opacity": 1,
-        "fillOpacity": 0.8,
+        "opacity": currentboundop,
+        "fillOpacity": currentfillop
     };
 }
 
 function stylenatPra(feature) {
+    var x = document.getElementById("fillop_natPra");
+    var y = document.getElementById("boundop_natPra");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     return {
         "color": "#735100",
         "fillColor": "#735100",
         "weight": 2,
-        "opacity": 1,
-        "fillOpacity": 0.8,
+        "opacity": currentboundop,
+        "fillOpacity": currentfillop
     };
 }
 
 function styleGradientnatPra(feature) {
+    var x = document.getElementById("fillop_natPra");
+    var y = document.getElementById("boundop_natPra");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     return {
         "color": "#756bb1",
         "fillColor": "#756bb1",
         "weight": 2,
-        "opacity": 1,
-        "fillOpacity": 0.8,
+        "opacity": currentboundop,
+        "fillOpacity": currentfillop
     };
 }
 
 function stylenatPlnt(feature) {
+    var x = document.getElementById("fillop_natPlnt");
+    var y = document.getElementById("boundop_natPlnt");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     return {
         "color": "#71c98d",
         "fillColor": "#71c98d",
         "weight": 2,
-        "opacity": 1,
-        "fillOpacity": 0.8,
+        "opacity": currentboundop,
+        "fillOpacity": currentfillop
     };
 }
 
 function styleGradientnatPlnt(feature) {
+    var x = document.getElementById("fillop_natPlnt");
+    var y = document.getElementById("boundop_natPlnt");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     return {
         "color": "#756bb1",
         "fillColor": "#756bb1",
         "weight": 2,
-        "opacity": 1,
-        "fillOpacity": 0.8,
+        "opacity": currentboundop,
+        "fillOpacity": currentfillop
     };
 }
 
 function styleMBSBio(feature) {
+    var x = document.getElementById("fillop_mBSBio");
+    var y = document.getElementById("boundop_mBSBio");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     type = feature.properties.biodiv_sig;
     var colorToUse;
     if (type === "Outstanding") colorToUse = '#00cd00';
@@ -845,12 +996,16 @@ function styleMBSBio(feature) {
         "color": colorToUse,
         "fillColor": colorToUse,
         "weight": 2,
-        "opacity": 1,
-        "fillOpacity": 0.8
+        "opacity": currentboundop,
+        "fillOpacity": currentfillop
     };
 }
 
 function styleGradientMBSBio(feature) {
+    var x = document.getElementById("fillop_mBSBio");
+    var y = document.getElementById("boundop_mBSBio");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     type = feature.properties.biodiv_sig;
     var colorToUse;
     if (type === "Outstanding") colorToUse = '#756bb1';
@@ -861,101 +1016,141 @@ function styleGradientMBSBio(feature) {
         "color": colorToUse,
         "fillColor": colorToUse,
         "weight": 2,
-        "opacity": 1,
-        "fillOpacity": 0.8
+        "opacity": currentboundop,
+        "fillOpacity": currentfillop
     };
 }
 
 function stylegAP_DNR(feature) {
+    var x = document.getElementById("fillop_gAP_DNR");
+    var y = document.getElementById("boundop_gAP_DNR");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     return {
         "color": '#88cd66',
         "fillColor": '#88cd66',
         "weight": 2,
-        "opacity": 1,
-        "fillOpacity": 0.8
+        "opacity": currentboundop,
+        "fillOpacity": currentfillop
     };
 }
 
 function styleGradientgAP_DNR(feature) {
+    var x = document.getElementById("fillop_gAP_DNR");
+    var y = document.getElementById("boundop_gAP_DNR");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     return {
         "color": '#756bb1',
         "fillColor": '#756bb1',
         "weight": 2,
-        "opacity": 1,
-        "fillOpacity": 0.8
+        "opacity": currentboundop,
+        "fillOpacity": currentfillop
     };
 }
 
 function stylegAP_State(feature) {
+    var x = document.getElementById("fillop_gAP_State");
+    var y = document.getElementById("boundop_gAP_State");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     return {
         "color": '#e8beff',
         "fillColor": '#e8beff',
         "weight": 2,
-        "opacity": 1,
-        "fillOpacity": 0.8
+        "opacity": currentboundop,
+        "fillOpacity": currentfillop
     };
 }
 
 function styleGradientgAP_State(feature) {
+    var x = document.getElementById("fillop_gAP_State");
+    var y = document.getElementById("boundop_gAP_State");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     return {
         "color": '#756bb1',
         "fillColor": '#756bb1',
         "weight": 2,
-        "opacity": 1,
-        "fillOpacity": 0.8
+        "opacity": currentboundop,
+        "fillOpacity": currentfillop
     };
 }
 
 function stylegAP_Cnty(feature) {
+    var x = document.getElementById("fillop_gAP_Cnty");
+    var y = document.getElementById("boundop_gAP_Cnty");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     return {
         "color": '#ffff73',
         "fillColor": '#ffff73',
         "weight": 2,
-        "opacity": 1,
-        "fillOpacity": 0.8
+        "opacity": currentboundop,
+        "fillOpacity": currentfillop
     };
 }
 
 function styleGradientgAP_Cnty(feature) {
+    var x = document.getElementById("fillop_gAP_Cnty");
+    var y = document.getElementById("boundop_gAP_Cnty");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     return {
         "color": '#756bb1',
         "fillColor": '#756bb1',
         "weight": 2,
-        "opacity": 1,
-        "fillOpacity": 0.8
+        "opacity": currentboundop,
+        "fillOpacity": currentfillop
     };
 }
 
 function stylegAP_Fed(feature) {
+    var x = document.getElementById("fillop_gAP_Fed");
+    var y = document.getElementById("boundop_gAP_Fed");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     return {
         "color": '#bee8ff',
         "fillColor": '#bee8ff',
         "weight": 2,
-        "opacity": 1,
-        "fillOpacity": 0.8
+        "opacity": currentboundop,
+        "fillOpacity": currentfillop
     };
 }
 
 function styleGradientgAP_Fed(feature) {
+    var x = document.getElementById("fillop_gAP_Fed");
+    var y = document.getElementById("boundop_gAP_Fed");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     return {
         "color": '#756bb1',
         "fillColor": '#756bb1',
         "weight": 2,
-        "opacity": 1,
-        "fillOpacity": 0.8
+        "opacity": currentboundop,
+        "fillOpacity": currentfillop
     };
 }
 
 function styleeasemnts(feature) {
+    var x = document.getElementById("fillop_easemnts");
+    var y = document.getElementById("boundop_easemnts");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     return {
         "color": "#f28f24",
         "fillColor": "#f28f24",
-        "fillOpacity": 0.8,
-        "opacity": 1,
+        "opacity": currentboundop,
+        "fillOpacity": currentfillop
     };
 }
 
 function styleGSSURGO(feature) {
+    var x = document.getElementById("fillop_gSSURGO");
+    var y = document.getElementById("boundop_gSSURGO");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     type = feature.properties.hydrolgrp;
     var colorToUse;
     if (type === "A") colorToUse = '#aaff00';
@@ -970,12 +1165,16 @@ function styleGSSURGO(feature) {
         "color": colorToUse,
         "fillColor": colorToUse,
         "weight": 2,
-        "fillOpacity": 0.8,
-        "opacity": 1,
+        "opacity": currentboundop,
+        "fillOpacity": currentfillop,
     };
 }
 
 function styleBioIndex(feature) {
+    var x = document.getElementById("fillop_bioIndex");
+    var y = document.getElementById("boundop_bioIndex");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     type = feature.properties.b_i_mean;
     var colorToUse;
     if (type >= 0 && type <= 10) colorToUse = '#e60000';
@@ -993,12 +1192,16 @@ function styleBioIndex(feature) {
         "color": colorToUse,
         "fillColor": colorToUse,
         "weight": 2,
-        "opacity": 1,
-        "fillOpacity": 0.8
+        "opacity": currentboundop,
+        "fillOpacity": currentfillop
     };
 }
 
 function styleHydIndex(feature) {
+    var x = document.getElementById("fillop_hydIndex");
+    var y = document.getElementById("boundop_hydIndex");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     type = feature.properties.h_i_mean;
     var colorToUse;
     if (type >= 0 && type <= 10) colorToUse = '#e60000';
@@ -1016,12 +1219,16 @@ function styleHydIndex(feature) {
         "color": colorToUse,
         "fillColor": colorToUse,
         "weight": 2,
-        "opacity": 1,
-        "fillOpacity": 0.8
+        "opacity": currentboundop,
+        "fillOpacity": currentfillop
     };
 }
 
 function styleGeoIndex(feature) {
+    var x = document.getElementById("fillop_geoIndex");
+    var y = document.getElementById("boundop_geoIndex");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     type = feature.properties.g_i_mean;
     var colorToUse;
     if (type >= 0 && type <= 10) colorToUse = '#e60000';
@@ -1039,12 +1246,16 @@ function styleGeoIndex(feature) {
         "color": colorToUse,
         "fillColor": colorToUse,
         "weight": 2,
-        "opacity": 1,
-        "fillOpacity": 0.8
+        "opacity": currentboundop,
+        "fillOpacity": currentfillop
     };
 }
 
 function styleConIndex(feature) {
+    var x = document.getElementById("fillop_conIndex");
+    var y = document.getElementById("boundop_conIndex");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     type = feature.properties.c_i_mean;
     var colorToUse;
     if (type >= 0 && type <= 10) colorToUse = '#e60000';
@@ -1062,12 +1273,16 @@ function styleConIndex(feature) {
         "color": colorToUse,
         "fillColor": colorToUse,
         "weight": 2,
-        "opacity": 1,
-        "fillOpacity": 0.8
+        "opacity": currentboundop,
+        "fillOpacity": currentfillop
     };
 }
 
 function styleWQIndex(feature) {
+    var x = document.getElementById("fillop_wQIndex");
+    var y = document.getElementById("boundop_wQIndex");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     type = feature.properties.w_i_mean;
     var colorToUse;
     if (type >= 0 && type <= 10) colorToUse = '#e60000';
@@ -1085,12 +1300,16 @@ function styleWQIndex(feature) {
         "color": colorToUse,
         "fillColor": colorToUse,
         "weight": 2,
-        "opacity": 1,
-        "fillOpacity": 0.8
+        "opacity": currentboundop,
+        "fillOpacity": currentfillop
     };
 }
 
 function styleCombIndex(feature) {
+    var x = document.getElementById("fillop_combIndex");
+    var y = document.getElementById("boundop_combIndex");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     type = feature.properties.a_i_mean;
     var colorToUse;
     if (type >= 0 && type <= 10) colorToUse = '#e60000';
@@ -1108,12 +1327,16 @@ function styleCombIndex(feature) {
         "color": colorToUse,
         "fillColor": colorToUse,
         "weight": 2,
-        "opacity": 1,
-        "fillOpacity": 0.8
+        "opacity": currentboundop,
+        "fillOpacity": currentfillop
     };
 }
 
 function styleBedrockPoll(feature) {
+    var x = document.getElementById("fillop_bedrockPoll");
+    var y = document.getElementById("boundop_bedrockPoll");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     type = feature.properties.rating;
     var colorToUse;
     if (type === "VH") colorToUse = '#f26f52';
@@ -1124,12 +1347,16 @@ function styleBedrockPoll(feature) {
         "color": colorToUse,
         "fillColor": colorToUse,
         "weight": 2,
-        "opacity": 1,
-        "fillOpacity": 0.8
+        "opacity": currentboundop,
+        "fillOpacity": currentfillop
     };
 }
 
 function styleGradientbedrockPoll(feature) {
+    var x = document.getElementById("fillop_bedrockPoll");
+    var y = document.getElementById("boundop_bedrockPoll");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
     type = feature.properties.rating;
     var colorToUse;
     if (type === "VH") colorToUse = '#2ca25f';
@@ -1140,8 +1367,8 @@ function styleGradientbedrockPoll(feature) {
         "color": colorToUse,
         "fillColor": colorToUse,
         "weight": 2,
-        "fillOpacity": 0.8,
-        "opacity": 1,
+        "opacity": currentboundop,
+        "fillOpacity": currentfillop
     };
 }
 
@@ -1235,6 +1462,17 @@ var legendcnty = L.control.htmllegend({
         name: 'Counties',
         elements: [{
             html: document.querySelector('#cntyLegend').innerHTML
+            }]
+        }],
+    detectStretched: true,
+});
+var legendcity = L.control.htmllegend({
+    position: 'bottomleft',
+    layer: 'Cities',
+    legends: [{
+        name: 'Cities',
+        elements: [{
+            html: document.querySelector('#cityLegend').innerHTML
             }]
         }],
     detectStretched: true,
@@ -1829,21 +2067,22 @@ $(document).ready(function () {
                                 style: styledistBound,
                                 onEachFeature: function (feature, layer) {
                                     layer.bindPopup('<p><b><i> District: </b>' + feature.properties.lkmgtdist + '</i></p>');
-                                    //                                    layer.on({
-                                    //                                        mouseover: function (e) {
-                                    //                                            layer.setStyle({
-                                    //                                                weight: 3,
-                                    //                                                color: '#00FFFF',
-                                    //                                                opacity: 1
-                                    //                                            });
-                                    //                                            if (!L.Browser.ie && !L.Browser.opera) {
-                                    //                                                layer.bringToFront();
-                                    //                                            }
-                                    //                                        },
-                                    //                                        mouseout: function (e) {
-                                    //                                            distBound.resetStyle(e.target);
-                                    //                                        },
-                                    //                                    });
+                                    layer.on({
+                                        mouseover: function (e) {
+                                            layer.setStyle({
+                                                weight: 3,
+                                                color: '#00FFFF',
+                                                opacity: 1
+                                            });
+                                            if (!L.Browser.ie && !L.Browser.opera) {
+                                                layer.bringToFront();
+                                            }
+                                        },
+                                        mouseout: function (e) {
+                                            //                                            console.log(e);
+                                            distBound.resetStyle(e.target);
+                                        },
+                                    });
                                 },
                             });
                             map.addLayer(distBound);
@@ -1871,25 +2110,61 @@ $(document).ready(function () {
                                 },
                                 onEachFeature: function (feature, layer) {
                                     layer.bindPopup('<p><i> County: ' + feature.properties.county_nam + '</i></p>');
-                                    //                                    layer.on({
-                                    //                                        mouseover: function (e) {
-                                    //                                            layer.setStyle({
-                                    //                                                weight: 3,
-                                    //                                                color: '#00FFFF',
-                                    //                                                opacity: 1
-                                    //                                            });
-                                    //                                            if (!L.Browser.ie && !L.Browser.opera) {
-                                    //                                                layer.bringToFront();
-                                    //                                            }
-                                    //                                        },
-                                    //                                        mouseout: function (e) {
-                                    //                                            cnty.resetStyle(e.target);
-                                    //                                        },
-                                    //                                    });
+                                    layer.on({
+                                        mouseover: function (e) {
+                                            layer.setStyle({
+                                                weight: 3,
+                                                color: '#00FFFF',
+                                                opacity: 1
+                                            });
+                                            if (!L.Browser.ie && !L.Browser.opera) {
+                                                layer.bringToFront();
+                                            }
+                                        },
+                                        mouseout: function (e) {
+                                            cnty.resetStyle(e.target);
+                                        },
+                                    });
                                 },
 
                             });
                             map.addLayer(cnty);
+                        }
+
+                    }); //end of call for county variable
+                    break;
+                    ///////////NEED OT CHECK THIS /////////////
+                case 'city_layer':
+                    $.ajax({
+                        url: url_city,
+                        dataType: 'jsonp',
+                        jsonpCallback: a_city.replace(":", ""),
+                        success: function (response) {
+                            city = L.geoJson(response, {
+                                attribution: '',
+                                interactive: true,
+                                style: stylecity,
+                                onEachFeature: function (feature, layer) {
+                                    layer.bindPopup('<p><i> City: ' + feature.properties.feature_na + '</i></p>');
+                                    layer.on({
+                                        mouseover: function (e) {
+                                            layer.setStyle({
+                                                weight: 3,
+                                                color: '#00FFFF',
+                                                opacity: 1
+                                            });
+                                            if (!L.Browser.ie && !L.Browser.opera) {
+                                                layer.bringToFront();
+                                            }
+                                        },
+                                        mouseout: function (e) {
+                                            city.resetStyle(e.target);
+                                        },
+                                    });
+                                },
+
+                            });
+                            map.addLayer(city);
                         }
 
                     }); //end of call for county variable
@@ -1914,21 +2189,21 @@ $(document).ready(function () {
                                 },
                                 onEachFeature: function (feature, layer) {
                                     layer.bindPopup('<p><i> HUC 8 Name: ' + feature.properties.hu_8_name + '</i></p>');
-                                    //                                    layer.on({
-                                    //                                        mouseover: function (e) {
-                                    //                                            layer.setStyle({
-                                    //                                                weight: 3,
-                                    //                                                color: '#00FFFF',
-                                    //                                                opacity: 1
-                                    //                                            });
-                                    //                                            if (!L.Browser.ie && !L.Browser.opera) {
-                                    //                                                layer.bringToFront();
-                                    //                                            }
-                                    //                                        },
-                                    //                                        mouseout: function (e) {
-                                    //                                            huc8.resetStyle(e.target);
-                                    //                                        },
-                                    //                                    });
+                                    layer.on({
+                                        mouseover: function (e) {
+                                            layer.setStyle({
+                                                weight: 3,
+                                                color: '#00FFFF',
+                                                opacity: 1
+                                            });
+                                            if (!L.Browser.ie && !L.Browser.opera) {
+                                                layer.bringToFront();
+                                            }
+                                        },
+                                        mouseout: function (e) {
+                                            huc8.resetStyle(e.target);
+                                        },
+                                    });
                                 },
                             });
                             map.addLayer(huc8);
@@ -1955,21 +2230,21 @@ $(document).ready(function () {
                                 },
                                 onEachFeature: function (feature, layer) {
                                     layer.bindPopup('<p><i> HUC 10 Name: ' + feature.properties.hu_10_name + '</i></p>');
-                                    //                                    layer.on({
-                                    //                                        mouseover: function (e) {
-                                    //                                            layer.setStyle({
-                                    //                                                weight: 3,
-                                    //                                                color: '#00FFFF',
-                                    //                                                opacity: 1
-                                    //                                            });
-                                    //                                            if (!L.Browser.ie && !L.Browser.opera) {
-                                    //                                                layer.bringToFront();
-                                    //                                            }
-                                    //                                        },
-                                    //                                        mouseout: function (e) {
-                                    //                                            huc10.resetStyle(e.target);
-                                    //                                        },
-                                    //                                    });
+                                    layer.on({
+                                        mouseover: function (e) {
+                                            layer.setStyle({
+                                                weight: 3,
+                                                color: '#00FFFF',
+                                                opacity: 1
+                                            });
+                                            if (!L.Browser.ie && !L.Browser.opera) {
+                                                layer.bringToFront();
+                                            }
+                                        },
+                                        mouseout: function (e) {
+                                            huc10.resetStyle(e.target);
+                                        },
+                                    });
                                 },
                             });
                             map.addLayer(huc10);
@@ -1996,21 +2271,21 @@ $(document).ready(function () {
                                 },
                                 onEachFeature: function (feature, layer) {
                                     layer.bindPopup('<p><i> HUC 12 Name: ' + feature.properties.hu_12_name + '</i></p>');
-                                    //                                    layer.on({
-                                    //                                        mouseover: function (e) {
-                                    //                                            layer.setStyle({
-                                    //                                                weight: 3,
-                                    //                                                color: '#00FFFF',
-                                    //                                                opacity: 1
-                                    //                                            });
-                                    //                                            if (!L.Browser.ie && !L.Browser.opera) {
-                                    //                                                layer.bringToFront();
-                                    //                                            }
-                                    //                                        },
-                                    //                                        mouseout: function (e) {
-                                    //                                            huc12.resetStyle(e.target);
-                                    //                                        },
-                                    //                                    });
+                                    layer.on({
+                                        mouseover: function (e) {
+                                            layer.setStyle({
+                                                weight: 3,
+                                                color: '#00FFFF',
+                                                opacity: 1
+                                            });
+                                            if (!L.Browser.ie && !L.Browser.opera) {
+                                                layer.bringToFront();
+                                            }
+                                        },
+                                        mouseout: function (e) {
+                                            huc12.resetStyle(e.target);
+                                        },
+                                    });
                                 },
                             });
                             map.addLayer(huc12);
@@ -2037,21 +2312,21 @@ $(document).ready(function () {
                                 },
                                 onEachFeature: function (feature, layer) {
                                     layer.bindPopup('<p><i> Township Name: ' + feature.properties.feature_na + '</i></p>');
-                                    //                                    layer.on({
-                                    //                                        mouseover: function (e) {
-                                    //                                            layer.setStyle({
-                                    //                                                weight: 3,
-                                    //                                                color: '#00FFFF',
-                                    //                                                opacity: 1
-                                    //                                            });
-                                    //                                            if (!L.Browser.ie && !L.Browser.opera) {
-                                    //                                                layer.bringToFront();
-                                    //                                            }
-                                    //                                        },
-                                    //                                        mouseout: function (e) {
-                                    //                                            twnshp.resetStyle(e.target);
-                                    //                                        },
-                                    //                                    });
+                                    layer.on({
+                                        mouseover: function (e) {
+                                            layer.setStyle({
+                                                weight: 3,
+                                                color: '#00FFFF',
+                                                opacity: 1
+                                            });
+                                            if (!L.Browser.ie && !L.Browser.opera) {
+                                                layer.bringToFront();
+                                            }
+                                        },
+                                        mouseout: function (e) {
+                                            twnshp.resetStyle(e.target);
+                                        },
+                                    });
                                 },
                             });
                             map.addLayer(twnshp);
@@ -2193,21 +2468,26 @@ $(document).ready(function () {
                                 style: styleimptStrm,
                                 onEachFeature: function (feature, layer) {
                                     layer.bindPopup('<p><b><i> Impaired for: </b>' + feature.properties.imp_param + '</i></p>');
-                                    //                                    layer.on({
-                                    //                                        mouseover: function (e) {
-                                    //                                            layer.setStyle({
-                                    //                                                weight: 3,
-                                    //                                                color: '#00FFFF',
-                                    //                                                opacity: 1
-                                    //                                            });
-                                    //                                            if (!L.Browser.ie && !L.Browser.opera) {
-                                    //                                                layer.bringToFront();
-                                    //                                            }
-                                    //                                        },
-                                    //                                        mouseout: function (e) {
-                                    //                                            imptStrm.resetStyle(e.target);
-                                    //                                        },
-                                    //                                    });
+                                    layer.on({
+                                        mouseover: function (e) {
+                                            layer.setStyle({
+                                                weight: 3,
+                                                color: '#00FFFF',
+                                                opacity: 1
+                                            });
+                                            if (!L.Browser.ie && !L.Browser.opera) {
+                                                layer.bringToFront();
+                                            }
+                                        },
+                                        mouseout: function (e) {
+                                            var checkVal = document.getElementById("styleGradientimptStrm").checked;
+                                            if (checkVal === true) {
+                                                imptStrm.setStyle(styleGradientimptStrm);
+                                            } else {
+                                                imptStrm.resetStyle(e.target);
+                                            }
+                                        },
+                                    });
                                 },
                             });
                             map.addLayer(imptStrm);
@@ -2226,21 +2506,26 @@ $(document).ready(function () {
                                 style: styleimpLks,
                                 onEachFeature: function (feature, layer) {
                                     layer.bindPopup('<p><b><i> Impaired for: </b>' + feature.properties.imp_param + '</i></p>');
-                                    //                                    layer.on({
-                                    //                                        mouseover: function (e) {
-                                    //                                            layer.setStyle({
-                                    //                                                weight: 3,
-                                    //                                                color: '#00FFFF',
-                                    //                                                opacity: 1
-                                    //                                            });
-                                    //                                            if (!L.Browser.ie && !L.Browser.opera) {
-                                    //                                                layer.bringToFront();
-                                    //                                            }
-                                    //                                        },
-                                    //                                        mouseout: function (e) {
-                                    //                                            impLks.resetStyle(e.target);
-                                    //                                        },
-                                    //                                    });
+                                    layer.on({
+                                        mouseover: function (e) {
+                                            layer.setStyle({
+                                                weight: 3,
+                                                color: '#00FFFF',
+                                                opacity: 1
+                                            });
+                                            if (!L.Browser.ie && !L.Browser.opera) {
+                                                layer.bringToFront();
+                                            }
+                                        },
+                                        mouseout: function (e) {
+                                            var checkVal = document.getElementById("styleGradientimpLks").checked;
+                                            if (checkVal === true) {
+                                                impLks.setStyle(styleGradientimpLks);
+                                            } else {
+                                                impLks.resetStyle(e.target);
+                                            }
+                                        },
+                                    });
                                 }
                             });
                             map.addLayer(impLks);

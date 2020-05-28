@@ -97,8 +97,8 @@
                             </div>
                         </div>
                         <div class="card card-body">
-                            <p>Fill Opacity<input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, distBound)"><span class="range-slider_val"></span></p>
-                            <p>Boundary Opacity<input class="slider" type="range" min="0" max="1" step="0.1" value="0.2" oninput="updateOpacityBound(this.value, distBound)"><span class="range-slider_val"></span></p> <br>
+                            <p>Fill Opacity<input id="fillop_distBound" class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, distBound)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity<input id="boundop_distBound" class="slider" type="range" min="0" max="1" step="0.1" value="0.2" oninput="updateOpacityBound(this.value, distBound)"><span class="range-slider_val"></span></p> <br>
                         </div>
                     </div>
 
@@ -158,9 +158,9 @@
                         </div>
                         <div class="card card-body">
                             <p>Fill Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value=".2" oninput="updateOpacity(this.value, cnty)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_cnty" class="slider" type="range" min="0" max="1" step="0.1" value=".2" oninput="updateOpacity(this.value, cnty)"><span class="range-slider_val"></span></p>
                             <p>Boundary Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, cnty)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_cnty" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, cnty)"><span class="range-slider_val"></span></p>
                         </div>
                     </div>
                 </div>
@@ -192,14 +192,62 @@
                         </div>
                         <div class="card card-body">
                             <p>Fill Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value=".2" oninput="updateOpacity(this.value, twnshp)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_twnshp" class="slider" type="range" min="0" max="1" step="0.1" value=".2" oninput="updateOpacity(this.value, twnshp)"><span class="range-slider_val"></span></p>
                             <p>Boundary Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, twnshp)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_twnshp" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, twnshp)"><span class="range-slider_val"></span></p>
                         </div>
                     </div>
                 </div>
 
                 <!--                END Township -->
+                <div class="wrapper">
+                    <p class="maplayer"><input type="checkbox" value="city" id="city_layer"> Cities
+
+                        <!--                Buttons -->
+                        <button class="btn-xs btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsecity" aria-expanded="false" aria-controls="collapsecity" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span>
+                        </button>
+                    </p>
+                    <!--Collapsed Div's-->
+                    <div class="collapse" id="collapsecity">
+                        <div class="card card-body legendcard" id="cityLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#1b9e77; stroke-width:2; stroke:#000000; fill-opacity:0.8" />
+                                </svg>Chisago City<br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#d95f02; stroke-width:2; stroke:#000000; fill-opacity:0.8" />
+                                </svg>Chisago Lake<br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#7570b3; stroke-width:2; stroke:#000000; fill-opacity:0.8" />
+                                </svg>Forest Lake<br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#e7298a; stroke-width:2; stroke:#000000; fill-opacity:0.8" />
+                                </svg>Franconia<br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#66a61e; stroke-width:2; stroke:#000000; fill-opacity:0.8" />
+                                </svg>Scandia<br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#e6ab02; stroke-width:2; stroke:#000000; fill-opacity:0.8" />
+                                </svg>Wyoming<br></p>
+                        </div>
+
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#cityLegend" class="showLegend" value="legendcity" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Fill Opacity
+                                <input id="fillop_city" class="slider" type="range" min="0" max="1" step="0.1" value=".4" oninput="updateOpacity(this.value, city)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity
+                                <input id="boundop_city" class="slider" type="range" min="0" max="1" step="0.1" value=".8" oninput="updateOpacityBound(this.value, city)"><span class="range-slider_val"></span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!--                END Cities -->
 
                 <div class="wrapper">
                     <p class="maplayer"> <input type="checkbox" value="huc8" id="huc8_layer"> Major Watershed (HUC 8)
@@ -225,9 +273,9 @@
 
                         <div class="card card-body">
                             <p>Fill Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value=".2" oninput="updateOpacity(this.value, huc8)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_huc8" class="slider" type="range" min="0" max="1" step="0.1" value=".2" oninput="updateOpacity(this.value, huc8)"><span class="range-slider_val"></span></p>
                             <p>Boundary Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, huc8)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_huc8" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, huc8)"><span class="range-slider_val"></span></p>
                         </div>
                     </div>
 
@@ -255,9 +303,9 @@
                         </div>
                         <div class="card card-body">
                             <p>Fill Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value=".2" oninput="updateOpacity(this.value, huc10)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_huc10" class="slider" type="range" min="0" max="1" step="0.1" value=".2" oninput="updateOpacity(this.value, huc10)"><span class="range-slider_val"></span></p>
                             <p>Boundary Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, huc10)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_huc10" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, huc10)"><span class="range-slider_val"></span></p>
                         </div>
                     </div>
                 </div>
@@ -283,9 +331,9 @@
                         </div>
                         <div class="card card-body">
                             <p>Fill Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value=".2" oninput="updateOpacity(this.value, huc12)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_huc12" class="slider" type="range" min="0" max="1" step="0.1" value=".2" oninput="updateOpacity(this.value, huc12)"><span class="range-slider_val"></span></p>
                             <p>Boundary Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, huc12)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_huc12" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, huc12)"><span class="range-slider_val"></span></p>
                         </div>
                     </div>
                 </div>
@@ -327,9 +375,9 @@
 
                         <div class="card card-body range-slider">
                             <p>Fill Opacity
-                                <input class="slider wtrVulFill" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, wtrVul)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_wtrVul" class="slider wtrVulFill" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, wtrVul)"><span class="range-slider_val"></span></p>
                             <p>Boundary Opacity
-                                <input class="slider wtrVulBound" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacityBound(this.value, wtrVul)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_wtrVul" class="slider wtrVulBound" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacityBound(this.value, wtrVul)"><span class="range-slider_val"></span></p>
 
                             <p class="color-scheme"><input type="checkbox" name="styleWtrVul" class="colorGrade" id="styleGradientWtrVul" value="wtrVul"> Change to Gradient Color Schema</p>
 
@@ -357,9 +405,9 @@
                         </div>
                         <div class="card card-body">
                             <p>Fill Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, wellhead)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_wellhead" class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, wellhead)"><span class="range-slider_val"></span></p>
                             <p>Boundary Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput=" updateOpacityBound(this.value, wellhead)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_wellhead" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput=" updateOpacityBound(this.value, wellhead)"><span class="range-slider_val"></span></p>
                             <p class="color-scheme"><input type="checkbox" name="stylewellhead" class="colorGrade" id="styleGradientwellhead" value="wellhead"> Change to Gradient Color Schema</p>
                         </div>
                     </div>
@@ -392,9 +440,9 @@
                         </div>
                         <div class="card card-body">
                             <p>Fill Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, bedrockPoll)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_bedrockPoll" class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, bedrockPoll)"><span class="range-slider_val"></span></p>
                             <p>Boundary Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, bedrockPoll)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_bedrockPoll" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, bedrockPoll)"><span class="range-slider_val"></span></p>
                             <p class="color-scheme"><input type="checkbox" name="styleBedrockPoll" class="colorGrade" id="styleGradientbedrockPoll" value="bedrockPoll"> Change to Gradient Color Schema</p>
                         </div>
 
@@ -436,7 +484,7 @@
                         </div>
                         <div class="card card-body">
                             <p>Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityTilepollsens(this.value)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_pollsens" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityTilepollsens(this.value)"><span class="range-slider_val"></span></p>
                             <p class="color-scheme"><input type="checkbox" class="pollution-sens" id="pollsensGradient" value="pollsens"> Change to Gradient Color Schema<br><i class="gradientNote">&#42;&#42;Only showing values: Low - High</i></p>
                         </div>
 
@@ -466,9 +514,9 @@
                         </div>
                         <div class="card card-body">
                             <p>Fill Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.5" oninput="updateOpacity(this.value, fEMAflood)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_fEMAflood" class="slider" type="range" min="0" max="1" step="0.1" value="0.5" oninput="updateOpacity(this.value, fEMAflood)"><span class="range-slider_val"></span></p>
                             <p>Boundary Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, fEMAflood)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_fEMAflood" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, fEMAflood)"><span class="range-slider_val"></span></p>
                             <p class="color-scheme"><input type="checkbox" name="stylefEMAflood" class="colorGrade" id="styleGradientfEMAflood" value="fEMAflood"> Change to Gradient Color Schema</p>
                         </div>
                     </div>
@@ -506,7 +554,7 @@
 
                         <div class="card card-body">
                             <p>Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, altwtr)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_altwtr" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, altwtr)"><span class="range-slider_val"></span></p>
                             <p class="color-scheme"><input type="checkbox" name="styleAltWtr" class="colorGrade" id="styleGradientAltWtr" value="altwtr"> Change to Gradient Color Schema<br><i class="gradientNote">&#42;&#42;Only showing value: Altered</i></p>
                         </div>
                     </div>
@@ -536,9 +584,9 @@
                         </div>
                         <div class="card card-body">
                             <p>Fill Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, cONUS)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_cONUS" class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, cONUS)"><span class="range-slider_val"></span></p>
                             <p>Boundary Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, cONUS)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_cONUS" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, cONUS)"><span class="range-slider_val"></span></p>
                             <p class="color-scheme"><input type="checkbox" name="styleCONUS" class="colorGrade" id="styleGradientCONUS" value="cONUS"> Change to Gradient Color Schema</p>
                         </div>
                     </div>
@@ -565,9 +613,9 @@
                         </div>
                         <div class="card card-body">
                             <p>Fill Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, buffbasins)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_buffbasins" class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, buffbasins)"><span class="range-slider_val"></span></p>
                             <p>Boundary Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, buffbasins)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_buffbasins" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, buffbasins)"><span class="range-slider_val"></span></p>
                             <p class="color-scheme"><input type="checkbox" name="stylebuffwetlnds" class="colorGrade" id="styleGradientbuffbasins" value="buffbuffbasins"> Change to Gradient Color Schema</p>
                         </div>
                     </div>
@@ -593,9 +641,9 @@
                         </div>
                         <div class="card card-body">
                             <p>Fill Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, buffwetlnds)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_buffwetlnds" class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, buffwetlnds)"><span class="range-slider_val"></span></p>
                             <p>Boundary Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, buffwetlnds)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_buffwetlnds" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, buffwetlnds)"><span class="range-slider_val"></span></p>
                             <p class="color-scheme"><input type="checkbox" name="stylebuffwetlnds" class="colorGrade" id="styleGradientbuffwetlnds" value="buffwetlnds"> Change to Gradient Color Schema</p>
                         </div>
                     </div>
@@ -621,7 +669,7 @@
                         </div>
                         <div class="card card-body">
                             <p>Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, buffwtrcrse)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_buffwtrcrse" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, buffwtrcrse)"><span class="range-slider_val"></span></p>
                             <p class="color-scheme"><input type="checkbox" name="stylebuffwtrcrse" class="colorGrade" id="styleGradientbuffwtrcrse" value="buffwtrcrse"> Change to Gradient Color Schema</p>
                         </div>
 
@@ -685,7 +733,7 @@
                         </div>
                         <div class="card card-body">
                             <p>Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, imptStrm)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_imptStrm" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, imptStrm)"><span class="range-slider_val"></span></p>
                             <p class="color-scheme"><input type="checkbox" name="styleimptStrm" class="colorGrade" id="styleGradientimptStrm" value="imptStrm"> Change to Gradient Color Schema</p>
                         </div>
                     </div>
@@ -711,9 +759,9 @@
                         </div>
                         <div class="card card-body">
                             <p>Fill Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, impLks)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_impLks" class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, impLks)"><span class="range-slider_val"></span></p>
                             <p>Boundary Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, impLks)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_impLks" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, impLks)"><span class="range-slider_val"></span></p>
                             <p class="color-scheme"><input type="checkbox" name="styleimpLks" class="colorGrade" id="styleGradientimpLks" value="impLks"> Change to Gradient Color Schema</p>
                         </div>
                     </div>
@@ -749,7 +797,7 @@
                         </div>
                         <div class="card card-body">
                             <p>Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, strms)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_strms" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, strms)"><span class="range-slider_val"></span></p>
                         </div>
                     </div>
                 </div>
@@ -784,9 +832,9 @@
                         </div>
                         <div class="card card-body">
                             <p>Fill Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, lkes)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_lkes" class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, lkes)"><span class="range-slider_val"></span></p>
                             <p>Boundary Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, lkes)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_lkes" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, lkes)"><span class="range-slider_val"></span></p>
                         </div>
                     </div>
                 </div>
@@ -821,9 +869,9 @@
                         </div>
                         <div class="card card-body">
                             <p>Fill Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, phos)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_phos" class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, phos)"><span class="range-slider_val"></span></p>
                             <p>Boundary Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, phos)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_phos" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, phos)"><span class="range-slider_val"></span></p>
                             <p class="color-scheme"><input type="checkbox" name="stylePhos" class="colorGrade" id="styleGradientPhos" value="phos"> Change to Gradient Color Schema<br><i class="gradientNote">&#42;&#42;Only showing values: High - Highest</i></p>
                         </div>
 
@@ -855,7 +903,7 @@
                         </div>
                         <div class="card card-body">
                             <p>Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, trout)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_trout" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, trout)"><span class="range-slider_val"></span></p>
                             <p class="color-scheme"><input type="checkbox" name="styletrout" class="colorGrade" id="styleGradienttrout" value="trout"> Change to Gradient Color Schema</p>
                         </div>
                     </div>
@@ -882,9 +930,9 @@
                         </div>
                         <div class="card card-body">
                             <p>Fill Opacity
-                                <input class="slider" type="range" min="0" max="1" value="0.8" step="0.1" oninput="updateOpacity(this.value, natPra)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_natPra" class="slider" type="range" min="0" max="1" value="0.8" step="0.1" oninput="updateOpacity(this.value, natPra)"><span class="range-slider_val"></span></p>
                             <p>Boundary Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, natPra)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_natPra" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, natPra)"><span class="range-slider_val"></span></p>
                             <p class="color-scheme"><input type="checkbox" name="stylenatPra" class="colorGrade" id="styleGradientnatPra" value="natPra"> Change to Gradient Color Schema</p>
                         </div>
                     </div>
@@ -911,9 +959,9 @@
                         </div>
                         <div class="card card-body">
                             <p>Fill Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, natPlnt)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_natPlnt" class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, natPlnt)"><span class="range-slider_val"></span></p>
                             <p>Boundary Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, natPlnt)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_natPlnt" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, natPlnt)"><span class="range-slider_val"></span></p>
                             <p class="color-scheme"><input type="checkbox" name="stylenatPlnt" class="colorGrade" id="styleGradientnatPlnt" value="natPlnt"> Change to Gradient Color Schema</p>
                         </div>
 
@@ -950,9 +998,9 @@
                         </div>
                         <div class="card card-body">
                             <p>Fill Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, mBSbio)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_mBSbio" class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, mBSbio)"><span class="range-slider_val"></span></p>
                             <p>Boundary Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, mBSbio)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_mBSbio" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, mBSbio)"><span class="range-slider_val"></span></p>
                             <p class="color-scheme"><input type="checkbox" name="styleMBSBio" class="colorGrade" id="styleGradientMBSBio" value="mBSbio"> Change to Gradient Color Schema <br><i class="gradientNote">&#42;&#42;Only showing values: Moderate - Outstanding</i></p>
                         </div>
                     </div>
@@ -983,9 +1031,9 @@
                         </div>
                         <div class="card card-body">
                             <p>Fill Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, gAP_DNR)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_gAP_DNR" class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, gAP_DNR)"><span class="range-slider_val"></span></p>
                             <p>Boundary Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, gAP_DNR)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_gAP_DNR" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, gAP_DNR)"><span class="range-slider_val"></span></p>
                             <p class="color-scheme"><input type="checkbox" name="stylegAP_DNR" class="colorGrade" id="styleGradientgAP_DNR" value="gAP_DNR"> Change to Gradient Color Schema</p>
                         </div>
                     </div>
@@ -1012,9 +1060,9 @@
                         </div>
                         <div class="card card-body">
                             <p>Fill Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, gAP_State)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_gAP_State" class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, gAP_State)"><span class="range-slider_val"></span></p>
                             <p>Boundary Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, gAP_State)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_gAP_State" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, gAP_State)"><span class="range-slider_val"></span></p>
                             <p class="color-scheme"><input type="checkbox" name="stylegAP_State" class="colorGrade" id="styleGradientgAP_State" value="gAP_State"> Change to Gradient Color Schema</p>
                         </div>
                     </div>
@@ -1041,9 +1089,9 @@
                         </div>
                         <div class="card card-body">
                             <p>Fill Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, gAP_Cnty)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_gAP_Cnty" class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, gAP_Cnty)"><span class="range-slider_val"></span></p>
                             <p>Boundary Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, gAP_Cnty)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_gAP_Cnty" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, gAP_Cnty)"><span class="range-slider_val"></span></p>
                             <p class="color-scheme"><input type="checkbox" name="stylegAP_Cnty" class="colorGrade" id="styleGradientgAP_Cnty" value="gAP_Cnty"> Change to Gradient Color Schema</p>
                         </div>
                     </div>
@@ -1070,9 +1118,9 @@
                         </div>
                         <div class="card card-body">
                             <p>Fill Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, gAP_Fed)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_gAP_Fed" class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, gAP_Fed)"><span class="range-slider_val"></span></p>
                             <p>Boundary Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, gAP_Fed)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_gAP_Fed" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, gAP_Fed)"><span class="range-slider_val"></span></p>
                             <p class="color-scheme"><input type="checkbox" name="stylegAP_Fed" class="colorGrade" id="styleGradientgAP_Fed" value="gAP_Fed"> Change to Gradient Color Schema</p>
                         </div>
                     </div>
@@ -1100,9 +1148,9 @@
                         </div>
                         <div class="card card-body">
                             <p>Fill Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, easemnts)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_easemnts" class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, easemnts)"><span class="range-slider_val"></span></p>
                             <p>Boundary Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, easemnts)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_easemnts" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, easemnts)"><span class="range-slider_val"></span></p>
                         </div>
                     </div>
                 </div>
@@ -1170,7 +1218,7 @@
                         </div>
                         <div class="card card-body">
                             <p>Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityTile(this.value, nLCD)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_nLCD" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityTile(this.value, nLCD)"><span class="range-slider_val"></span></p>
                         </div>
                     </div>
                 </div>
@@ -1216,9 +1264,9 @@
                         </div>
                         <div class="card card-body">
                             <p>Fill Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, gSSURGO)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_gSSURGO" class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, gSSURGO)"><span class="range-slider_val"></span></p>
                             <p>Boundary Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, gSSURGO)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_gSSURGO" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, gSSURGO)"><span class="range-slider_val"></span></p>
                         </div>
                     </div>
                 </div>
@@ -1227,7 +1275,7 @@
                 <!--            Watershed Characterization Layers -->
                 <h5 class="categoryHead">Watershed Characterization</h5>
                 <div class="wrapper">
-                    <p class="maplayer"><input type="checkbox" value="bioIndex" id="bioIndex_layer"> Bio Index Mean <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsebioIndex" aria-expanded="false" aria-controls="collapsebioIndex" title="Toggle Edit and Legend Control">
+                    <p class="maplayer"><input type="checkbox" value="bioIndex" id="bioIndex_layer"> Biology Index Mean <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsebioIndex" aria-expanded="false" aria-controls="collapsebioIndex" title="Toggle Edit and Legend Control">
                             <span class="sr-only">Expand to Edit </span>
                             <span class="fa fa-plus"></span></button>
                     </p>
@@ -1274,16 +1322,16 @@
                         </div>
                         <div class="card card-body">
                             <p>Fill Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, bioIndex)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_bioIndex" class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, bioIndex)"><span class="range-slider_val"></span></p>
                             <p>Boundary Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, bioIndex)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_bioIndex" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, bioIndex)"><span class="range-slider_val"></span></p>
                         </div>
                     </div>
                 </div>
 
                 <!--End Bio Index Mean-->
                 <div class="wrapper">
-                    <p class="maplayer"> <input type="checkbox" value="conIndex" id="conIndex_layer"> Con Index Mean <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapseconIndex" aria-expanded="false" aria-controls="collapseconIndex" title="Toggle Edit and Legend Control">
+                    <p class="maplayer"> <input type="checkbox" value="conIndex" id="conIndex_layer"> Connectivity Index Mean <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapseconIndex" aria-expanded="false" aria-controls="collapseconIndex" title="Toggle Edit and Legend Control">
                             <span class="sr-only">Expand to Edit </span>
                             <span class="fa fa-plus"></span></button>
                     </p>
@@ -1331,15 +1379,15 @@
                         </div>
                         <div class="card card-body">
                             <p>Fill Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, conIndex)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_conIndex" class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, conIndex)"><span class="range-slider_val"></span></p>
                             <p>Boundary Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, conIndex)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_conIndex" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, conIndex)"><span class="range-slider_val"></span></p>
                         </div>
                     </div>
                 </div>
                 <!--End Con Index Mean-->
                 <div class="wrapper">
-                    <p class="maplayer"> <input type="checkbox" value="hydIndex" id="hydIndex_layer"> Hyd Index Mean <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsehydIndex" aria-expanded="false" aria-controls="collapsehydIndex" title="Toggle Edit and Legend Control">
+                    <p class="maplayer"> <input type="checkbox" value="hydIndex" id="hydIndex_layer"> Hydrology Index Mean <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsehydIndex" aria-expanded="false" aria-controls="collapsehydIndex" title="Toggle Edit and Legend Control">
                             <span class="sr-only">Expand to Edit </span>
                             <span class="fa fa-plus"></span></button>
                     </p>
@@ -1387,15 +1435,15 @@
                         </div>
                         <div class="card card-body">
                             <p>Fill Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, hydIndex)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_hydIndex" class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, hydIndex)"><span class="range-slider_val"></span></p>
                             <p>Boundary Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, hydIndex)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_hydIndex" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, hydIndex)"><span class="range-slider_val"></span></p>
                         </div>
                     </div>
                 </div>
                 <!--End Hyd Index Mean-->
                 <div class="wrapper">
-                    <p class="maplayer"> <input type="checkbox" value="geoIndex" id="geoIndex_layer"> Geo Index Mean <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsegeoIndex" aria-expanded="false" aria-controls="collapsegeoIndex" title="Toggle Edit and Legend Control">
+                    <p class="maplayer"> <input type="checkbox" value="geoIndex" id="geoIndex_layer"> Geomorphology Index Mean <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsegeoIndex" aria-expanded="false" aria-controls="collapsegeoIndex" title="Toggle Edit and Legend Control">
                             <span class="sr-only">Expand to Edit </span>
                             <span class="fa fa-plus"></span></button>
                     </p>
@@ -1442,9 +1490,9 @@
                         </div>
                         <div class="card card-body">
                             <p>Fill Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, geoIndex)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_geoIndex" class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, geoIndex)"><span class="range-slider_val"></span></p>
                             <p>Boundary Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, geoIndex)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_geoIndex" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, geoIndex)"><span class="range-slider_val"></span></p>
                         </div>
 
                     </div>
@@ -1498,9 +1546,9 @@
                         </div>
                         <div class="card card-body">
                             <p>Fill Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, wQIndex)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_wQIndex" class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, wQIndex)"><span class="range-slider_val"></span></p>
                             <p>Boundary Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, wQIndex)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_wQIndex" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, wQIndex)"><span class="range-slider_val"></span></p>
                         </div>
                     </div>
                 </div>
@@ -1553,9 +1601,9 @@
                         </div>
                         <div class="card card-body">
                             <p>Fill Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, combIndex)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_combIndex" class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, combIndex)"><span class="range-slider_val"></span></p>
                             <p>Boundary Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, combIndex)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_combIndex" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, combIndex)"><span class="range-slider_val"></span></p>
                         </div>
                     </div>
                 </div>
@@ -1591,7 +1639,7 @@
                         </div>
                         <div class="card card-body">
                             <p>Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityTile(this.value, wildLife)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_wildLife" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityTile(this.value, wildLife)"><span class="range-slider_val"></span></p>
                         </div>
                     </div>
                 </div>
@@ -1627,7 +1675,7 @@
                         </div>
                         <div class="card card-body">
                             <p>Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityTile(this.value, envBen)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_envBen" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityTile(this.value, envBen)"><span class="range-slider_val"></span></p>
                         </div>
                     </div>
                 </div>
@@ -1663,7 +1711,7 @@
                         </div>
                         <div class="card card-body">
                             <p>Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityTile(this.value, waterQual)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_waterQual" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityTile(this.value, waterQual)"><span class="range-slider_val"></span></p>
                         </div>
                     </div>
                 </div>
@@ -1699,7 +1747,7 @@
                         </div>
                         <div class="card card-body">
                             <p>Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityTile(this.value, soil)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_soil" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityTile(this.value, soil)"><span class="range-slider_val"></span></p>
                         </div>
                     </div>
                 </div>

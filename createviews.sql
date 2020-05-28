@@ -116,6 +116,18 @@ SELECT *
 FROM minnesota.pwi_basins
 WHERE pwi_class = 'W'
 
+SELECT *
+FROM minnesota.cities_townships_unorg
+WHERE ctu_class = 'TOWNSHIP'
+
+SELECT *
+FROM minnesota.cities_townships_unorg
+WHERE ctu_class = 'CITY'
+
+SELECT *
+FROM minnesota.cities_townships_unorg
+WHERE ctu_class = 'CITY' AND (feature_na = 'Chisago City' OR feature_na = 'Chisago Lake' OR feature_na = 'Forest Lake' OR feature_na = 'Franconia' OR feature_na = 'Scandia' OR feature_na = 'Wyoming');
+
 /* example for county bounds */
 CREATE MATERIALIZED VIEW clflwd.cntybnds_clfl_mv
 AS
@@ -135,9 +147,10 @@ REFRESH MATERIALIZED VIEW minnesota.majorscores_geo_index_mv;
 REFRESH MATERIALIZED VIEW minnesota.majorscores_con_index_mv;
 REFRESH MATERIALIZED VIEW minnesota.majorscores_wq_index_mv;
 REFRESH MATERIALIZED VIEW minnesota.majorscores_comb_index_mv;
-
 REFRESH MATERIALIZED VIEW minnesota.pwi_basins_mv;
 REFRESH MATERIALIZED VIEW minnesota.pwi_basins_wetlnd_mv;
+
+REFRESH MATERIALIZED VIEW minnesota.townships_mv;
 /************************************************/
 /********** NON WORKING CODE ********************/
 /************************************************/
