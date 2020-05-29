@@ -971,6 +971,7 @@ function styleGradientnatPlnt(feature) {
     var y = document.getElementById("boundop_natPlnt");
     var currentfillop = x.value;
     var currentboundop = y.value;
+
     return {
         "color": "#756bb1",
         "fillColor": "#756bb1",
@@ -981,10 +982,12 @@ function styleGradientnatPlnt(feature) {
 }
 
 function styleMBSBio(feature) {
-    var x = document.getElementById("fillop_mBSBio");
-    var y = document.getElementById("boundop_mBSBio");
+    var x = document.getElementById("fillop_mBSbio");
+    var y = document.getElementById("boundop_mBSbio");
     var currentfillop = x.value;
     var currentboundop = y.value;
+    console.log(currentfillop);
+    console.log(currentboundop)
     type = feature.properties.biodiv_sig;
     var colorToUse;
     if (type === "Outstanding") colorToUse = '#00cd00';
@@ -1002,8 +1005,8 @@ function styleMBSBio(feature) {
 }
 
 function styleGradientMBSBio(feature) {
-    var x = document.getElementById("fillop_mBSBio");
-    var y = document.getElementById("boundop_mBSBio");
+    var x = document.getElementById("fillop_mBSbio");
+    var y = document.getElementById("boundop_mBSbio");
     var currentfillop = x.value;
     var currentboundop = y.value;
     type = feature.properties.biodiv_sig;
