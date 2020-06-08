@@ -60,11 +60,66 @@
                 <h1 class="sidebar-header" id="closeSidebar">Map Layers<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
                 <br>
 
-                <!--                Boundary Layers -->
+                <!--                 Boundary Layers -->
                 <h4 class="categoryHead">Boundaries</h4>
 
                 <div class="wrapper">
-                    <p class="maplayer"><input type="checkbox" value="distBound" id="distBound_layer" checked> Planning Districts
+                    <p class="maplayer"> <input type="checkbox" value="poltJur" id="poltJur_layer" checked> Political Jurisdiction <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsepoltJur" aria-expanded="false" aria-controls="collapsepoltJur" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV-->
+                    <div class="collapse" id="collapsepoltJur">
+
+                        <div class="card card-body legendcard" id="poltJurLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#FF0000; stroke-width:2; stroke:#FF0000; fill-opacity:0.8" />
+                                </svg>Political Jurisdiction
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#poltJurLegend" class="showLegend" value="legendpoltJur" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Fill Opacity<input id="fillop_poltJur" class="slider" type="range" min="0" max="1" step="0.1" value="0" oninput="updateOpacity(this.value, poltJur)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity<input id="boundop_poltJur" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, poltJur)"><span class="range-slider_val"></span></p> <br>
+                        </div>
+                    </div>
+                </div>
+                <!-- END of Political Jurisdiction-->
+                <!-- Planning Area Mask-->
+                <div class="wrapper">
+                    <p class="maplayer"> <input type="checkbox" value="mask" id="mask_layer"> Political Jurisdiction Mask <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsemask" aria-expanded="false" aria-controls="collapsemask" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV-->
+                    <div class="collapse" id="collapsemask">
+
+                        <div class="card card-body legendcard" id="maskLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:black; stroke-width:2; stroke:black; fill-opacity:0.8" />
+                                </svg>Mask
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#maskLegend" class="showLegend" value="legendmask" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Fill Opacity
+                                <input class="slider" id="fillop_mask" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, mask)"><span class="range-slider_val"></span></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- END of Planning Area Mask-->
+                <div class="wrapper">
+                    <p class="maplayer"><input type="checkbox" value="distBound" id="distBound_layer"> Lake Management Districts
                         <!--                Buttons -->
 
                         <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapseBndry" aria-expanded="false" aria-controls="collapseBndry" title="Toggle Edit and Legend Control">
@@ -105,103 +160,9 @@
                 </div>
                 <!--END CLFL districts BOUNDARY-->
 
-                <!-- Planning Area Mask-->
-                <div class="wrapper">
-                    <p class="maplayer"> <input type="checkbox" value="mask" id="mask_layer"> Planning Area Mask <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsemask" aria-expanded="false" aria-controls="collapsemask" title="Toggle Edit and Legend Control">
-                            <span class="sr-only">Expand to Edit </span>
-                            <span class="fa fa-plus"></span></button>
-                    </p>
-                    <!--                COLLAPSED DIV-->
-                    <div class="collapse" id="collapsemask">
-
-                        <div class="card card-body legendcard" id="maskLegend">
-                            <p><svg width="20" height="10">
-                                    <rect width="15" height="10" style="fill:black; stroke-width:2; stroke:black; fill-opacity:0.8" />
-                                </svg>Mask
-                            </p>
-                        </div>
-                        <div class="pretty p-switch p-fill legendtoggle">
-                            <input type="checkbox" name="#maskLegend" class="showLegend" value="legendmask" />
-                            <div class="state">
-                                <label>Show Legend</label>
-                            </div>
-                        </div>
-                        <div class="card card-body">
-                            <p>Fill Opacity
-                                <input class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, mask)"><span class="range-slider_val"></span></p>
-                        </div>
-                    </div>
-                </div>
-                <!-- END of Planning Area Mask-->
-                <div class="wrapper">
-                    <p class="maplayer"><input type="checkbox" value="cnty" id="cnty_layer"> Counties
-
-                        <!--                Buttons -->
-                        <button class="btn-xs btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapseCnty" aria-expanded="false" aria-controls="collapseCnty" title="Toggle Edit and Legend Control">
-                            <span class="sr-only">Expand to Edit </span>
-                            <span class="fa fa-plus"></span>
-                        </button>
-                    </p>
-                    <!--Collapsed Div's-->
-                    <div class="collapse" id="collapseCnty">
-                        <div class="card card-body legendcard" id="cntyLegend">
-                            <p><svg width="20" height="10">
-                                    <rect width="15" height="10" style="fill:#7256E8; stroke-width:2; stroke:#7256E8; fill-opacity:0.5" />
-                                </svg>County Boundaries</p>
-                        </div>
-
-                        <div class="pretty p-switch p-fill legendtoggle">
-                            <input type="checkbox" name="#cntyLegend" class="showLegend" value="legendcnty" />
-                            <div class="state">
-                                <label>Show Legend</label>
-                            </div>
-                        </div>
-                        <div class="card card-body">
-                            <p>Fill Opacity
-                                <input id="fillop_cnty" class="slider" type="range" min="0" max="1" step="0.1" value=".2" oninput="updateOpacity(this.value, cnty)"><span class="range-slider_val"></span></p>
-                            <p>Boundary Opacity
-                                <input id="boundop_cnty" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, cnty)"><span class="range-slider_val"></span></p>
-                        </div>
-                    </div>
-                </div>
-
-                <!--                END County -->
 
                 <div class="wrapper">
-                    <p class="maplayer"><input type="checkbox" value="twnshp" id="twnshp_layer"> Township
-
-                        <!--                Buttons -->
-                        <button class="btn-xs btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsetwnshp" aria-expanded="false" aria-controls="collapsetwnshp" title="Toggle Edit and Legend Control">
-                            <span class="sr-only">Expand to Edit </span>
-                            <span class="fa fa-plus"></span>
-                        </button>
-                    </p>
-                    <!--Collapsed Div's-->
-                    <div class="collapse" id="collapsetwnshp">
-                        <div class="card card-body legendcard" id="twnshpLegend">
-                            <p><svg width="20" height="10">
-                                    <rect width="15" height="10" style="fill:slategray; stroke-width:2; stroke:slategray; fill-opacity:0.5" />
-                                </svg>Township Boundaries</p>
-                        </div>
-
-                        <div class="pretty p-switch p-fill legendtoggle">
-                            <input type="checkbox" name="#twnshpLegend" class="showLegend" value="legendtwnshp" />
-                            <div class="state">
-                                <label>Show Legend</label>
-                            </div>
-                        </div>
-                        <div class="card card-body">
-                            <p>Fill Opacity
-                                <input id="fillop_twnshp" class="slider" type="range" min="0" max="1" step="0.1" value=".2" oninput="updateOpacity(this.value, twnshp)"><span class="range-slider_val"></span></p>
-                            <p>Boundary Opacity
-                                <input id="boundop_twnshp" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, twnshp)"><span class="range-slider_val"></span></p>
-                        </div>
-                    </div>
-                </div>
-
-                <!--                END Township -->
-                <div class="wrapper">
-                    <p class="maplayer"><input type="checkbox" value="city" id="city_layer"> Cities
+                    <p class="maplayer"><input type="checkbox" value="city" id="city_layer"> Municipal
 
                         <!--                Buttons -->
                         <button class="btn-xs btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsecity" aria-expanded="false" aria-controls="collapsecity" title="Toggle Edit and Legend Control">
@@ -247,7 +208,42 @@
                     </div>
                 </div>
 
-                <!--                END Cities -->
+                <!--                END Municipal -->
+
+
+                <div class="wrapper">
+                    <p class="maplayer"><input type="checkbox" value="cnty" id="cnty_layer"> Counties
+
+                        <!--                Buttons -->
+                        <button class="btn-xs btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapseCnty" aria-expanded="false" aria-controls="collapseCnty" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span>
+                        </button>
+                    </p>
+                    <!--Collapsed Div's-->
+                    <div class="collapse" id="collapseCnty">
+                        <div class="card card-body legendcard" id="cntyLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#7256E8; stroke-width:2; stroke:#7256E8; fill-opacity:0.5" />
+                                </svg>County Boundaries</p>
+                        </div>
+
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#cntyLegend" class="showLegend" value="legendcnty" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Fill Opacity
+                                <input id="fillop_cnty" class="slider" type="range" min="0" max="1" step="0.1" value=".2" oninput="updateOpacity(this.value, cnty)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity
+                                <input id="boundop_cnty" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, cnty)"><span class="range-slider_val"></span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!--                END County -->
 
                 <div class="wrapper">
                     <p class="maplayer"> <input type="checkbox" value="huc8" id="huc8_layer"> Major Watershed (HUC 8)

@@ -74,7 +74,7 @@ var loadingControl = L.Control.loading({
 map.addControl(loadingControl);
 
 L.easyButton('fa-crosshairs fa-lg', function (btn, map) {
-    map.fitBounds(distBound.getBounds());
+    map.fitBounds(poltJur.getBounds());
 }).addTo(map);
 
 
@@ -186,10 +186,10 @@ var sidebar = L.control.sidebar('sidebar').addTo(map);
 
 
 //// URL's for Layers ////
-var a_distBound = 'clflwd:LkMgt_Dist_7_17';
+var a_poltJur = 'clflwd:Jurisdiction_WD_10_17'; // political jursidiction boundary
+var a_distBound = 'clflwd:LkMgt_Dist_7_17'; // Lake Management Districts 
 var a_cnty = 'minnesota:county_boundaries'; // county layer
-var a_twnshp = 'minnesota:townships_mv'; //township layer
-var a_city = 'clflwd:cities_clflwd'; //cities layer
+var a_city = 'clflwd:cities_clflwd'; //cities layer // CHANGE TO Municipalities
 var a_huc8 = 'minnesota:WBD_HU8'; //USGS HUC 8
 var a_huc10 = 'minnesota:WBD_HU10'; //USGS HUC 10
 var a_huc12 = 'minnesota:WBD_HU12'; //USGS HUC 12
@@ -245,7 +245,7 @@ var a_waterQual = 'clflwd_rasters:watqual100_clflwd'; //Water Quality Risk
 var a_soil = 'clflwd_rasters:waterosion100_clflwd'; //Soil Erosion Risk
 var a_envBen = 'clflwd_rasters:ebi300clflwd'; //Environmental Risk Index
 
-var a_mask = 'clflwd:LkMgt_Dist_7_17_mask'; //mask of district boundaries for printing purposes
+var a_mask = 'clflwd:jurisdictionMask'; //mask of district boundaries for printing purposes
 
 // URL for CLFLWD layers
 // get url dynamically with this function;
@@ -322,46 +322,29 @@ function getTilelayer(rastlayer) {
 // id  is distbound_layer
 var distBound;
 var url_distBound = getCLFL_URL(a_distBound);
+
+var poltJur;
+var url_poltJur = getCLFL_URL(a_poltJur);
 $.ajax({
-    url: url_distBound,
+    url: url_poltJur,
     dataType: 'jsonp',
-    jsonpCallback: a_distBound.replace(":", ""),
+    jsonpCallback: a_poltJur.replace(":", ""),
     success: function (response) {
-        distBound = L.geoJson(response, {
+        poltJur = L.geoJson(response, {
             attribution: '',
             interactive: true,
-            //            layerName: 'distBound',
-            style: styledistBound,
-            onEachFeature: function (feature, layer) {
-                layer.bindPopup('<p><b><i> District: </b>' + feature.properties.lkmgtdist + '</i></p>');
-                layer.on({
-                    mouseover: function (e) {
-                        layer.setStyle({
-                            weight: 3,
-                            color: '#00FFFF',
-                            opacity: 1
-                        });
-                        if (!L.Browser.ie && !L.Browser.opera) {
-                            layer.bringToFront();
-                        }
-                    },
-                    mouseout: function (e) {
-                        distBound.resetStyle(e.target);
-                    },
-                });
-            },
+            style: stylepoltJur,
         });
-        map.addLayer(distBound);
+        map.addLayer(poltJur);
         //        console.log(distBound.getBounds().toBBoxString());
         //        -93.02427108,45.22182617,-92.79967634,45.33440437
     }
 
-}); //end of call for distBound variable
+}); //end of call for political jursdiction variable
 
 var cnty;
 var url_cnty = getMN_URL(a_cnty);
-var twnshp;
-var url_twnshp = getMN_URL(a_twnshp);
+
 var city;
 var url_city = getCLFL_URL(a_city);
 var huc8;
@@ -485,10 +468,37 @@ function styledistBound(feature) {
         "fillColor": colorToUse,
         "weight": 3,
         "fillOpacity": currentfillop,
-        opacity: currentboundop,
+        "opacity": currentboundop,
 
     };
 }
+
+function stylepoltJur(feature) {
+    var x = document.getElementById("fillop_poltJur");
+    var y = document.getElementById("boundop_poltJur");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
+    return {
+        "color": '#FF0000',
+        "fillColor": '#FF0000',
+        "weight": 3,
+        "fillOpacity": currentfillop,
+        "opacity": currentboundop,
+
+    };
+}
+
+function stylemask(feature) {
+    var x = document.getElementById("fillop_mask");
+    var currentfillop = x.value;
+    return {
+        "color": "transparent",
+        "fillColor": "#000000",
+        "weight": 2,
+        "fillOpacity": currentfillop,
+    };
+}
+
 
 function stylecity(feature) {
     var x = document.getElementById("fillop_city");
@@ -510,10 +520,69 @@ function stylecity(feature) {
         "fillColor": colorToUse,
         "weight": 3,
         "fillOpacity": currentfillop,
-        opacity: currentboundop,
+        "opacity": currentboundop,
 
     };
 }
+
+function stylecnty(feature) {
+    var x = document.getElementById("fillop_cnty");
+    var y = document.getElementById("boundop_cnty");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
+    return {
+        "color": "#7256E8",
+        "fillColor": "#7256E8",
+        "weight": 2,
+        "fillOpacity": currentfillop,
+        "opacity": currentboundop,
+    };
+}
+
+
+function stylehuc8(feature) {
+    var x = document.getElementById("fillop_huc8");
+    var y = document.getElementById("boundop_huc8");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
+    return {
+        "color": "#a6cee3",
+        "fillColor": "#a6cee3",
+        "weight": 2,
+        "fillOpacity": currentfillop,
+        "opacity": currentboundop,
+    };
+}
+
+function stylehuc10(feature) {
+    var x = document.getElementById("fillop_huc10");
+    var y = document.getElementById("boundop_huc10");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
+    return {
+        "color": "#fb9a99",
+        "fillColor": "#fb9a99",
+        "weight": 2,
+        "fillOpacity": currentfillop,
+        "opacity": currentboundop,
+    };
+}
+
+
+function stylehuc12(feature) {
+    var x = document.getElementById("fillop_huc12");
+    var y = document.getElementById("boundop_huc12");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
+    return {
+        "color": "#fdbf6f",
+        "fillColor": "#fdbf6f",
+        "weight": 2,
+        "fillOpacity": currentfillop,
+        "opacity": currentboundop,
+    };
+}
+
 
 function stylewellhead(feature) {
     var x = document.getElementById("fillop_wellhead");
@@ -1449,11 +1518,22 @@ function zoomToFeature(urlLayer) {
 
 var legendBndry = L.control.htmllegend({
     position: 'bottomleft',
-    layer: 'Planning Districts',
+    layer: 'Lake Management Districts',
     legends: [{
-        name: 'Planning Districts',
+        name: 'Lake Management Districts',
         elements: [{
             html: document.querySelector('#BndryLegend').innerHTML
+            }]
+        }],
+    detectStretched: true,
+});
+var legendpoltJur = L.control.htmllegend({
+    position: 'bottomleft',
+    layer: 'Political Jurisdiction',
+    legends: [{
+        name: 'Political Jurisdiction',
+        elements: [{
+            html: document.querySelector('#poltJurLegend').innerHTML
             }]
         }],
     detectStretched: true,
@@ -1471,9 +1551,9 @@ var legendcnty = L.control.htmllegend({
 });
 var legendcity = L.control.htmllegend({
     position: 'bottomleft',
-    layer: 'Cities',
+    layer: 'Municipal',
     legends: [{
-        name: 'Cities',
+        name: 'Municipal',
         elements: [{
             html: document.querySelector('#cityLegend').innerHTML
             }]
@@ -1513,17 +1593,7 @@ var legendhuc12 = L.control.htmllegend({
         }],
     detectStretched: true,
 });
-var legendtwnshp = L.control.htmllegend({
-    position: 'bottomleft',
-    layer: 'Township Boundaries',
-    legends: [{
-        name: 'Township Boundaries',
-        elements: [{
-            html: document.querySelector('#twnshpLegend').innerHTML
-            }]
-        }],
-    detectStretched: true,
-});
+
 
 var legendwtrVul = L.control.htmllegend({
     position: 'bottomleft',
@@ -2093,6 +2163,24 @@ $(document).ready(function () {
 
                     }); //end of call for distBound variable
                     break;
+                case 'poltJur_layer':
+                    $.ajax({
+                        url: url_poltJur,
+                        dataType: 'jsonp',
+                        jsonpCallback: a_poltJur.replace(":", ""),
+                        success: function (response) {
+                            poltJur = L.geoJson(response, {
+                                attribution: '',
+                                interactive: true,
+                                style: stylepoltJur,
+                            });
+                            map.addLayer(poltJur);
+                            //        console.log(distBound.getBounds().toBBoxString());
+                            //        -93.02427108,45.22182617,-92.79967634,45.33440437
+                        }
+
+                    }); //end of call for political jursdiction variable
+                    break;
                 case 'cnty_layer':
                     $.ajax({
                         url: url_cnty,
@@ -2102,15 +2190,7 @@ $(document).ready(function () {
                             cnty = L.geoJson(response, {
                                 attribution: '',
                                 interactive: true,
-                                style: function () {
-                                    return {
-                                        "color": "#7256E8",
-                                        "fillColor": "#7256E8",
-                                        "weight": 2,
-                                        "fillOpacity": .2,
-                                        "opacity": 1,
-                                    };
-                                },
+                                style: stylecnty,
                                 onEachFeature: function (feature, layer) {
                                     layer.bindPopup('<p><i> County: ' + feature.properties.county_nam + '</i></p>');
                                     layer.on({
@@ -2181,15 +2261,7 @@ $(document).ready(function () {
                             huc8 = L.geoJSON(response, {
                                 attribution: '',
                                 interactive: true,
-                                style: function () {
-                                    return {
-                                        "color": "#a6cee3",
-                                        "fillColor": "#a6cee3",
-                                        "weight": 2,
-                                        "fillOpacity": .2,
-                                        "opacity": 1,
-                                    };
-                                },
+                                style: stylehuc8,
                                 onEachFeature: function (feature, layer) {
                                     layer.bindPopup('<p><i> HUC 8 Name: ' + feature.properties.hu_8_name + '</i></p>');
                                     layer.on({
@@ -2222,15 +2294,7 @@ $(document).ready(function () {
                             huc10 = L.geoJson(response, {
                                 attribution: '',
                                 interactive: true,
-                                style: function () {
-                                    return {
-                                        "color": "#fb9a99",
-                                        "fillColor": "#fb9a99",
-                                        "weight": 2,
-                                        "fillOpacity": .2,
-                                        "opacity": 1,
-                                    };
-                                },
+                                style: stylehuc10,
                                 onEachFeature: function (feature, layer) {
                                     layer.bindPopup('<p><i> HUC 10 Name: ' + feature.properties.hu_10_name + '</i></p>');
                                     layer.on({
@@ -2263,15 +2327,7 @@ $(document).ready(function () {
                             huc12 = L.geoJson(response, {
                                 attribution: '',
                                 interactive: true,
-                                style: function () {
-                                    return {
-                                        "color": "#fdbf6f",
-                                        "fillColor": "#fdbf6f",
-                                        "weight": 2,
-                                        "fillOpacity": .2,
-                                        "opacity": 1,
-                                    };
-                                },
+                                style: stylehuc12,
                                 onEachFeature: function (feature, layer) {
                                     layer.bindPopup('<p><i> HUC 12 Name: ' + feature.properties.hu_12_name + '</i></p>');
                                     layer.on({
@@ -2294,47 +2350,6 @@ $(document).ready(function () {
                             map.addLayer(huc12);
                         }
                     }); //end of call for huc12 variable
-                    break;
-                case 'twnshp_layer':
-                    $.ajax({
-                        url: url_twnshp,
-                        dataType: 'jsonp',
-                        jsonpCallback: a_twnshp.replace(":", ""),
-                        success: function (response) {
-                            twnshp = L.geoJson(response, {
-                                attribution: '',
-                                interactive: true,
-                                style: function () {
-                                    return {
-                                        "color": "slategray",
-                                        "fillColor": "slategray",
-                                        "weight": 2,
-                                        "fillOpacity": .2,
-                                        "opacity": 1,
-                                    };
-                                },
-                                onEachFeature: function (feature, layer) {
-                                    layer.bindPopup('<p><i> Township Name: ' + feature.properties.feature_na + '</i></p>');
-                                    layer.on({
-                                        mouseover: function (e) {
-                                            layer.setStyle({
-                                                weight: 3,
-                                                color: '#00FFFF',
-                                                opacity: 1
-                                            });
-                                            if (!L.Browser.ie && !L.Browser.opera) {
-                                                layer.bringToFront();
-                                            }
-                                        },
-                                        mouseout: function (e) {
-                                            twnshp.resetStyle(e.target);
-                                        },
-                                    });
-                                },
-                            });
-                            map.addLayer(twnshp);
-                        }
-                    }); //end of call for twnshp variable
                     break;
                 case 'wtrVul_layer':
                     $.ajax({
@@ -2857,14 +2872,7 @@ $(document).ready(function () {
                             mask = L.geoJson(response, {
                                 attribution: '',
                                 interactive: true,
-                                style: function () {
-                                    return {
-                                        "color": "transparent",
-                                        "fillColor": "black",
-                                        "weight": 2,
-                                        "fillOpacity": 0.8,
-                                    };
-                                }
+                                style: stylemask,
                             });
                             map.addLayer(mask);
                         }
