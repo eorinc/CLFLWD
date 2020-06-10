@@ -189,6 +189,7 @@ var sidebar = L.control.sidebar('sidebar').addTo(map);
 var a_poltJur = 'clflwd:Jurisdiction_WD_10_17'; // political jursidiction boundary
 var a_distBound = 'clflwd:LkMgt_Dist_7_17'; // Lake Management Districts 
 var a_cnty = 'minnesota:county_boundaries'; // county layer
+//'clflwd:cntybnds_clfl_mv'; //this is the counties only around the districts
 var a_city = 'clflwd:cities_clflwd'; //cities layer // CHANGE TO Municipalities
 var a_huc8 = 'minnesota:WBD_HU8'; //USGS HUC 8
 var a_huc10 = 'minnesota:WBD_HU10'; //USGS HUC 10
@@ -280,6 +281,9 @@ function getMN_URL(layername) {
         SrsName: 'EPSG:4326',
         // This is the bounding box of the counties surrounding CLFLWD districts. Using this to limit the features shown. 
         bbox: '-93.51250164,44.74589554,-92.64645106,45.73104577, EPSG:4326'
+
+        //-93.01986634,45.20963384,-92.67457369,45.47000262  //BBox for cities
+
     };
     var parameters = L.Util.extend(defaultParameters);
     var URL = geoserverRoot + L.Util.getParamString(parameters);
@@ -299,6 +303,25 @@ function getMN_URL_soil(layername) {
         SrsName: 'EPSG:4326',
         // This is the bounding box of the CLFLWD districts. Using this to limit the features shown. 
         bbox: '-93.02427108,45.22182617,-92.79967634,45.33440437, EPSG:4326'
+    };
+    var parameters = L.Util.extend(defaultParameters);
+    var URL = geoserverRoot + L.Util.getParamString(parameters);
+    //    console.log('this is the url: ', URL);
+    return URL;
+};
+
+function getMN_URL_citybound(layername) {
+    var geoserverRoot = "https://post.eorinc.com/geoserver/minnesota/ows";
+    var defaultParameters = {
+        service: 'WFS',
+        version: '2.0.0',
+        request: 'GetFeature',
+        typeName: layername,
+        outputFormat: 'text/javascript',
+        format_options: 'callback:' + layername.replace(":", ""), //had to do this because otherwise each callback wasn't unique and wouldn't load multiple layers ///not sure if this needs to be callback:processJson. that could be old documentation. 
+        SrsName: 'EPSG:4326',
+        // This is the bounding box of the cities surrounding CLFL. Using this to limit the features shown. 
+        bbox: '-93.01986634,45.20963384,-92.67457369,45.47000262, EPSG:4326'
     };
     var parameters = L.Util.extend(defaultParameters);
     var URL = geoserverRoot + L.Util.getParamString(parameters);
@@ -368,7 +391,7 @@ var pollsensGradient = getTilelayer(a_pollsensGradient);
 ////// *** Hydrology Layers *** /////
 
 var fEMAflood;
-var url_fEMAflood = getMN_URL(a_fEMAflood);
+var url_fEMAflood = getMN_URL_citybound(a_fEMAflood);
 var altwtr;
 var url_altwtr = getMN_URL(a_altwtr);
 var cONUS;
@@ -2212,6 +2235,7 @@ $(document).ready(function () {
 
                             });
                             map.addLayer(cnty);
+                            console.log(cnty.getBounds().toBBoxString());
                         }
 
                     }); //end of call for county variable
@@ -2248,6 +2272,7 @@ $(document).ready(function () {
 
                             });
                             map.addLayer(city);
+                            //                            console.log(city.getBounds().toBBoxString());
                         }
 
                     }); //end of call for county variable
