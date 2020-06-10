@@ -691,7 +691,7 @@ function styleGradientfEMAflood(feature) {
 }
 
 function styleAltWtr(feature) {
-    var y = document.getElementById("boundop_altWtr");
+    var y = document.getElementById("boundop_altwtr");
     var currentboundop = y.value;
     type = feature.properties.awevttype;
     var colorToUse;
@@ -708,7 +708,7 @@ function styleAltWtr(feature) {
 }
 
 function styleGradientAltWtr(feature) {
-    var y = document.getElementById("boundop_altWtr");
+    var y = document.getElementById("boundop_altwtr");
     var currentboundop = y.value;
     type = feature.properties.awevttype;
     var colorToUse;
