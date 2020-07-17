@@ -1,8 +1,5 @@
 // // Javascript by Sarah Grandstrand with EOR Inc//
 
-// THIS Main works but overloads browser with ajax requests; changed to Https and commented out a bunch of data //
-
-
 var light = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic2dyYW5kc3RyYW5kIiwiYSI6ImNqY3BtMm52MjJyZWsycXBmMDZremxsN3EifQ.3HVgf9jrNbmCSBBBlp5zlQ', {
 
     //                        pk.eyJ1IjoicHNteXRoMiIsImEiOiJjaXNmNGV0bGcwMG56MnludnhyN3Y5OHN4In0.xsZgj8hsNPzjb91F31-rYA
@@ -25,11 +22,12 @@ var imagery = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-v9/
 
 var mapOptions = {
     zoomControl: false,
-    center: [46.35, -94.8], // large screens
+    center: [45.28, -92.93], // large screens 
+    //[46.35, -94.8], // large screens
     //    center: [46.35, -93.5],
     zoomSnap: 0.25,
     zoomDelta: 0.25,
-    zoom: 6.5,
+    zoom: 12, //6.5,
     minZoom: 3,
     maxZoom: 18,
     layers: [light],
@@ -73,17 +71,16 @@ var loadingControl = L.Control.loading({
 });
 map.addControl(loadingControl);
 
-L.easyButton('fa-crosshairs fa-lg', function (btn, map) {
-    map.fitBounds(poltJur.getBounds());
-}).addTo(map);
-
-
+//L.easyButton('fa-crosshairs fa-lg', function (btn, map) {
+//    map.fitBounds(poltJur.getBounds());
+//    console.log(poltJur.getBounds());
+//}).addTo(map);
 
 // Leaflet Browser Print
 
 L.control.browserPrint({
     title: 'Print Map',
-    documentTitle: 'Comfort Lake Forest Lake Watershed District 1W1P',
+    documentTitle: 'Comfort Lake Forest Lake Watershed District: WMP',
     closePopupsOnPrint: false,
     printModes: [
 		"Landscape",
@@ -158,32 +155,7 @@ map.on("browser-print-start", function (e) {
 
 });
 
-
-//L.Control.BrowserPrint.Utils.registerLayer(
-//    // Actual typeof object to compare with
-//    L.esri.featureLayer,
-//    // Any string you would like for current function for print events
-//    'L.esri.featurelayer',
-//    function (layer, utils) {
-//        // We need to recreate cluster object with available options
-//        // Here we use function, but we can use object aswell,
-//        // example: new L.MarkerClusterGroup(layer._group.options);
-//        var cluster = L.esri.featureLayer(layer._arcgisToGeoJSON(), utils.cloneOptions(layer.options));
-//
-//        // And we clone all inner layers to our new cluster
-//        // to properly recalculate/recreate position for print map
-//        //        cluster.addLayers(utils.cloneInnerLayers(layer._group));
-//
-//        return cluster;
-//    });
-////this.registerLayer(L.GeoJSON, 'L.GeoJSON', function(layer, utils) { 				return L.geoJson(layer.toGeoJSON(), utils.cloneOptions(layer.options)); });
-////Create sidebar function
-////function createSidebar() {
-////    var sidebar = L.control.sidebar('sidebar').addTo(map);
-////    sidebar.open('home');
-////}
 var sidebar = L.control.sidebar('sidebar').addTo(map);
-
 
 //// URL's for Layers ////
 var a_poltJur = 'clflwd:Jurisdiction_WD_10_17'; // political jursidiction boundary
@@ -198,6 +170,9 @@ var a_huc12 = 'minnesota:WBD_HU12'; //USGS HUC 12
 var a_wtrVul = 'minnesota:drinking_water_supply_management_area_vulnerability'; // drinking water supply vulnerability
 var a_wellhead = 'minnesota:wellhead_protection_areas'; //Well Head Protection Areas
 var a_bedrockPoll = 'minnesota:bedrocksurface_pollutionsensitivity'; //bedrock surface pollution sensitivity
+var a_npcGround = 'minnesota:biota_dnr_groundwater_npc' // native plant communities connected to groundwater
+
+var a_recharge = 'clflwd:recharge_discharge_areas_2003'; // recharge and discharge groundwater areas in northern washington county
 
 var a_fEMAflood = 'minnesota:fema_flood_view'; // 100 year flood plain from FEMA
 var a_altwtr = 'minnesota:altr_wtrcrse_mview'; // Altered Watercourse
@@ -224,7 +199,7 @@ var a_gAP_State = 'minnesota:gap_stewardship_2008_misc_state_lands'; //GAP state
 var a_gAP_Cnty = 'minnesota:gap_stewardship_2008_county_lands'; //GAP county Lands
 var a_gAP_Fed = 'minnesota:gap_stewardship_2008_federal_lands'; //GAP Federal Lands
 var a_easemnts = 'minnesota:bdry_bwsr_rim_cons_easements'; // conservation easements
-var a_gSSURGO = 'minnesota:gssurgo_soilsgrp'; // hydrologic soils groups 
+var a_gSSURGO = 'clflwd:gssurgo_soilsgrp_clp'; // hydrologic soils groups 
 
 
 // index layers //
@@ -291,23 +266,27 @@ function getMN_URL(layername) {
     return URL;
 };
 
-function getMN_URL_soil(layername) {
-    var geoserverRoot = "https://post.eorinc.com/geoserver/minnesota/ows";
-    var defaultParameters = {
-        service: 'WFS',
-        version: '2.0.0',
-        request: 'GetFeature',
-        typeName: layername,
-        outputFormat: 'text/javascript',
-        format_options: 'callback:' + layername.replace(":", ""), //had to do this because otherwise each callback wasn't unique and wouldn't load multiple layers ///not sure if this needs to be callback:processJson. that could be old documentation. 
-        SrsName: 'EPSG:4326',
-        // This is the bounding box of the CLFLWD districts. Using this to limit the features shown. 
-        bbox: '-93.02427108,45.22182617,-92.79967634,45.33440437, EPSG:4326'
-    };
-    var parameters = L.Util.extend(defaultParameters);
-    var URL = geoserverRoot + L.Util.getParamString(parameters);
-    //    console.log('this is the url: ', URL);
-    return URL;
+function getCLFLWD_WMS_URL(layername) {
+    //    var corner1 = L.latLng(-93.02427108, 45.22182617);
+    //    var corner2 = L.latLng(-92.79967634, 45.33440437);
+    //    var bounds = L.latLngBounds(corner1, corner2);
+
+    var tileLayer = L.tileLayer.wms("https://post.eorinc.com/geoserver/clflwd/wms", {
+        layers: layername,
+        format: 'image/png',
+        //    styles: 'clflwd_rasters%3Anrsfsn_clflwd_qgisStyle',
+        transparent: true,
+        version: '1.1.0',
+        crs: L.CRS.EPSG4326,
+
+        //        bounds: bounds,
+        //bbox: [-93.02427108, 45.22182617, -92.79967634, 45.33440437],
+        //        bbox: '-93.01986634,45.20963384,-92.67457369,45.47000262'
+        //bounds: L.latLngBounds([[-93.02427108, 45.22182617], [-92.79967634, 45.33440437]]),
+
+    });
+    console.log('this is the tile layer bounds: ', tileLayer.getBounds);
+    return tileLayer
 };
 
 function getMN_URL_citybound(layername) {
@@ -325,7 +304,7 @@ function getMN_URL_citybound(layername) {
     };
     var parameters = L.Util.extend(defaultParameters);
     var URL = geoserverRoot + L.Util.getParamString(parameters);
-    //    console.log('this is the url: ', URL);
+    // console.log('this is the url: ', URL);
     return URL;
 };
 
@@ -335,7 +314,9 @@ function getTilelayer(rastlayer) {
         format: 'image/png',
         //    styles: 'clflwd_rasters%3Anrsfsn_clflwd_qgisStyle',
         transparent: true,
-        version: '1.1.0'
+        version: '1.1.0',
+        crs: L.CRS.EPSG4326,
+
     });
     return tileLayer
 };
@@ -386,6 +367,10 @@ var bedrockPoll;
 var url_bedrockPoll = getMN_URL(a_bedrockPoll);
 var pollsens = getTilelayer(a_pollsens);
 var pollsensGradient = getTilelayer(a_pollsensGradient);
+var npcGround;
+var url_npcGround = getMN_URL(a_npcGround);
+var recharge;
+var url_recharge = getCLFL_URL(a_recharge);
 
 
 ////// *** Hydrology Layers *** /////
@@ -394,8 +379,9 @@ var fEMAflood;
 var url_fEMAflood = getMN_URL_citybound(a_fEMAflood);
 var altwtr;
 var url_altwtr = getMN_URL(a_altwtr);
-var cONUS;
-var url_cONUS = getCLFL_URL(a_cONUS);
+//var cONUS;
+//var url_cONUS = getCLFL_URL(a_cONUS);
+var cONUS = getCLFLWD_WMS_URL(a_cONUS);
 var buffbasins;
 var url_buffbasins = getMN_URL(a_buffbasins);
 var buffwetlnds;
@@ -441,10 +427,10 @@ var url_gAP_Fed = getMN_URL(a_gAP_Fed);
 var easemnts;
 var url_easemnts = getMN_URL(a_easemnts);
 var nLCD = getTilelayer(a_nLCD);
-var gSSURGO;
-var url_gSSURGO = getMN_URL_soil(a_gSSURGO);
-
-
+//var gSSURGO;
+//var url_gSSURGO = getMN_URL_soil(a_gSSURGO);
+var gSSURGO = getCLFLWD_WMS_URL(a_gSSURGO);
+//var gSSURGO = getMN_URL_soil(a_gSSURGO);
 
 ////// *** Watershed Characterization Layers *** /////
 var bioIndex;
@@ -685,6 +671,66 @@ function styleGradientWtrVul(feature) {
     };
 }
 
+function stylenpcGround(feature) {
+    var x = document.getElementById("fillop_npcGround");
+    var y = document.getElementById("boundop_npcGround");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
+    level = feature.properties.groundwater_wetland_group;
+    var colorToUse;
+    if (level === "Fens/Seepage Wetlands") colorToUse = '#db3328';
+    else if (level === "Forested Wetlands") colorToUse = '#f6d922';
+    else if (level === "Marshes") colorToUse = '#9aca3c';
+    else if (level === "Peatland/Bog") colorToUse = '#0071bc';
+    else if (level === "Shrub Swamps") colorToUse = '#662d91';
+    else if (level === "Wet Meadow/Shrub Carr Wetlands") colorToUse = '#ec008c';
+    else if (level === "Wet Prairies") colorToUse = '#f7acb4';
+    else if (level === "Wetland Complexes") colorToUse = '#e8beff';
+    else colorToUse = "transparent";
+    return {
+        "color": colorToUse,
+        "fillColor": colorToUse,
+        "weight": 2,
+        "fillOpacity": currentfillop,
+        "opacity": currentboundop,
+    };
+}
+
+function styleGradientnpcGround(feature) {
+    var x = document.getElementById("fillop_npcGround");
+    var y = document.getElementById("boundop_npcGround");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
+    return {
+        "color": "#006d2c",
+        "fillColor": "#006d2c",
+        "weight": 2,
+        "fillOpacity": currentfillop,
+        "opacity": currentboundop,
+
+    };
+
+}
+
+function stylerecharge(feature) {
+    var x = document.getElementById("fillop_recharge");
+    var y = document.getElementById("boundop_recharge");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
+    level = feature.properties.type;
+    var colorToUse;
+    if (level === "Discharge") colorToUse = '#267300';
+    else if (level === "Recharge") colorToUse = '#f7f4d2';
+    else colorToUse = "transparent";
+    return {
+        "color": colorToUse,
+        "fillColor": colorToUse,
+        "weight": 2,
+        "fillOpacity": currentfillop,
+        "opacity": currentboundop,
+    };
+}
+
 
 function stylefEMAflood(feature) {
     var x = document.getElementById("fillop_fEMAflood");
@@ -740,39 +786,6 @@ function styleGradientAltWtr(feature) {
 
     return {
         "color": colorToUse,
-        "opacity": currentboundop,
-    };
-}
-
-function styleCONUS(feature) {
-    var x = document.getElementById("fillop_cONUS");
-    var y = document.getElementById("boundop_cONUS");
-    var currentfillop = x.value;
-    var currentboundop = y.value;
-    type = feature.properties.wetland_ty;
-    var colorToUse;
-    if (type === "Freshwater Emergent Wetland") colorToUse = '#2884ed';
-    else if (type === "Freshwater Forested/Shrub Wetland") colorToUse = '#1b6e45';
-    else colorToUse = "transparent";
-    return {
-        "color": colorToUse,
-        "fillColor": colorToUse,
-        "weight": 2,
-        "fillOpacity": currentfillop,
-        "opacity": currentboundop,
-    };
-}
-
-function styleGradientCONUS(feature) {
-    var x = document.getElementById("fillop_cONUS");
-    var y = document.getElementById("boundop_cONUS");
-    var currentfillop = x.value;
-    var currentboundop = y.value;
-    return {
-        "color": "#084594",
-        "fillColor": "#084594",
-        "weight": 2,
-        "fillOpacity": currentfillop,
         "opacity": currentboundop,
     };
 }
@@ -895,12 +908,6 @@ function styleGradientimpLks(feature) {
         "fillOpacity": currentfillop,
         "opacity": currentboundop,
     };
-    //        return {
-    //        "color": "#67000d",
-    //        "fillColor": "#67000d",
-    //        "fillOpacity": 0.8,
-    //        "opacity": 1,
-    //    };
 }
 
 function stylePhos(feature) {
@@ -1241,29 +1248,6 @@ function styleeasemnts(feature) {
     };
 }
 
-function styleGSSURGO(feature) {
-    var x = document.getElementById("fillop_gSSURGO");
-    var y = document.getElementById("boundop_gSSURGO");
-    var currentfillop = x.value;
-    var currentboundop = y.value;
-    type = feature.properties.hydrolgrp;
-    var colorToUse;
-    if (type === "A") colorToUse = '#aaff00';
-    else if (type === "A/D") colorToUse = '#9f57f7';
-    else if (type === "B") colorToUse = '#4ecdd9';
-    else if (type === "B/D") colorToUse = '#38538a';
-    else if (type === "C") colorToUse = '#f5e56c';
-    else if (type === "C/D") colorToUse = '#f0599d';
-    else if (type === "D") colorToUse = '#4d7300';
-    else colorToUse = "transparent";
-    return {
-        "color": colorToUse,
-        "fillColor": colorToUse,
-        "weight": 2,
-        "opacity": currentboundop,
-        "fillOpacity": currentfillop,
-    };
-}
 
 function styleBioIndex(feature) {
     var x = document.getElementById("fillop_bioIndex");
@@ -1625,6 +1609,28 @@ var legendwtrVul = L.control.htmllegend({
         name: 'DWSMA Vulnerability',
         elements: [{
             html: document.querySelector('#wtrVulLegend').innerHTML
+            }]
+        }],
+    detectStretched: true,
+});
+var legendnpcGround = L.control.htmllegend({
+    position: 'bottomleft',
+    layer: 'Native Plant Communities Connected with Groundwater',
+    legends: [{
+        name: 'Native Plant Communities Connected with Groundwater',
+        elements: [{
+            html: document.querySelector('#npcGroundLegend').innerHTML
+            }]
+        }],
+    detectStretched: true,
+});
+var legendrecharge = L.control.htmllegend({
+    position: 'bottomleft',
+    layer: 'Recharge and Discharge Zones',
+    legends: [{
+        name: 'Recharge and Discharge Zones',
+        elements: [{
+            html: document.querySelector('#rechargeLegend').innerHTML
             }]
         }],
     detectStretched: true,
@@ -2038,21 +2044,6 @@ function postPrintLegend() {
 
 }
 
-//    if (($('input[value="legendBndry"]').is(':checked')) && ($('input[value="legendcnty"]').is(':checked')) && ($('input[value="legendhuc8"]').is(':checked')) && ($('input[value="legendhuc10"]').is(':checked'))) {
-//        return
-//        legendBndry.addTo(e.printMap);
-//        legendcnty.addTo(e.printMap);
-//        legendhuc8.addTo(e.printMap);
-//        legendhuc10.addTo(e.printMap);
-//
-//    } else if ($('input[value="legendhuc10"]').is(':checked')) {
-//        return legendhuc10.addTo(e.printMap);
-//    } else if ($('input[value="legendcnty"]').is(':checked')) {
-//        return legendcnty.addTo(e.printMap);
-//    }
-//}
-
-
 function changeStyle(val, layer) {
     //    console.log(val);
     layer.setStyle(val);
@@ -2111,12 +2102,12 @@ $(document).ready(function () {
         } else if ($(this).is(":not(:checked)") && $(this).hasClass('pollution-sens')) {
             map.removeLayer(colorGradeID);
         } else if ($(this).is(":checked") && $(this).hasClass('colorGrade')) {
-            //            layerClicked.on('loading', function (e) {
-            //                loadingControl._showIndicator()
-            //            });
-            //            layerClicked.on('load', function (e) {
-            //                loadingControl._hideIndicator
-            //            });
+            //                        layerClicked.on('loading', function (e) {
+            //                            loadingControl._showIndicator()
+            //                        });
+            //                        layerClicked.on('load', function (e) {
+            //                            loadingControl._hideIndicator
+            //                        });
             changeStyle(colorGradeID, layerClicked); //calls function to change the style
         } else if ($(this).is(":not(:checked)") && $(this).hasClass('colorGrade')) {
             changeToOrigStyle(colorOrigID, layerClicked);
@@ -2391,6 +2382,36 @@ $(document).ready(function () {
                         }
                     }); // end of wtrvul call
                     break;
+                case 'npcGround_layer':
+                    $.ajax({
+                        url: url_npcGround,
+                        dataType: 'jsonp',
+                        jsonpCallback: a_npcGround.replace(":", ""),
+                        success: function (response) {
+                            npcGround = L.geoJson(response, {
+                                attribution: '',
+                                interactive: true,
+                                style: stylenpcGround,
+                            });
+                            map.addLayer(npcGround);
+                        }
+                    }); // end of wtrvul call
+                    break;
+                case 'recharge_layer':
+                    $.ajax({
+                        url: url_recharge,
+                        dataType: 'jsonp',
+                        jsonpCallback: a_recharge.replace(":", ""),
+                        success: function (response) {
+                            recharge = L.geoJson(response, {
+                                attribution: '',
+                                interactive: true,
+                                style: stylerecharge,
+                            });
+                            map.addLayer(recharge);
+                        }
+                    }); // end of wtrvul call
+                    break;
                 case 'bedrockPoll_layer':
                     $.ajax({
                         url: url_bedrockPoll,
@@ -2418,6 +2439,7 @@ $(document).ready(function () {
                                 style: stylefEMAflood,
                             });
                             map.addLayer(fEMAflood);
+                            console.log(fEMAflood);
                         }
                     }); // end of fEMAflood call
                     break;
@@ -2435,22 +2457,6 @@ $(document).ready(function () {
                             map.addLayer(altwtr);
                         }
                     }); // end of altwtr call
-
-                    break;
-                case 'cONUS_layer':
-                    $.ajax({
-                        url: url_cONUS,
-                        dataType: 'jsonp',
-                        jsonpCallback: a_cONUS.replace(":", ""),
-                        success: function (response) {
-                            cONUS = L.geoJson(response, {
-                                attribution: '',
-                                interactive: true,
-                                style: styleCONUS,
-                            });
-                            map.addLayer(cONUS);
-                        }
-                    }); // end of cONUS call
                     break;
                 case 'buffwetlnds_layer':
                     $.ajax({
@@ -2762,21 +2768,7 @@ $(document).ready(function () {
                         }
                     }); // end of easemnts call
                     break;
-                case 'gSSURGO_layer':
-                    $.ajax({
-                        url: url_gSSURGO,
-                        dataType: 'jsonp',
-                        jsonpCallback: a_gSSURGO.replace(":", ""),
-                        success: function (response) {
-                            gSSURGO = L.geoJson(response, {
-                                attribution: '',
-                                interactive: true,
-                                style: styleGSSURGO,
-                            });
-                            map.addLayer(gSSURGO);
-                        }
-                    }); // end of gSSURGO call
-                    break;
+
                 case 'bioIndex_layer':
                     $.ajax({
                         url: url_bioIndex,
@@ -2904,34 +2896,74 @@ $(document).ready(function () {
 
                     }); //end of call for mask variable 
                     break;
+                case 'gSSURGO_layer':
+                    console.log(layerClicked);
+                    map.addLayer(layerClicked);
+                    //console.log(gSSURGO.getBounds().toBBoxString());
+
+                    var x = document.getElementById("fillop_gSSURGO");
+                    var currentfillop = x.value;
+                    layerClicked.setOpacity(currentfillop);
+                    // end of hydric soils call
+                    break;
+                case 'cONUS_layer':
+                    console.log(layerClicked);
+                    map.addLayer(layerClicked);
+                    //console.log(gSSURGO.getBounds().toBBoxString());
+
+                    var x = document.getElementById("fillop_cONUS");
+                    var currentfillop = x.value;
+                    layerClicked.setOpacity(currentfillop);
+                    // end of hydric soils call
+                    break;
                 case 'pollsens_layer':
                     map.addLayer(layerClicked);
-                    // end of strms call
+                    // end of pollustion sensitivity call
                     break;
-                case 'pollsensGradient_layer':
-                    map.addLayer(layerClicked);
-                    // end of strms call
-                    break;
+                    //                case 'pollsensGradient_layer':
+                    //                    map.addLayer(layerClicked);
+                    //                    // end of strms call
+                    //                    break;
                 case 'nLCD_layer':
+                    console.log(layerClicked);
                     map.addLayer(layerClicked);
+                    var x = document.getElementById("fillop_nLCD");
+                    var currentfillop = x.value;
+                    layerClicked.setOpacity(currentfillop);
                     // end of strms call
                     break;
                 case 'wildLife_layer':
+                    console.log(layerClicked);
                     map.addLayer(layerClicked);
+                    var x = document.getElementById("fillop_wildLife");
+                    var currentfillop = x.value;
+                    layerClicked.setOpacity(currentfillop);
                     // end of strms call
                     break;
                 case 'waterQual_layer':
+                    console.log(layerClicked);
                     map.addLayer(layerClicked);
+                    var x = document.getElementById("fillop_waterQual");
+                    var currentfillop = x.value;
+                    layerClicked.setOpacity(currentfillop);
                     // end of strms call
                     break;
                 case 'soil_layer':
-                    map.addLayer(layerClicked);
-                    console.log('soil clicked');
                     console.log(layerClicked);
+                    map.addLayer(layerClicked);
+                    var x = document.getElementById("fillop_soil");
+                    var currentfillop = x.value;
+                    layerClicked.setOpacity(currentfillop);
+                    //                    console.log('soil clicked');
+                    //                    console.log(layerClicked);
                     // end of strms call
                     break;
                 case 'envBen_layer':
+                    console.log(layerClicked);
                     map.addLayer(layerClicked);
+                    var x = document.getElementById("fillop_envBen");
+                    var currentfillop = x.value;
+                    layerClicked.setOpacity(currentfillop);
                     // end of strms call
                     break;
                 default:
@@ -2945,16 +2977,16 @@ $(document).ready(function () {
         }
     });
 
-
     if ($(window).width() < 414.1) {
-        map.setView([46.4, -91.99]);
-        map.setZoom(6)
+        map.setView([45.28, -92.7885]);
+        //map.setView([46.4, -91.99]);
+        map.setZoom(10.75)
     } else if ($(window).width() < 768.1) {
-        map.setView([46.4, -95])
+        map.setView([45.28, -92.9])
     } else if ($(window).width() < 950) {
-        map.setView([46.35, -96.25])
+        map.setView([45.28, -92.9])
     } else if ($(window).width() < 1260) {
-        map.setView([46.35, -95.2])
+        map.setView([45.28, -92.9])
     }
 
     //to show loading icon on layers
@@ -2970,111 +3002,3 @@ $(document).ready(function () {
     });
 
 });
-
-
-// Backup for if statement 
-//            if (idName = 'wellhead_layer') {
-//                $.ajax({
-//                    url: url_wellhead,
-//                    dataType: 'jsonp',
-//                    jsonpCallback: a_wellhead.replace(":", ""),
-//                    success: function (response) {
-//                        wellhead = L.geoJson(response, {
-//                            attribution: '',
-//                            interactive: true,
-//                            style: stylewellhead,
-//                        });
-//                        // This didn't seem to work. or it's to small a time to see it. 
-//                        //                        wellhead.on('loading', function (e) {
-//                        //                            loadingControl._showIndicator()
-//                        //                        });
-//                        //                        wellhead.on('load', function (e) {
-//                        //                            loadingControl._hideIndicator
-//                        //                        });
-//                        map.addLayer(wellhead);
-//                    }
-//                }); // end of stylewellhead call
-//            } else if (idName = 'distBound_layer') {
-//                $.ajax({
-//                    url: url_distBound,
-//                    dataType: 'jsonp',
-//                    jsonpCallback: a_distBound.replace(":", ""),
-//                    success: function (response) {
-//                        distBound = L.geoJson(response, {
-//                            attribution: '',
-//                            interactive: true,
-//                            //            layerName: 'distBound',
-//                            style: styledistBound,
-//                            onEachFeature: function (feature, layer) {
-//                                layer.bindPopup('<p><b><i> District: </b>' + feature.properties.lkmgtdist + '</i></p>');
-//                            },
-//                        });
-//                        map.addLayer(distBound);
-//                    }
-//
-//                }); //end of call for distBound variable
-//            } else if (idName = 'lkes_layer') {
-//                $.ajax({
-//                    url: url_lkes,
-//                    dataType: 'jsonp',
-//                    jsonpCallback: a_lkes.replace(":", ""),
-//                    success: function (response) {
-//                        lkes = L.geoJson(response, {
-//                            attribution: '',
-//                            interactive: true,
-//                            style: stylelkes,
-//                        });
-//                        map.addLayer(lkes);
-//                    }
-//                });
-//                // end of lkes call
-//            } else if (idName = 'strms_layer') {
-//                $.ajax({
-//                    url: url_strms,
-//                    dataType: 'jsonp',
-//                    jsonpCallback: a_strms.replace(":", ""),
-//                    success: function (response) {
-//                        strms = L.geoJson(response, {
-//                            attribution: '',
-//                            interactive: true,
-//                            style: stylestrms,
-//                        });
-//                        map.addLayer(strms);
-//                    }
-//                });
-//                // end of strms call
-//            }
-//            console.log("layerclicked = ",
-//                layerClicked); //this comes up undefined...
-
-//   **** If I want to add legend to the sub title div. Do the following in the $(input checkbox) function: *****
-
-//      $('input[type="checkbox"]').click(function () {
-//        layerClicked = window[event.target.value];
-//        colorGradeID = window[event.target.id]; // the function name of the style for gradient color scheme 
-//        colorOrigID = window[event.target.name]; //the original color scheme function
-//
-//        legendname = this.name;
-//        legendvalue = this.value;
-//    
-//     else if ($(this).is(":checked") && $(this).hasClass('showLegend')) {
-//            map.addControl(layerClicked); //calls function to add legend
-//            console.log(colorOrigID);
-//            leg = document.querySelector(legendname).innerHTML; //testname is the this.value which is the id for the legend container
-//            console.log(leg);
-//            $("#addSubLegend").append('<div id= legend' + legendvalue + ' >' + leg + ' </div');
-//        } else if ($(this).is(":not(:checked)") && $(this).hasClass('showLegend')) {
-//            map.removeControl(layerClicked); //remove legend control
-//            removeID = '#legend' + legendvalue // to get the jquery selector for the div the legend is in in the sub title print area
-//            $(removeID).remove(); //removes legend from sub print area
-
-// CSS FOR LEGEND:
-/*to get to the sub title legend print*/
-//h3 > div > div > p {
-//    color: black;
-//    font-size: 10pt;
-//    margin-bottom: -1em;
-//    margin-top: -1em;
-//}
-//            
-//*** END OF LEGEND IN BOTTOM PART ///

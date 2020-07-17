@@ -382,6 +382,58 @@
                 </div>
                 <!--End DWSMA Vulnerability -->
                 <div class="wrapper">
+                    <p class="maplayer"> <input type="checkbox" value="npcGround" id="npcGround_layer"> Native Plant Communities Connected with Groundwater <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsenpcGround" aria-expanded="false" aria-controls="collapsenpcGround" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV'S-->
+                    <div class="collapse" id="collapsenpcGround">
+                        <div class="card card-body legendcard" id="npcGroundLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#db3328; stroke-width:2; stroke:#db3328; fill-opacity:0.8" />
+                                </svg>Fens/Seepage Wetlands<br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#f6d922; stroke-width:2; stroke:#f6d922; fill-opacity:0.8" />
+                                </svg>Forested Wetlands<br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#9aca3c; stroke-width:2; stroke:#9aca3c; fill-opacity:0.8" />
+                                </svg>Marshes<br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#0071bc; stroke-width:2; stroke:#0071bc; fill-opacity:0.8" />
+                                </svg>Peatland/Bog<br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#662d91; stroke-width:2; stroke:#662d91; fill-opacity:0.8" />
+                                </svg>Shrub Swamps<br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#ec008c; stroke-width:2; stroke:#ec008c; fill-opacity:0.8" />
+                                </svg>Wet Meadow/Shrub Carr Wetlands<br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:##f7acb4; stroke-width:2; stroke:#f7acb4; fill-opacity:0.8" />
+                                </svg>Wet Prairies<br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#e8beff; stroke-width:2; stroke:#e8beff; fill-opacity:0.8" />
+                                </svg>Wetland Complexes<br>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#npcGroundLegend" class="showLegend" value="legendnpcGround" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+
+                        <div class="card card-body range-slider">
+                            <p>Fill Opacity
+                                <input id="fillop_npcGround" class="slider npcGroundFill" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, npcGround)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity
+                                <input id="boundop_npcGround" class="slider npcGroundBound" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacityBound(this.value, npcGround)"><span class="range-slider_val"></span></p>
+
+                            <p class="color-scheme"><input type="checkbox" name="stylenpcGround" class="colorGrade" id="styleGradientnpcGround" value="npcGround"> Change to Gradient Color Schema</p>
+
+                        </div>
+                    </div>
+                </div>
+                <!--End NPC Groundwater -->
+                <div class="wrapper">
                     <p class="maplayer"><input type="checkbox" value="wellhead" id="wellhead_layer"> Well Head Protection Areas <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsewellhead" aria-expanded="false" aria-controls="collapsewellhead" title="Toggle Edit and Legend Control">
                             <span class="sr-only">Expand to Edit </span>
                             <span class="fa fa-plus"></span></button>
@@ -487,6 +539,37 @@
                     </div>
                 </div>
                 <!--End Pollution Sensitivity of Near-Surface Materials -->
+                <div class="wrapper">
+                    <p class="maplayer"> <input type="checkbox" value="recharge" id="recharge_layer"> Recharge and Discharge Zones <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapserecharge" aria-expanded="false" aria-controls="collapserecharge" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV'S-->
+                    <div class="collapse" id="collapserecharge">
+                        <div class="card card-body legendcard" id="rechargeLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#267300; stroke-width:2; stroke:#267300; fill-opacity:0.8" />
+                                </svg>Discharge<br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#f7f4d2; stroke-width:2; stroke:#f7f4d2; fill-opacity:0.8" />
+                                </svg>Recharge<br>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#rechargeLegend" class="showLegend" value="legendrecharge" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+
+                        <div class="card card-body range-slider">
+                            <p>Fill Opacity
+                                <input id="fillop_recharge" class="slider rechargeFill" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, recharge)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity
+                                <input id="boundop_recharge" class="slider rechargeBound" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacityBound(this.value, recharge)"><span class="range-slider_val"></span></p>
+                        </div>
+                    </div>
+                </div>
+                <!--End Recharge Discharge Areas Groundwater -->
 
                 <!--------          Hydrology Layers       -------->
 
@@ -579,10 +662,16 @@
                             </div>
                         </div>
                         <div class="card card-body">
+                            <p>Opacity
+                                <input id="fillop_cONUS" class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacityTile(this.value, cONUS)"><span class="range-slider_val"></span></p>
+                            <!--
                             <p>Fill Opacity
                                 <input id="fillop_cONUS" class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, cONUS)"><span class="range-slider_val"></span></p>
+-->
+                            <!--
                             <p>Boundary Opacity
                                 <input id="boundop_cONUS" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, cONUS)"><span class="range-slider_val"></span></p>
+-->
                             <p class="color-scheme"><input type="checkbox" name="styleCONUS" class="colorGrade" id="styleGradientCONUS" value="cONUS"> Change to Gradient Color Schema</p>
                         </div>
                     </div>
@@ -1259,10 +1348,16 @@
                             </div>
                         </div>
                         <div class="card card-body">
+                            <p>Opacity
+                                <input id="fillop_gSSURGO" class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacityTile(this.value, gSSURGO)"><span class="range-slider_val"></span></p>
+                            <!--
                             <p>Fill Opacity
                                 <input id="fillop_gSSURGO" class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, gSSURGO)"><span class="range-slider_val"></span></p>
+-->
+                            <!--
                             <p>Boundary Opacity
                                 <input id="boundop_gSSURGO" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, gSSURGO)"><span class="range-slider_val"></span></p>
+-->
                         </div>
                     </div>
                 </div>
@@ -1833,6 +1928,20 @@
                         </div>
                     </div>
                 </div>
+                <div class="card">
+                    <div class="card-header">
+                        <a class="collapsed card-link metadataHeader" data-toggle="collapse" href="#metadatarecharge">
+                            Recharge and Discharge Zones
+                        </a>
+                    </div>
+                    <div id="metadatarecharge" class="collapse">
+                        <div class="card-body">
+                            <p> <b>Source:</b> Emmons and Olivier Resources, Inc </p><br>
+                            <p><b>Description:</b> This data set contains the distribution of important recharge and discharge areas for the extent of the Northern Washington County groundwater study. Surficial geology, groundwater chemistry, and groundwater dependent natural resources were collected and combined to distinguish the areas. Methodology can be found in Chapter 4 of the “Integrating Groundwater and Surface Water Management - Northern Washington County Study” (EOR, 2003) final report. </p><br>
+                            <p><b>Publication:</b> 10/31/2003</p><br>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="card">
                     <div class="card-header">
@@ -2096,6 +2205,28 @@
                 </div>
                 <div class="card">
                     <div class="card-header">
+                        <a class="collapsed card-link metadataHeader" data-toggle="collapse" href="#metadatanpcGround">
+                            Native Plant Communities - Groundwater Subset
+                        </a>
+                    </div>
+                    <div id="metadatanpcGround" class="collapse">
+                        <div class="card-body">
+                            <p> <b>Source:</b> MNDNR (Minnesota Department of Natural Resources) - Division of Ecological and Water Resources - Biological Survey</p><br>
+
+                            <p><b>Description:</b> This wetland classification scheme was originally developed for a Minnesota Department of Natural Resources (DNR) effort to establish protective permit thresholds for groundwater appropriations subject to DNR regulation. The classification of various wetland types were made in consultation with wetland professionals from several state and federal agencies and from academia and were helpful in discussing the potential effects of groundwater withdrawals. However, they are based on best professional judgment, not empirical data, and are subject to revision and further clarification. The basic units of classification are the wetland native plant communities (NPC) as described in the series of Field Guides to the Native Plant Communities of Minnesota (MnDNR 2005a, 2005b, 2003). The NPCs are grouped into readily recognizable wetland type categories. <br>
+
+                                See more details about Native Plant Communities at: <a href="https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_dnr/biota_dnr_groundwater_npc/metadata/npc_metadata.html" target="_blank"> NPC Metadata</a><br>
+
+                                See more details about this Wetland Classification at: <a href="https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_dnr/biota_dnr_groundwater_npc/metadata/Wetland%20Classification%20-%20Groundwater%20Dependence_v2%20Jan%202018.pdf" target="_blank"> Wetland Classification - Groundwater Dependence</a><br>
+
+                            </p><br>
+                            <p><b>Publication:</b> 1/18/2019</p><br>
+                            <p><b>More information:</b><a href="https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_dnr/biota_dnr_groundwater_npc/metadata/metadata.html" target="_blank"> https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_dnr/biota_dnr_groundwater_npc/metadata/metadata.html</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
                         <a class="collapsed card-link metadataHeader" data-toggle="collapse" href="#metadatamBSbio">
                             MBS Sites of Biodiversity Significance
                         </a>
@@ -2251,10 +2382,10 @@
                 <h3 class="userHeader"> <i class="far fa-map"></i> Map Layers Tab: </h3>
                 <p class="userContent">Here you will find all the data layers you can add to the map.
                     <ul style="list-style-type:disc;">
-                        <li class="userList">Split into 8 categories: Boundaries, Groundwater, Hydrology, Surface Water Quality, Biodiversity, Land Use/Cover, Watershed Characterization and Other. The other section is a mask of the Hawk Creek Middle Minnesota planning area mainly used for printing purposes. </li>
+                        <li class="userList">Split into 8 categories: Boundaries, Groundwater, Hydrology, Surface Water Quality, Biodiversity, Land Use/Cover and Watershed Characterization. </li>
                         <li class="userList">To turn on or add a layer click the checkbox. Layers are rendered in the order you turn them on. If you wish to display a layer above another click on it last. </li>
                         <li class="userList">The <i class="fas fa-plus"></i> button next to each layer will open to show the legend, a toggle button to display the legend on the map (for printing purposes) and an ability to change the opacity (transparency) of the layer and/or layer boundary. </li>
-                        <li class="userList">Some layers have the option to change their color to a gradient schema. This will change the values shown to a gradient color based on the group it belongs to (i.e. all hydrology layers render a blue gradient). Note that some layers will only display a portion of the original values. This will be stated under the checkbox if applicable.</li>
+                        <li class="userList">Some layers have the option to change their color to a gradient schema. This will change the values shown to a gradient color based on the group it belongs to (i.e. all hydrology layers render a blue gradient). Note that some layers will only display a portion of the original values. This will be stated under the checkbox when applicable.</li>
                     </ul>
                 </p>
                 <h3 class="userHeader"><i class="fas fa-info"></i> Metadata Tab: </h3>
@@ -2263,9 +2394,8 @@
                 <h3 class="userHeader"> Additional Features: </h3>
                 <p class="userContent">
                     <ul style="list-style-type:disc;">
-                        <li class="userList">In the upper left-hand corner you can click the <i class="far fa-plus-square"></i> and <i class="far fa-minus-square"></i> signs to zoom in and out of the map. The home icon <i class="fas fa-home"></i> will bring you back to view the entire state. </li>
-                        <li class="userList">The box zoom icon <i class="fas fa-expand"></i> found in the upper left-hand corner allows you to create a box around an area you wish to zoom to. The center of this icon will have a circle in it while activated. Be sure to click on the icon again to deactivate. </li>
-                        <li class="userList">The <i class="fas fa-crosshairs"></i> crosshairs icon found in the upper left-hand corner will zoom to the extent of the Hawk Creek Midddle Minnesota planning area. </li>
+                        <li class="userList">In the upper left-hand corner you can click the <i class="far fa-plus-square"></i> and <i class="far fa-minus-square"></i> signs to zoom in and out of the map. The home icon <i class="fas fa-home"></i> will bring you back to the default view of Comfort Lake Forest Lake Watershed District Jurisdiction Boundary. </li>
+                        <li class="userList">The box zoom icon <i class="fas fa-expand"></i> found in the upper left-hand corner allows you to create a box around an area you wish to zoom to. When activated the center of this icon will have a circle within it. Be sure to click on the icon again to deactivate. </li>
                         <li class="userList">In the upper right-hand corner you can use the layers icon <i class="fas fa-layer-group"></i> to change the base layers of the map to light, dark, or satellite imagery. </li>
                         <li class="userList">The print icon <img src="printicon.svg" alt="print icon" height="15" width="15"> in the upper right-hand corner allows you to print the map in landscape, portrait or tabloid. </li>
                     </ul>

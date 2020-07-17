@@ -128,6 +128,20 @@ SELECT *
 FROM minnesota.cities_townships_unorg
 WHERE ctu_class = 'CITY' AND (feature_na = 'Chisago City' OR feature_na = 'Chisago Lake' OR feature_na = 'Forest Lake' OR feature_na = 'Franconia' OR feature_na = 'Scandia' OR feature_na = 'Wyoming');
 
+
+
+CREATE MATERIALIZED VIEW sev_2020.parcels_mv_sc1
+AS
+SELECT *
+FROM sev_2020.parcels
+WHERE sc_num = 1
+
+CREATE MATERIALIZED VIEW sev_2020.studyarea_mv_sc1
+AS
+SELECT *
+FROM sev_2020.study_areas
+WHERE sc_num = 1
+
 /* example for county bounds */
 CREATE MATERIALIZED VIEW clflwd.cntybnds_clfl_mv
 AS
