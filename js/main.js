@@ -213,13 +213,14 @@ var a_combIndex = 'minnesota:majorscores_comb_index_mv'; //25combined index mean
 
 /// *** RASTER LAYERS ***////
 
-var a_wildLife = 'clflwd_rasters:wildlife100_clflwd'; // Wildlife Habitat Quality Risk
+var a_wildLife = 'clflwd_rasters:wildlife100_clflwd_4326'; // Wildlife Habitat Quality Risk
 var a_pollsens = 'clflwd_rasters:nrsfsn_clflwd'; //Pollution Sensitivity of Near-Surface Materials
 var a_nLCD = 'clflwd_rasters:nlcd_clflwd'; //// national land cover data 2016
 var a_pollsensGradient = 'clflwd_rasters:nrsfsn_clflwd_grade'; ////Pollution Sensitivity of Near-Surface Materials Gradient
 var a_waterQual = 'clflwd_rasters:watqual100_clflwd'; //Water Quality Risk
-var a_soil = 'clflwd_rasters:waterosion100_clflwd'; //Soil Erosion Risk
-var a_envBen = 'clflwd_rasters:ebi300clflwd'; //Environmental Risk Index
+var a_soil = 'clflwd_rasters:watererosion_clflwd'; //Soil Erosion Risk
+var a_envBen = 'clflwd_rasters:ebi300_clflwd'; //Environmental Risk Index
+//var a_envBen = 'clflwd_rasters:ebi300clflwd'; //Environmental Risk Index
 
 var a_mask = 'clflwd:jurisdictionMask'; //mask of district boundaries for printing purposes
 
@@ -274,11 +275,10 @@ function getCLFLWD_WMS_URL(layername) {
     var tileLayer = L.tileLayer.wms("https://post.eorinc.com/geoserver/clflwd/wms", {
         layers: layername,
         format: 'image/png',
-        //    styles: 'clflwd_rasters%3Anrsfsn_clflwd_qgisStyle',
         transparent: true,
         version: '1.1.0',
         crs: L.CRS.EPSG4326,
-
+        //    styles: 'clflwd_rasters%3Anrsfsn_clflwd_qgisStyle',
         //        bounds: bounds,
         //bbox: [-93.02427108, 45.22182617, -92.79967634, 45.33440437],
         //        bbox: '-93.01986634,45.20963384,-92.67457369,45.47000262'
@@ -2010,6 +2010,17 @@ var legendsoil = L.control.htmllegend({
         name: 'Soil Erosion Risk',
         elements: [{
             html: document.querySelector('#soilLegend').innerHTML
+            }]
+        }],
+    detectStretched: true,
+});
+var legendenvBen = L.control.htmllegend({
+    position: 'bottomleft',
+    layer: 'Environmental Benefits Index',
+    legends: [{
+        name: 'Environmental Benefits Index',
+        elements: [{
+            html: document.querySelector('#envBenLegend').innerHTML
             }]
         }],
     detectStretched: true,
