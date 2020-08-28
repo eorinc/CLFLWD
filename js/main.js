@@ -172,7 +172,7 @@ var a_wellhead = 'minnesota:wellhead_protection_areas'; //Well Head Protection A
 var a_bedrockPoll = 'minnesota:bedrocksurface_pollutionsensitivity'; //bedrock surface pollution sensitivity
 var a_npcGround = 'minnesota:biota_dnr_groundwater_npc' // native plant communities connected to groundwater
 
-var a_recharge = 'clflwd:recharge_discharge_areas_2003'; // recharge and discharge groundwater areas in northern washington county
+var a_discharge = 'clflwd:recharge_discharge_areas_2003'; // recharge and discharge groundwater areas in northern washington county
 
 
 var a_fEMAflood = 'minnesota:fema_flood_view'; // 100 year flood plain from FEMA
@@ -224,6 +224,7 @@ var a_waterQual = 'clflwd_rasters:watqual100_clflwd'; //Water Quality Risk
 var a_soil = 'clflwd_rasters:watererosion_clflwd'; //Soil Erosion Risk
 var a_envBen = 'clflwd_rasters:ebi300_clflwd'; //Environmental Risk Index
 //var a_envBen = 'clflwd_rasters:ebi300clflwd'; //Environmental Risk Index
+var a_recharge = 'clflwd_rasters:Mean_recharge_1980_2016' // mean groundwater recharge
 
 var a_mask = 'clflwd:jurisdictionMask'; //mask of district boundaries for printing purposes
 
@@ -372,8 +373,8 @@ var pollsens = getTilelayer(a_pollsens);
 var pollsensGradient = getTilelayer(a_pollsensGradient);
 var npcGround;
 var url_npcGround = getMN_URL(a_npcGround);
-var recharge;
-var url_recharge = getCLFL_URL(a_recharge);
+var discharge;
+var url_discharge = getCLFL_URL(a_discharge);
 
 
 ////// *** Hydrology Layers *** /////
@@ -458,6 +459,7 @@ var wildLife = getTilelayer(a_wildLife);
 var waterQual = getTilelayer(a_waterQual);
 var soil = getTilelayer(a_soil);
 var envBen = getTilelayer(a_envBen);
+var recharge = getTilelayer(a_recharge);
 
 
 /////*** OTHER layers ***/////
@@ -719,9 +721,9 @@ function styleGradientnpcGround(feature) {
 
 }
 
-function stylerecharge(feature) {
-    var x = document.getElementById("fillop_recharge");
-    var y = document.getElementById("boundop_recharge");
+function styledischarge(feature) {
+    var x = document.getElementById("fillop_discharge");
+    var y = document.getElementById("boundop_discharge");
     var currentfillop = x.value;
     var currentboundop = y.value;
     level = feature.properties.type;
@@ -1761,13 +1763,13 @@ var legendnpcGround = L.control.htmllegend({
         }],
     detectStretched: true,
 });
-var legendrecharge = L.control.htmllegend({
+var legenddischarge = L.control.htmllegend({
     position: 'bottomleft',
     layer: 'Recharge and Discharge Zones',
     legends: [{
         name: 'Recharge and Discharge Zones',
         elements: [{
-            html: document.querySelector('#rechargeLegend').innerHTML
+            html: document.querySelector('#dischargeLegend').innerHTML
             }]
         }],
     detectStretched: true,
@@ -2187,6 +2189,17 @@ var legendenvBen = L.control.htmllegend({
         }],
     detectStretched: true,
 });
+var legendrecharge = L.control.htmllegend({
+    position: 'bottomleft',
+    layer: 'Mean Recharge',
+    legends: [{
+        name: 'Mean Recharge',
+        elements: [{
+            html: document.querySelector('#rechargeLegend').innerHTML
+            }]
+        }],
+    detectStretched: true,
+});
 var legendmask = L.control.htmllegend({
     position: 'bottomleft',
     layer: 'Planning Area Mask',
@@ -2570,18 +2583,18 @@ $(document).ready(function () {
                         }
                     }); // end of wtrvul call
                     break;
-                case 'recharge_layer':
+                case 'discharge_layer':
                     $.ajax({
-                        url: url_recharge,
+                        url: url_discharge,
                         dataType: 'jsonp',
-                        jsonpCallback: a_recharge.replace(":", ""),
+                        jsonpCallback: a_discharge.replace(":", ""),
                         success: function (response) {
-                            recharge = L.geoJson(response, {
+                            discharge = L.geoJson(response, {
                                 attribution: '',
                                 interactive: true,
-                                style: stylerecharge,
+                                style: styledischarge,
                             });
-                            map.addLayer(recharge);
+                            map.addLayer(discharge);
                         }
                     }); // end of wtrvul call
                     break;
@@ -3159,7 +3172,7 @@ $(document).ready(function () {
                     layerClicked.setOpacity(currentfillop);
                     //                    console.log('soil clicked');
                     //                    console.log(layerClicked);
-                    // end of strms call
+                    // end of soils call
                     break;
                 case 'envBen_layer':
                     console.log(layerClicked);
@@ -3167,7 +3180,15 @@ $(document).ready(function () {
                     var x = document.getElementById("fillop_envBen");
                     var currentfillop = x.value;
                     layerClicked.setOpacity(currentfillop);
-                    // end of strms call
+                    // end of environmental benefits call
+                    break;
+                case 'recharge_layer':
+                    console.log(layerClicked);
+                    map.addLayer(layerClicked);
+                    var x = document.getElementById("fillop_recharge");
+                    var currentfillop = x.value;
+                    layerClicked.setOpacity(currentfillop);
+                    // end of recharge call
                     break;
                 default:
                     console.log('data call issue');

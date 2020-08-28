@@ -540,13 +540,13 @@
                 </div>
                 <!--End Pollution Sensitivity of Near-Surface Materials -->
                 <div class="wrapper">
-                    <p class="maplayer"> <input type="checkbox" value="recharge" id="recharge_layer"> Recharge and Discharge Zones <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapserecharge" aria-expanded="false" aria-controls="collapserecharge" title="Toggle Edit and Legend Control">
+                    <p class="maplayer"> <input type="checkbox" value="discharge" id="discharge_layer"> Recharge and Discharge Zones <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsedischarge" aria-expanded="false" aria-controls="collapsedischarge" title="Toggle Edit and Legend Control">
                             <span class="sr-only">Expand to Edit </span>
                             <span class="fa fa-plus"></span></button>
                     </p>
                     <!--                COLLAPSED DIV'S-->
-                    <div class="collapse" id="collapserecharge">
-                        <div class="card card-body legendcard" id="rechargeLegend">
+                    <div class="collapse" id="collapsedischarge">
+                        <div class="card card-body legendcard" id="dischargeLegend">
                             <p><svg width="20" height="10">
                                     <rect width="15" height="10" style="fill:#267300; stroke-width:2; stroke:#267300; fill-opacity:0.8" />
                                 </svg>Discharge<br>
@@ -555,7 +555,7 @@
                                 </svg>Recharge<br>
                         </div>
                         <div class="pretty p-switch p-fill legendtoggle">
-                            <input type="checkbox" name="#rechargeLegend" class="showLegend" value="legendrecharge" />
+                            <input type="checkbox" name="#dischargeLegend" class="showLegend" value="legenddischarge" />
                             <div class="state">
                                 <label>Show Legend</label>
                             </div>
@@ -563,13 +563,59 @@
 
                         <div class="card card-body range-slider">
                             <p>Fill Opacity
-                                <input id="fillop_recharge" class="slider rechargeFill" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, recharge)"><span class="range-slider_val"></span></p>
+                                <input id="fillop_discharge" class="slider dischargeFill" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, discharge)"><span class="range-slider_val"></span></p>
                             <p>Boundary Opacity
-                                <input id="boundop_recharge" class="slider rechargeBound" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacityBound(this.value, recharge)"><span class="range-slider_val"></span></p>
+                                <input id="boundop_discharge" class="slider dischargeBound" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacityBound(this.value, discharge)"><span class="range-slider_val"></span></p>
                         </div>
                     </div>
                 </div>
                 <!--End Recharge Discharge Areas Groundwater -->
+                <div class="wrapper">
+                    <p class="maplayer"> <input type="checkbox" value="recharge" id="recharge_layer"> Mean Recharge Rate <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapserecharge" aria-expanded="false" aria-controls="collapserecharge" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV'S-->
+                    <div class="collapse" id="collapserecharge">
+                        <div class="card card-body legendcard" id="rechargeLegend">
+                            <p><i>inches/year</i></p>
+                            <p>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#1b9640; stroke-width:2; stroke:#1b9640; fill-opacity:0.8" />
+                                </svg>&le; 4.83 <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#77c35c; stroke-width:2; stroke:#77c35c; fill-opacity:0.8" />
+                                </svg>4.83 - 6.05 <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#c4e687; stroke-width:2; stroke:#c4e687; fill-opacity:0.8" />
+                                </svg>6.05 - 7 <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#ffffc0; stroke-width:2; stroke:#ffffc0; fill-opacity:0.8" />
+                                </svg>7 - 7.84 <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#fec981; stroke-width:2; stroke:#fec981; fill-opacity:0.8" />
+                                </svg>7.84 - 8.95<br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#f17c4a; stroke-width:2; stroke:#f17c4a; fill-opacity:0.8" />
+                                </svg>8.95 - 10.74 <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#d7191c; stroke-width:2; stroke:#d7191c; fill-opacity:0.8" />
+                                </svg>&gt; 10.74
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#rechargeLegend" class="showLegend" value="legendrecharge" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Opacity
+                                <input id="fillop_recharge" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityTile(this.value, recharge)"><span class="range-slider_val"></span></p>
+                        </div>
+                    </div>
+                </div>
+                <!--End Mean Recharge Groundwater -->
 
                 <!--------          Hydrology Layers       -------->
 
@@ -1942,6 +1988,7 @@
                     </div>
                 </div>
                 <!--End Environmental Benefits Index-->
+
                 <div class="wrapper">
                     <p class="maplayer"> <input type="checkbox" value="waterQual" id="waterQual_layer"> Water Quality Risk <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapsewaterQual" aria-expanded="false" aria-controls="collapsewaterQual" title="Toggle Edit and Legend Control">
                             <span class="sr-only">Expand to Edit </span>
@@ -2103,15 +2150,30 @@
                 </div>
                 <div class="card">
                     <div class="card-header">
-                        <a class="collapsed card-link metadataHeader" data-toggle="collapse" href="#metadatarecharge">
+                        <a class="collapsed card-link metadataHeader" data-toggle="collapse" href="#metadatadischarge">
                             Recharge and Discharge Zones
                         </a>
                     </div>
-                    <div id="metadatarecharge" class="collapse">
+                    <div id="metadatadischarge" class="collapse">
                         <div class="card-body">
                             <p> <b>Source:</b> Emmons and Olivier Resources, Inc </p><br>
                             <p><b>Description:</b> This data set contains the distribution of important recharge and discharge areas for the extent of the Northern Washington County groundwater study. Surficial geology, groundwater chemistry, and groundwater dependent natural resources were collected and combined to distinguish the areas. Methodology can be found in Chapter 4 of the “Integrating Groundwater and Surface Water Management - Northern Washington County Study” (EOR, 2003) final report. </p><br>
                             <p><b>Publication:</b> 10/31/2003</p><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <a class="collapsed card-link metadataHeader" data-toggle="collapse" href="#metadatarecharge">
+                            Mean Recharge Rates
+                        </a>
+                    </div>
+                    <div id="metadatarecharge" class="collapse">
+                        <div class="card-body">
+                            <p> <b>Source:</b> DNR </p><br>
+                            <p><b>Description:</b> The data was computed by a revised SWB model for the simulation period of 1980 to 2016. Documented in a report by the DNR "Transient NMLG Model Analysis and Revisions". </p><br>
+                            <p><b>Publication:</b> August 2018</p><br>
+                            <p><b>More information:</b><a href=" https://www.dnr.state.mn.us/gwmp/area-ne-model.html" target="_blank"> https://www.dnr.state.mn.us/gwmp/area-ne-model.html</a></p>
                         </div>
                     </div>
                 </div>
