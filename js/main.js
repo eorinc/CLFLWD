@@ -174,6 +174,7 @@ var a_npcGround = 'minnesota:biota_dnr_groundwater_npc' // native plant communit
 
 var a_recharge = 'clflwd:recharge_discharge_areas_2003'; // recharge and discharge groundwater areas in northern washington county
 
+
 var a_fEMAflood = 'minnesota:fema_flood_view'; // 100 year flood plain from FEMA
 var a_altwtr = 'minnesota:altr_wtrcrse_mview'; // Altered Watercourse
 var a_cONUS = 'clflwd:nwi_clp_mv'; //NWI CONUS_wet_poly
@@ -200,6 +201,8 @@ var a_gAP_Cnty = 'minnesota:gap_stewardship_2008_county_lands'; //GAP county Lan
 var a_gAP_Fed = 'minnesota:gap_stewardship_2008_federal_lands'; //GAP Federal Lands
 var a_easemnts = 'minnesota:bdry_bwsr_rim_cons_easements'; // conservation easements
 var a_gSSURGO = 'clflwd:gssurgo_soilsgrp_clp'; // hydrologic soils groups 
+var a_flu_Scandia = 'clflwd:FutureLandUse_Scandia'; // future land use for the town of Scandia. 2020
+var a_flu_FL = 'clflwd:Future_Land_Use_FRLK'; // future land use for the town of Forest Lake, 2020
 
 
 // index layers //
@@ -431,6 +434,10 @@ var nLCD = getTilelayer(a_nLCD);
 //var url_gSSURGO = getMN_URL_soil(a_gSSURGO);
 var gSSURGO = getCLFLWD_WMS_URL(a_gSSURGO);
 //var gSSURGO = getMN_URL_soil(a_gSSURGO);
+var flu_Scandia;
+var url_flu_Scandia = getCLFL_URL(a_flu_Scandia);
+var flu_FL;
+var url_flu_FL = getCLFL_URL(a_flu_FL);
 
 ////// *** Watershed Characterization Layers *** /////
 var bioIndex;
@@ -1235,6 +1242,136 @@ function styleGradientgAP_Fed(feature) {
     };
 }
 
+var pattern_RecAreaProtected = new L.StripePattern({
+    weight: 2,
+    spaceWeight: 10,
+    color: '#FFFF00',
+    spaceColor: 'rgba(0, 206, 10, 1.0)',
+    opacity: 1.0,
+    spaceOpacity: .5,
+    angle: 315
+
+});
+var pattern_StCroixCorridor = new L.StripePattern({
+    weight: 2,
+    spaceWeight: 2.0,
+    color: '#FFA500',
+    opacity: 1.0,
+    spaceOpacity: 0,
+    angle: 45
+});
+var pattern_RuralCom = new L.StripePattern({
+    weight: 2,
+    spaceWeight: 10,
+    color: '#f652a7',
+    spaceColor: '#b2df8a',
+    opacity: 1.0,
+    spaceOpacity: .5,
+    angle: 0
+});
+pattern_RecAreaProtected.addTo(map);
+pattern_StCroixCorridor.addTo(map);
+pattern_RuralCom.addTo(map);
+
+function styleflu_Scandia(feature) {
+    var x = document.getElementById("fillop_flu_Scandia");
+    var y = document.getElementById("boundop_flu_Scandia");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
+    console.log(currentfillop);
+    console.log(currentboundop)
+    type = feature.properties.pluse_desc;
+    var colorToUse;
+    if (type === "Agricultural Core Area") colorToUse = '#4edc6b';
+    else if (type === "General Rural") colorToUse = '#ac693e';
+    else if (type === "Mining") colorToUse = '#af86d7';
+    else if (type === "St Croix River Corridor Area") return {
+        fillOpacity: currentfillop,
+        stroke: false,
+        interactive: true,
+        fillPattern: pattern_StCroixCorridor
+    };
+    else if (type === "Recreation Area Protected") return {
+        fillOpacity: currentfillop,
+        stroke: false,
+        interactive: true,
+        fillPattern: pattern_RecAreaProtected
+    };
+    else if (type === "Rural Commercial") return {
+        fillOpacity: currentfillop,
+        stroke: false,
+        interactive: true,
+        fillPattern: pattern_RuralCom
+    };
+    else if (type === "Rural Mixed Use") colorToUse = '#ffe7cb';
+    else if (type === "Village Mixed Use") colorToUse = '#ff7f00';
+    else if (type === "Village Neighborhood") colorToUse = '#fee603';
+    else if (type === "Open Water") colorToUse = '#1920ff';
+    else if (type === "Railway") colorToUse = '#808080';
+    else colorToUse = "transparent";
+    return {
+        "color": colorToUse,
+        "fillColor": colorToUse,
+        "weight": 2,
+        "opacity": currentboundop,
+        "fillOpacity": currentfillop
+    };
+}
+
+var pattern_mixuse = new L.StripePattern({
+    weight: 0.7,
+    spaceWeight: 2.0,
+    color: '#ff0000',
+    opacity: 1.0,
+    spaceOpacity: 0,
+    angle: 315
+});
+pattern_mixuse.addTo(map);
+
+function styleflu_FL(feature) {
+    var x = document.getElementById("fillop_flu_FL");
+    var y = document.getElementById("boundop_flu_FL");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
+    console.log(currentfillop);
+    console.log(currentboundop)
+    type = feature.properties.flu;
+    var colorToUse;
+    if (type === "Agriculture") colorToUse = '#ffffff';
+    else if (type === "Rural Residential") colorToUse = '#fff7af';
+    else if (type === "Low Density Residential") colorToUse = '#fee603';
+    else if (type === "LowMed Density Residential") colorToUse = '#ffe7cb';
+    else if (type === "Medium Density Residential") colorToUse = '#ff7f00';
+    else if (type === "High Density Residential") colorToUse = '#742c00';
+    else if (type === "Mixed Use") return {
+        fillOpacity: currentfillop,
+        stroke: false,
+        interactive: true,
+        fillPattern: pattern_mixuse
+    };
+    else if (type === "Downtown Mixed Use") colorToUse = '#c193da';
+    else if (type === "Neighborhood Commercial") colorToUse = '#f68de0';
+    else if (type === "General Business") colorToUse = '#ff0000';
+    else if (type === "Highway Business") colorToUse = '#e326cd';
+    else if (type === "Highway Commercial") colorToUse = '#9d3340';
+    else if (type === "Business Park") colorToUse = '#c3c1c7';
+    else if (type === "Industrial") colorToUse = '#5435cc';
+    else if (type === "Conservancy") colorToUse = '#13dede';
+    else if (type === "Park and Recreation") colorToUse = '#317320';
+    else if (type === "PublicInstitutional") colorToUse = '#a2cceb';
+    else if (type === "ROW") colorToUse = '#696969';
+    else if (type === "Water") colorToUse = '#1920ff';
+    else colorToUse = "transparent";
+    return {
+        "color": colorToUse,
+        "fillColor": colorToUse,
+        "weight": 2,
+        "opacity": currentboundop,
+        "fillOpacity": currentfillop
+    };
+}
+
+
 function styleeasemnts(feature) {
     var x = document.getElementById("fillop_easemnts");
     var y = document.getElementById("boundop_easemnts");
@@ -1882,6 +2019,31 @@ var legendgAP_Fed = L.control.htmllegend({
         }],
     detectStretched: true,
 });
+
+var legendflu_Scandia = L.control.htmllegend({
+    position: 'bottomleft',
+    layer: 'Future Land Use - Scandia',
+    legends: [{
+        name: 'Future Land Use - Scandia',
+        elements: [{
+            html: document.querySelector('#flu_ScandiaLegend').innerHTML
+            }]
+        }],
+    detectStretched: true,
+});
+var legendflu_FL = L.control.htmllegend({
+    position: 'bottomleft',
+    layer: 'Future Land Use - Forest Lake',
+    legends: [{
+        name: 'Future Land Use - Forest Lake',
+        elements: [{
+            html: document.querySelector('#flu_FLLegend').innerHTML
+            }]
+        }],
+    detectStretched: true,
+});
+
+
 var legendeasemnts = L.control.htmllegend({
     position: 'bottomleft',
     layer: 'Easements',
@@ -2763,6 +2925,36 @@ $(document).ready(function () {
                             map.addLayer(gAP_Fed);
                         }
                     }); // end of gAP_Fed call
+                    break;
+                case 'flu_Scandia_layer':
+                    $.ajax({
+                        url: url_flu_Scandia,
+                        dataType: 'jsonp',
+                        jsonpCallback: a_flu_Scandia.replace(":", ""),
+                        success: function (response) {
+                            flu_Scandia = L.geoJson(response, {
+                                attribution: '',
+                                interactive: true,
+                                style: styleflu_Scandia,
+                            });
+                            map.addLayer(flu_Scandia);
+                        }
+                    }); // end of future land use Scandia call
+                    break;
+                case 'flu_FL_layer':
+                    $.ajax({
+                        url: url_flu_FL,
+                        dataType: 'jsonp',
+                        jsonpCallback: a_flu_FL.replace(":", ""),
+                        success: function (response) {
+                            flu_FL = L.geoJson(response, {
+                                attribution: '',
+                                interactive: true,
+                                style: styleflu_FL,
+                            });
+                            map.addLayer(flu_FL);
+                        }
+                    }); // end of future land use Forest Lake call
                     break;
                 case 'easemnts_layer':
                     $.ajax({

@@ -209,3 +209,12 @@ from students c
       on a.student_id = c.id and a.subject_id = p.subject_id
    inner join applicationstatus s 
       on s.id = a.status_id;
+      
+      
+      
+/* demo */
+CREATE MATERIALIZED VIEW minnesota.cntybnds_HenRam_mv
+AS
+select *
+from minnesota.county_boundaries
+WHERE minnesota.county_boundaries.county_nam = 'Hennepin' OR minnesota.county_boundaries.county_nam = 'Ramsey'

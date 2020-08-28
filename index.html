@@ -1363,6 +1363,175 @@
                 </div>
                 <!--End NLCD 2016-->
 
+
+                <div class="wrapper">
+                    <p class="maplayer"> <input type="checkbox" value="flu_Scandia" id="flu_Scandia_layer"> Future Land Use - Scandia <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapseflu_Scandia" aria-expanded="false" aria-controls="collapseflu_Scandia" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV'S-->
+                    <div class="collapse" id="collapseflu_Scandia">
+                        <div class="card card-body legendcard" id="flu_ScandiaLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#4edc6b; stroke-width:2; stroke:#4edc6b; fill-opacity:0.8" />
+                                </svg>Agricultural Core Area <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#ac693e; stroke-width:2; stroke:#ac693e; fill-opacity:0.8" />
+                                </svg>General Rural <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#af86d7; stroke-width:2; stroke:#af86d7; fill-opacity:0.8" />
+                                </svg>Mining <br>
+                                <svg width="20" height="10">
+                                    <defs>
+                                        <pattern id="diagonal-stripes-4-8" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(315)">
+                                            <rect x="0" y="0" width="4" height="8" style="fill:#FFA500;" />
+                                        </pattern>
+                                    </defs>
+                                    <rect width="15" height="10" style="fill: url(#diagonal-stripes-4-8)" />
+                                </svg>St Croix River Corridor Area <br>
+                                <svg width="20" height="10">
+                                    <defs>
+                                        <pattern id="rec_area" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                                            <rect x="0" y="0" width="50" height="50" fill="rgba(0, 206, 10, 1.0)" />
+                                            <rect x="0" y="0" width="4" height="8" style="fill:#FFFF00;" />
+                                        </pattern>
+                                    </defs>
+                                    <rect width="15" height="10" style="fill: url(#rec_area)" />
+                                </svg>Recreation Area Protected <br>
+                                <svg width="20" height="10">
+                                    <defs>
+                                        <pattern id="rural_com" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(90)">
+                                            <rect x="0" y="0" width="50" height="50" fill="#b2df8a" />
+                                            <rect x="0" y="0" width="4" height="8" style="fill:#f652a7;" />
+                                        </pattern>
+                                    </defs>
+                                    <rect width="15" height="10" style="fill: url(#rural_com)" />
+                                </svg>Rural Commercial <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:##ffe7cb; stroke-width:2; stroke:#ffe7cb; fill-opacity:0.8" />
+                                </svg>Rural Mixed Use <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#ff7f00; stroke-width:2; stroke:#ff7f00; fill-opacity:0.8" />
+                                </svg>Village Mixed Use <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#fee603; stroke-width:2; stroke:#fee603; fill-opacity:0.8" />
+                                </svg>Village Neighborhood <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#1920ff; stroke-width:2; stroke:#1920ff; fill-opacity:0.8" />
+                                </svg>Open Water <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#808080; stroke-width:2; stroke:#808080; fill-opacity:0.8" />
+                                </svg>Railway
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#flu_ScandiaLegend" class="showLegend" value="legendflu_Scandia" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Fill Opacity
+                                <input id="fillop_flu_Scandia" class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, flu_Scandia)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity
+                                <input id="boundop_flu_Scandia" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, flu_Scandia)"><span class="range-slider_val"></span></p>
+                        </div>
+                    </div>
+                </div>
+                <!--End Future Land Use Scandia-->
+                <div class="wrapper">
+                    <p class="maplayer"> <input type="checkbox" value="flu_FL" id="flu_FL_layer"> Future Land Use - Forest Lake <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapseflu_FL" aria-expanded="false" aria-controls="collapseflu_FL" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV'S-->
+                    <div class="collapse" id="collapseflu_FL">
+                        <div class="card card-body legendcard" id="flu_FLLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#ffffff; stroke-width:2; stroke:#ffffff; fill-opacity:0.8" />
+                                </svg>Agriculture <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#fff7af; stroke-width:2; stroke:#fff7af; fill-opacity:0.8" />
+                                </svg>Rural Residential <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#fee603; stroke-width:2; stroke:#fee603; fill-opacity:0.8" />
+                                </svg>Low Density Residential <br>
+
+
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#ffe7cb; stroke-width:2; stroke:#ffe7cb; fill-opacity:0.8" />
+                                </svg>Low-Med Density Residential <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#ff7f00; stroke-width:2; stroke:#ff7f00; fill-opacity:0.8" />
+                                </svg>Medium Density Residential <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#742c00; stroke-width:2; stroke:#742c00; fill-opacity:0.8" />
+                                </svg>High Density Residentiall <br>
+                                <svg width="20" height="10">
+                                    <defs>
+                                        <pattern id="mixuse" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(315)">
+                                            <rect x="0" y="0" width="4" height="8" style="fill:#ff0000;" />
+                                        </pattern>
+                                    </defs>
+                                    <rect width="15" height="10" style="fill: url(#mixuse)" />
+                                </svg>Mixed Use <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#c193da; stroke-width:2; stroke:#c193da; fill-opacity:0.8" />
+                                </svg>Downtown Mixed Use <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#f68de0; stroke-width:2; stroke:#f68de0; fill-opacity:0.8" />
+                                </svg>Neighborhood Commercial <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#ff0000; stroke-width:2; stroke:#ff0000; fill-opacity:0.8" />
+                                </svg>General Business <br>
+
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:##e326cd; stroke-width:2; stroke:#e326cd; fill-opacity:0.8" />
+                                </svg>Highway Business <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#9d3340; stroke-width:2; stroke:#9d3340; fill-opacity:0.8" />
+                                </svg>Highway Commercial <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#c3c1c7; stroke-width:2; stroke:#c3c1c7; fill-opacity:0.8" />
+                                </svg>Business Park <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#5435cc; stroke-width:2; stroke:#5435cc; fill-opacity:0.8" />
+                                </svg>Industrial <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#13dede; stroke-width:2; stroke:#13dede; fill-opacity:0.8" />
+                                </svg>Conservancy <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#317320; stroke-width:2; stroke:#317320; fill-opacity:0.8" />
+                                </svg>Park and Recreation <br>
+
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#a2cceb; stroke-width:2; stroke:#a2cceb; fill-opacity:0.8" />
+                                </svg>Public Institutional <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#696969; stroke-width:2; stroke:#696969; fill-opacity:0.8" />
+                                </svg>ROW <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#1920ff; stroke-width:2; stroke:#1920ff; fill-opacity:0.8" />
+                                </svg>Water
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#flu_FLLegend" class="showLegend" value="legendflu_FL" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Fill Opacity
+                                <input id="fillop_flu_FL" class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, flu_FL)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity
+                                <input id="boundop_flu_FL" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, flu_FL)"><span class="range-slider_val"></span></p>
+                        </div>
+                    </div>
+                </div>
+                <!--End Future Land Use Forest Lake-->
+
+
                 <!--            Watershed Characterization Layers -->
                 <h5 class="categoryHead">Watershed Characterization</h5>
                 <div class="wrapper">
@@ -2310,6 +2479,36 @@
                 </div>
                 <div class="card">
                     <div class="card-header">
+                        <a class="collapsed card-link metadataHeader" data-toggle="collapse" href="#metadataflu_Scandia">
+                            Future Land Use - Scandia
+                        </a>
+                    </div>
+                    <div id="metadataflu_Scandia" class="collapse">
+                        <div class="card-body">
+                            <p> <b>Source:</b> Bolton and Menk, Inc.</p><br>
+                            <p><b>Description:</b> This dataset is part of Scandia's 2040 Comprehensive Plan.
+                            </p><br>
+                            <p><b>Publication:</b> October 2019 </p><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <a class="collapsed card-link metadataHeader" data-toggle="collapse" href="#metadataflu_FL">
+                            Future Land Use - Forest Lake
+                        </a>
+                    </div>
+                    <div id="metadataflu_FL" class="collapse">
+                        <div class="card-body">
+                            <p> <b>Source:</b> Bolton and Menk, Inc.</p><br>
+                            <p><b>Description:</b> This dataset is part of Forest Lake's 2040 Comprehensive Plan Update.
+                            </p><br>
+                            <p><b>Publication:</b> August 2018 </p><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
                         <a class="collapsed card-link metadataHeader" data-toggle="collapse" href="#metadataindex">
                             Bio, Hyd, Geo, Con, Water Quality and Combined Index Mean
                         </a>
@@ -2474,6 +2673,7 @@
     <script src="js/jquery-sidebar.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 
+    <script type="text/javascript" src="lib/leaflet/leaflet.pattern.js"></script>
     <script type="text/javascript" src="js/L.Control.ZoomBox.min.js"></script>
     <script type="text/javascript" src="js/leaflet.sidebar_proj.js"></script>
     <script type="text/javascript" src="lib/leaflet.browser.print-master/dist/leaflet.browser.print.min.js"></script>
