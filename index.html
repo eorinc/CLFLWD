@@ -1512,7 +1512,7 @@
                                 </svg>Medium Density Residential <br>
                                 <svg width="20" height="10">
                                     <rect width="15" height="10" style="fill:#742c00; stroke-width:2; stroke:#742c00; fill-opacity:0.8" />
-                                </svg>High Density Residentiall <br>
+                                </svg>High Density Residential <br>
                                 <svg width="20" height="10">
                                     <defs>
                                         <pattern id="mixuse" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(315)">
@@ -1532,7 +1532,7 @@
                                 </svg>General Business <br>
 
                                 <svg width="20" height="10">
-                                    <rect width="15" height="10" style="fill:##e326cd; stroke-width:2; stroke:#e326cd; fill-opacity:0.8" />
+                                    <rect width="15" height="10" style="fill:#e326cd; stroke-width:2; stroke:#e326cd; fill-opacity:0.8" />
                                 </svg>Highway Business <br>
                                 <svg width="20" height="10">
                                     <rect width="15" height="10" style="fill:#9d3340; stroke-width:2; stroke:#9d3340; fill-opacity:0.8" />
@@ -1576,6 +1576,70 @@
                     </div>
                 </div>
                 <!--End Future Land Use Forest Lake-->
+                <div class="wrapper">
+                    <p class="maplayer"> <input type="checkbox" value="flu_Wyoming" id="flu_Wyoming_layer"> Future Land Use - Wyoming <button class="btn-xs btn-info" type="button" data-toggle="collapse" data-target="#collapseflu_Wyoming" aria-expanded="false" aria-controls="collapseflu_Wyoming" title="Toggle Edit and Legend Control">
+                            <span class="sr-only">Expand to Edit </span>
+                            <span class="fa fa-plus"></span></button>
+                    </p>
+                    <!--                COLLAPSED DIV'S-->
+                    <div class="collapse" id="collapseflu_Wyoming">
+                        <div class="card card-body legendcard" id="flu_WyomingLegend">
+                            <p><svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#ffffbe; stroke-width:2; stroke:#ffffbe; fill-opacity:0.8" />
+                                </svg>Semi-Rural Housing <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#ffff00; stroke-width:2; stroke:#ffff00; fill-opacity:0.8" />
+                                </svg>Lower Density Suburban Neighborhoods <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#cdaa66; stroke-width:2; stroke:#cdaa66; fill-opacity:0.8" />
+                                </svg>Median and Higher Density Suburban Neighborhoods <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#ffbebe; stroke-width:2; stroke:#ffbebe; fill-opacity:0.8" />
+                                </svg>City Center <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#ff0000; stroke-width:2; stroke:#ff0000; fill-opacity:0.8" />
+                                </svg>Commercial <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#ffaa00; stroke-width:2; stroke:#ffaa00; fill-opacity:0.8" />
+                                </svg>Mixed Use <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#e8ccff; stroke-width:2; stroke:#e8ccff; fill-opacity:0.8" />
+                                </svg>Rural Research Development <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#9672da; stroke-width:2; stroke:#9672da; fill-opacity:0.8" />
+                                </svg>Office and Health Care Business <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#a900e6; stroke-width:2; stroke:#a900e6; fill-opacity:0.8" />
+                                </svg>Light Industry and General Business <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#005ce6; stroke-width:2; stroke:#005ce6; fill-opacity:0.8" />
+                                </svg>Public and Semi Public <br>
+
+
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#4ce600; stroke-width:2; stroke:#4ce600; fill-opacity:0.8" />
+                                </svg>Parks <br>
+                                <svg width="20" height="10">
+                                    <rect width="15" height="10" style="fill:#d3ffbe; stroke-width:2; stroke:#d3ffbe; fill-opacity:0.8" />
+                                </svg>Conservation and Open Space
+                            </p>
+                        </div>
+                        <div class="pretty p-switch p-fill legendtoggle">
+                            <input type="checkbox" name="#flu_WyomingLegend" class="showLegend" value="legendflu_Wyoming" />
+                            <div class="state">
+                                <label>Show Legend</label>
+                            </div>
+                        </div>
+                        <div class="card card-body">
+                            <p>Fill Opacity
+                                <input id="fillop_flu_Wyoming" class="slider" type="range" min="0" max="1" step="0.1" value="0.8" oninput="updateOpacity(this.value, flu_Wyoming)"><span class="range-slider_val"></span></p>
+                            <p>Boundary Opacity
+                                <input id="boundop_flu_Wyoming" class="slider" type="range" min="0" max="1" step="0.1" value="1" oninput="updateOpacityBound(this.value, flu_Wyoming)"><span class="range-slider_val"></span></p>
+                        </div>
+                    </div>
+                </div>
+                <!--End Future Land Use Wyoming-->
+
 
 
                 <!--            Watershed Characterization Layers -->
@@ -2569,6 +2633,23 @@
                         </div>
                     </div>
                 </div>
+                <!--
+                <div class="card">
+                    <div class="card-header">
+                        <a class="collapsed card-link metadataHeader" data-toggle="collapse" href="#metadataflu_Wyoming">
+                            Future Land Use - Wyoming
+                        </a>
+                    </div>
+                    <div id="metadataflu_Wyoming" class="collapse">
+                        <div class="card-body">
+                            <p> <b>Source:</b> Bolton and Menk, Inc.</p><br>
+                            <p><b>Description:</b> This dataset is part of Wyomings Comprehensive Plan.
+                            </p><br>
+                            <p><b>Publication:</b> TBD </p><br>
+                        </div>
+                    </div>
+                </div>
+-->
                 <div class="card">
                     <div class="card-header">
                         <a class="collapsed card-link metadataHeader" data-toggle="collapse" href="#metadataindex">

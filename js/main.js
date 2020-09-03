@@ -203,7 +203,7 @@ var a_easemnts = 'minnesota:bdry_bwsr_rim_cons_easements'; // conservation easem
 var a_gSSURGO = 'clflwd:gssurgo_soilsgrp_clp'; // hydrologic soils groups 
 var a_flu_Scandia = 'clflwd:FutureLandUse_Scandia'; // future land use for the town of Scandia. 2020
 var a_flu_FL = 'clflwd:Future_Land_Use_FRLK'; // future land use for the town of Forest Lake, 2020
-
+var a_flu_Wyoming = 'clflwd:Wyoming_FLU'; // future land use for the town of Wyoming, 2020
 
 // index layers //
 var a_bioIndex = 'minnesota:majorscores_bio_index_mv'; //20Bio Index Mean
@@ -439,6 +439,8 @@ var flu_Scandia;
 var url_flu_Scandia = getCLFL_URL(a_flu_Scandia);
 var flu_FL;
 var url_flu_FL = getCLFL_URL(a_flu_FL);
+var flu_Wyoming;
+var url_flu_Wyoming = getCLFL_URL(a_flu_Wyoming);
 
 ////// *** Watershed Characterization Layers *** /////
 var bioIndex;
@@ -1280,8 +1282,8 @@ function styleflu_Scandia(feature) {
     var y = document.getElementById("boundop_flu_Scandia");
     var currentfillop = x.value;
     var currentboundop = y.value;
-    console.log(currentfillop);
-    console.log(currentboundop)
+//    console.log(currentfillop);
+//    console.log(currentboundop)
     type = feature.properties.pluse_desc;
     var colorToUse;
     if (type === "Agricultural Core Area") colorToUse = '#4edc6b';
@@ -1335,8 +1337,6 @@ function styleflu_FL(feature) {
     var y = document.getElementById("boundop_flu_FL");
     var currentfillop = x.value;
     var currentboundop = y.value;
-    console.log(currentfillop);
-    console.log(currentboundop)
     type = feature.properties.flu;
     var colorToUse;
     if (type === "Agriculture") colorToUse = '#ffffff';
@@ -1363,6 +1363,35 @@ function styleflu_FL(feature) {
     else if (type === "PublicInstitutional") colorToUse = '#a2cceb';
     else if (type === "ROW") colorToUse = '#696969';
     else if (type === "Water") colorToUse = '#1920ff';
+    else colorToUse = "transparent";
+    return {
+        "color": colorToUse,
+        "fillColor": colorToUse,
+        "weight": 2,
+        "opacity": currentboundop,
+        "fillOpacity": currentfillop
+    };
+}
+
+function styleflu_Wyoming(feature) {
+    var x = document.getElementById("fillop_flu_Wyoming");
+    var y = document.getElementById("boundop_flu_Wyoming");
+    var currentfillop = x.value;
+    var currentboundop = y.value;
+    type = feature.properties.landuse;
+    var colorToUse;
+    if (type === "Semi-Rural Housing") colorToUse = '#ffffbe';
+    else if (type === "Lower Density Suburban Neighborhoods") colorToUse = '#ffff00';
+    else if (type === "Median and Higher Density Suburban Neighborhoods") colorToUse = '#cdaa66';
+    else if (type === "City Center") colorToUse = '#ffbebe';
+    else if (type === "Commercial") colorToUse = '#ff0000';
+    else if (type === "Mixed Use") colorToUse = '#ffaa00';
+    else if (type === "Rural Research Development") colorToUse = '#e8ccff';
+    else if (type === "Office and Health Care Business") colorToUse = '#9672da';
+    else if (type === "Light Industry and General Business") colorToUse = '#a900e6';
+    else if (type === "Public and Semi Public") colorToUse = '#005ce6';
+    else if (type === "Parks") colorToUse = '#4ce600';
+    else if (type === "Conservation and Open Space") colorToUse = '#d3ffbe';
     else colorToUse = "transparent";
     return {
         "color": colorToUse,
@@ -2040,6 +2069,17 @@ var legendflu_FL = L.control.htmllegend({
         name: 'Future Land Use - Forest Lake',
         elements: [{
             html: document.querySelector('#flu_FLLegend').innerHTML
+            }]
+        }],
+    detectStretched: true,
+});
+var legendflu_Wyoming = L.control.htmllegend({
+    position: 'bottomleft',
+    layer: 'Future Land Use - Wyoming',
+    legends: [{
+        name: 'Future Land Use - Wyoming',
+        elements: [{
+            html: document.querySelector('#flu_WyomingLegend').innerHTML
             }]
         }],
     detectStretched: true,
@@ -2968,6 +3008,21 @@ $(document).ready(function () {
                             map.addLayer(flu_FL);
                         }
                     }); // end of future land use Forest Lake call
+                    break;
+                case 'flu_Wyoming_layer':
+                    $.ajax({
+                        url: url_flu_Wyoming,
+                        dataType: 'jsonp',
+                        jsonpCallback: a_flu_Wyoming.replace(":", ""),
+                        success: function (response) {
+                            flu_Wyoming = L.geoJson(response, {
+                                attribution: '',
+                                interactive: true,
+                                style: styleflu_Wyoming,
+                            });
+                            map.addLayer(flu_Wyoming);
+                        }
+                    }); // end of future land use Wyoming call
                     break;
                 case 'easemnts_layer':
                     $.ajax({
