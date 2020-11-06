@@ -1,2 +1,0 @@
-# CLFLWD
-CLFLWD Web Map
